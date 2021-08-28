@@ -6,6 +6,7 @@
 #include "Components/ActorComponent.h"
 #include "ExperienceComponent.generated.h"
 
+class ABaseCharacterPlayable;
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class THARSILPROTO_API UExperienceComponent : public UActorComponent
@@ -26,10 +27,13 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void IncreaseCurrentXP(int32 XPReward);
 
-private:
-	//------------------------LEVELING CALCULATION VARIABLES-------------------------------------
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Level Stats", meta = (AllowPrivateAccess = "true"))
 	int32 CurrentLevel;
+	
+private:
+	ABaseCharacterPlayable* Owner;
+
+	//------------------------LEVELING CALCULATION VARIABLES-------------------------------------
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Level Stats", meta = (AllowPrivateAccess = "true"))
 	int32 CurrentXP = 0;
@@ -53,13 +57,13 @@ private:
 	bool IsAtLevelCap = false;
 
 	//------------------------PER LEVEL MODIFIERS--------------------------------------------
-	float PerLevelHealth = 5.f;
 	int32 PerLevelStamina = 3.f;
 	float PerLevelCarryCapacity = 0.25;
 
 	//------------------------FUNCTIONS--------------------------------------------
 	int32 CalculateXPToNextLevel();
 	void HandleLevelUp();
+
 
 	void DEBUG_DisplayLevel();
 

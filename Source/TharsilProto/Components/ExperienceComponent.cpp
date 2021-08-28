@@ -2,6 +2,8 @@
 
 
 #include "ExperienceComponent.h"
+#include "TharsilProto/Characters/BaseCharacterPlayable.h"
+#include "TharsilProto/Characters/BaseCharacter.h"
 
 // Sets default values for this component's properties
 UExperienceComponent::UExperienceComponent()
@@ -10,6 +12,7 @@ UExperienceComponent::UExperienceComponent()
 	// off to improve performance if you don't need them.
 	PrimaryComponentTick.bCanEverTick = false;
 
+	Owner = Cast<ABaseCharacterPlayable>(GetOwner());
 	CurrentLevel = 1;
 }
 
@@ -72,12 +75,14 @@ void UExperienceComponent::HandleLevelUp()
 {
 	CurrentLevel++;
 	CalculateXPToNextLevel();
-	UE_LOG(LogTemp, Warning, TEXT("Ding! Current Level is %i. For next level, %i XP is needed."), CurrentLevel, XPToNextLevel);
+	Owner->HandleLevelUpProcess();
+	DEBUG_DisplayLevel();
 }
+
 
 void UExperienceComponent::DEBUG_DisplayLevel() 
 {
-	
+	UE_LOG(LogTemp, Warning, TEXT("Ding! Current Level is %i. For next level, %i XP is needed."), CurrentLevel, XPToNextLevel);
 }
 
 

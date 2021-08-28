@@ -21,10 +21,11 @@ void UHealthComponent::BeginPlay()
 
 	Owner = GetOwner();
 
-	if(Owner)
-	{
-	Owner->OnTakeAnyDamage.AddDynamic(this, &UHealthComponent::TakeDamage);
-	}
+	RememberedLevel = 1;
+	// if(Owner)
+	// {
+	// Owner->OnTakeAnyDamage.AddDynamic(this, &UHealthComponent::TakeDamage);
+	// }
 }
 
 void UHealthComponent::TakeDamage(AActor* DamagedActor, float Damage, const class UDamageType* DamageType, class AController* InstigatedBy, AActor* DamageCauser) 
@@ -72,10 +73,14 @@ float UHealthComponent::IncreaseCurrentHealth(float HealValue)
 	}	
 }
 
-void UHealthComponent::UpdateMaxHealth(float NewMaxHealthValue) 
+void UHealthComponent::UpdateMaxHealth(int32 ConstitutionPoints, int32 CurrentLevel)
 {
-	CurrentMaxHealth = NewMaxHealthValue;
-	CurrentHealth = NewMaxHealthValue;
+	CurrentMaxHealth = ConstitutionPoints * PerConstitutionHealth + CurrentLevel * PerLevelHealth + BaseHealth;
+	if(CurrentLevel != RememberedLevel)
+	{
+	CurrentHealth = CurrentMaxHealth;
+	RememberedLevel = CurrentLevel;
+	}
 	UE_LOG(LogTemp, Warning, TEXT("CurrentHealth is: %f"), CurrentHealth);	
 }
 

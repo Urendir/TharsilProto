@@ -24,7 +24,7 @@ public:
 	float IncreaseCurrentHealth(float HealValue);
 
 	UFUNCTION(BlueprintCallable)
-	void UpdateMaxHealth(float NewMaxHealthValue);
+	void UpdateMaxHealth(int32 ConstitutionPoints, int32 CurrentLevel);
 
 	void HandleCharacterDeath();
 
@@ -43,6 +43,13 @@ private:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Character Stats", meta = (AllowPrivateAccess = "true"))
 	bool IsCharacterDead = false;
+	
+	float BaseHealth = 120.f;	//used as initial buffer for starting health
+	int32 RememberedLevel;
+
+	//------------------------PER ATTRIBUTEPOINT MODIFIERS---------------------------------------
+	int32 PerConstitutionHealth = 15;
+	int32 PerLevelHealth = 5;
 
 	UFUNCTION()
 	void TakeDamage(AActor* DamagedActor, float Damage, const class UDamageType* DamageType, class AController* InstigatedBy, AActor* DamageCauser );	

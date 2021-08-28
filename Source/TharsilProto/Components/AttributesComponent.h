@@ -6,6 +6,7 @@
 #include "Components/ActorComponent.h"
 #include "AttributesComponent.generated.h"
 
+class ABaseCharacter;
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class THARSILPROTO_API UAttributesComponent : public UActorComponent
@@ -21,6 +22,51 @@ protected:
 	virtual void BeginPlay() override;
 
 public:	
+	//------------------------MAIN PLAYER ATTRIBUTES-----------------------------------------------
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Main Stats", meta = (AllowPrivateAccess = "true"))	
+	int32 AttributeStartMinimum = 5;
 
-		
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Stats", meta = (AllowPrivateAccess = "true"))
+	int32 AttributeStrength;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Stats", meta = (AllowPrivateAccess = "true"))
+	int32 AttributeAgility;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Stats", meta = (AllowPrivateAccess = "true"))
+	int32 AttributeConstitution;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Stats", meta = (AllowPrivateAccess = "true"))
+	int32 AttributeEndurance;
+
+	//-------------------GENERAL NR OF STATS and Skillpoints---------------------------------
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Stats", meta = (AllowPrivateAccess = "true"))
+	int32 UnspentAttributePoints = 0;  		//Unspent Main Attribute Points - can be added to str, agi, con, end.
+	
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Main Stats", meta = (AllowPrivateAccess = "true"))	
+	int32 AttributeStartMinimum = 5;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Main Stats", meta = (AllowPrivateAccess = "true"))	
+	int32 TotalAttributePoints;			//Sum of all Attribute Points, spent and unspent, minus the minimum cap(5x4). Will be used for Resets.
+	
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Main Stats", meta = (AllowPrivateAccess = "true"))	
+	int32 AttributePointsPerLevel = 2;	
+
+	//-------------------Attribute calculation on Level Up---------------------------------		
+	UFUNCTION(BlueprintCallable)
+	void IncreaseAttributePoints();
+
+	UFUNCTION(BlueprintCallable)
+	void ResetAttributePoints();
+
+private: 
+	ABaseCharacter* Owner;
+
+	//------------------------PER ATTRIBUTEPOINT MODIFIERS---------------------------------------
+	float PerConstitutionHealth = 15.f;
+	float PerStrengthCarryCapacity = 1.3f;
+	int32 PerEnduranceStamina = 10.f;
+
+
+	UPROPERTY(VisibleAnywhere, Category = "Level Stats")
+	int32 AttributePointsPerLevel = 2;
 };

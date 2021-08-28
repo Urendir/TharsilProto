@@ -44,9 +44,16 @@ void ABaseCharacterPlayable::InteractWithItem()
     
 }
 
-void ABaseCharacterPlayable::UpdateMaxHealth(float NewMaxHealth) 
+
+void ABaseCharacterPlayable::HandleLevelUpProcess() 
 {
-	ABaseCharacter::HealthComponent->UpdateMaxHealth(NewMaxHealth);
+    UpdateSecondaryAttributes();
+    AttributesComponent->IncreaseAttributePoints();
+}
+
+void ABaseCharacterPlayable::UpdateSecondaryAttributes() 
+{
+    ABaseCharacter::HealthComponent->UpdateMaxHealth(AttributesComponent->AttributeConstitution, XPComponent->CurrentLevel);
 }
 
 void ABaseCharacterPlayable::MoveForwardBack(float AxisValue) 

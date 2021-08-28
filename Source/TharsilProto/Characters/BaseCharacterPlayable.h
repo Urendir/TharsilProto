@@ -26,8 +26,11 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	
 	//-------------------------------------------Component Interaction--------------------------------------------
-	UFUNCTION(BlueprintCallable)
-	void UpdateMaxHealth(float NewMaxHealth);
+	UFUNCTION(BlueprintCallable)	
+	void HandleLevelUpProcess();
+
+	UFUNCTION(BlueprintCallable)		
+	void UpdateSecondaryAttributes();
 
 private:
 	//-------------------------------------------Components --------------------------------------------
@@ -51,7 +54,6 @@ private:
 	//-------------------------------------------Interaction Functions----------------------------------------------
 	void BasicAttack();
 	void InteractWithItem();
-
 
 	void DEBUG_XPRewarder();
 
