@@ -1,0 +1,128 @@
+{
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"name": "TharsilProto (Debug)",
+			"request": "launch",
+			"preLaunchTask": "TharsilProto Win64 Debug Build",
+			"program": "D:\\C plus plus projects\\TharsilProto\\Binaries\\Win64\\UE4-Win64-Debug.exe",
+			"args": [
+			],
+			"cwd": "G:\\Games\\UE_4.26",
+			"stopAtEntry": false,
+			"externalConsole": true,
+			"type": "cppvsdbg",
+			"visualizerFile": "G:\\Games\\UE_4.26\\Engine\\Extras\\VisualStudioDebugging\\UE4.natvis"
+		},
+		{
+			"name": "TharsilProto (DebugGame)",
+			"request": "launch",
+			"preLaunchTask": "TharsilProto Win64 DebugGame Build",
+			"program": "D:\\C plus plus projects\\TharsilProto\\Binaries\\Win64\\UE4-Win64-DebugGame.exe",
+			"args": [
+			],
+			"cwd": "G:\\Games\\UE_4.26",
+			"stopAtEntry": false,
+			"externalConsole": true,
+			"type": "cppvsdbg",
+			"visualizerFile": "G:\\Games\\UE_4.26\\Engine\\Extras\\VisualStudioDebugging\\UE4.natvis"
+		},
+		{
+			"name": "TharsilProto (Development)",
+			"request": "launch",
+			"preLaunchTask": "TharsilProto Win64 Development Build",
+			"program": "D:\\C plus plus projects\\TharsilProto\\Binaries\\Win64\\UE4.exe",
+			"args": [
+			],
+			"cwd": "G:\\Games\\UE_4.26",
+			"stopAtEntry": false,
+			"externalConsole": true,
+			"type": "cppvsdbg",
+			"visualizerFile": "G:\\Games\\UE_4.26\\Engine\\Extras\\VisualStudioDebugging\\UE4.natvis"
+		},
+		{
+			"name": "TharsilProto (Shipping)",
+			"request": "launch",
+			"preLaunchTask": "TharsilProto Win64 Shipping Build",
+			"program": "D:\\C plus plus projects\\TharsilProto\\Binaries\\Win64\\UE4-Win64-Shipping.exe",
+			"args": [
+			],
+			"cwd": "G:\\Games\\UE_4.26",
+			"stopAtEntry": false,
+			"externalConsole": true,
+			"type": "cppvsdbg",
+			"visualizerFile": "G:\\Games\\UE_4.26\\Engine\\Extras\\VisualStudioDebugging\\UE4.natvis"
+		},
+		{
+			"name": "TharsilProto (Test)",
+			"request": "launch",
+			"preLaunchTask": "TharsilProto Win64 Test Build",
+			"program": "D:\\C plus plus projects\\TharsilProto\\Binaries\\Win64\\UE4-Win64-Test.exe",
+			"args": [
+			],
+			"cwd": "G:\\Games\\UE_4.26",
+			"stopAtEntry": false,
+			"externalConsole": true,
+			"type": "cppvsdbg",
+			"visualizerFile": "G:\\Games\\UE_4.26\\Engine\\Extras\\VisualStudioDebugging\\UE4.natvis"
+		},
+		{
+			"name": "TharsilProtoEditor (Debug)",
+			"request": "launch",
+			"preLaunchTask": "TharsilProtoEditor Win64 Debug Build",
+			"program": "G:\\Games\\UE_4.26\\Engine\\Binaries\\Win64\\UE4Editor-Win64-Debug.exe",
+			"args": [
+				"D:\\C plus plus projects\\TharsilProto\\TharsilProto.uproject"
+			],
+			"cwd": "G:\\Games\\UE_4.26",
+			"stopAtEntry": false,
+			"externalConsole": true,
+			"type": "cppvsdbg",
+			"visualizerFile": "G:\\Games\\UE_4.26\\Engine\\Extras\\VisualStudioDebugging\\UE4.natvis"
+		},
+		{
+			"name": "TharsilProtoEditor (DebugGame)",
+			"request": "launch",
+			"preLaunchTask": "TharsilProtoEditor Win64 DebugGame Build",
+			"program": "G:\\Games\\UE_4.26\\Engine\\Binaries\\Win64\\UE4Editor-Win64-DebugGame.exe",
+			"args": [
+				"D:\\C plus plus projects\\TharsilProto\\TharsilProto.uproject"
+			],
+			"cwd": "G:\\Games\\UE_4.26",
+			"stopAtEntry": false,
+			"externalConsole": true,
+			"type": "cppvsdbg",
+			"visualizerFile": "G:\\Games\\UE_4.26\\Engine\\Extras\\VisualStudioDebugging\\UE4.natvis"
+		},
+		{
+			"name": "TharsilProtoEditor (Development)",
+			"request": "launch",
+			"preLaunchTask": "TharsilProtoEditor Win64 Development Build",
+			"program": "G:\\Games\\UE_4.26\\Engine\\Binaries\\Win64\\UE4Editor.exe",
+			"args": [
+				"D:\\C plus plus projects\\TharsilProto\\TharsilProto.uproject"
+			],
+			"cwd": "G:\\Games\\UE_4.26",
+			"stopAtEntry": false,
+			"externalConsole": true,
+			"type": "cppvsdbg",
+			"visualizerFile": "G:\\Games\\UE_4.26\\Engine\\Extras\\VisualStudioDebugging\\UE4.natvis"
+		},
+		{
+			"name": "Generate Project Files",
+			"type": "clr",
+			"request": "launch",
+			"program": "G:\\Games\\UE_4.26\\Engine\\Binaries\\DotNET\\UnrealBuildTool.exe",
+			"console": "externalTerminal",
+			"args": [
+				"-projectfiles",
+				"-vscode",
+				"-project=D:\\C plus plus projects\\TharsilProto\\TharsilProto.uproject",
+				"-game",
+				"-engine"
+			],
+			"internalConsoleOptions": "openOnSessionStart",
+			"cwd": "G:\\Games\\UE_4.26"
+		}
+	]
+}

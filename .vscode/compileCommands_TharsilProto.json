@@ -1,0 +1,127 @@
+[
+	{
+		"file": "D:\\\\C plus plus projects\\\\TharsilProto\\\\Source\\\\TharsilProto\\\\Characters\\\\BaseCharacter.cpp",
+		"command": "cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.182.rsp\"",
+		"directory": "G:\\Games\\UE_4.26\\Engine\\Source"
+	},
+	{
+		"file": "D:\\\\C plus plus projects\\\\TharsilProto\\\\Source\\\\TharsilProto\\\\Characters\\\\BaseCharacter.h",
+		"command": "cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.182.rsp\"",
+		"directory": "G:\\Games\\UE_4.26\\Engine\\Source"
+	},
+	{
+		"file": "D:\\\\C plus plus projects\\\\TharsilProto\\\\Source\\\\TharsilProto\\\\Characters\\\\BaseCharacterNPC.cpp",
+		"command": "cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.182.rsp\"",
+		"directory": "G:\\Games\\UE_4.26\\Engine\\Source"
+	},
+	{
+		"file": "D:\\\\C plus plus projects\\\\TharsilProto\\\\Source\\\\TharsilProto\\\\Characters\\\\BaseCharacterNPC.h",
+		"command": "cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.182.rsp\"",
+		"directory": "G:\\Games\\UE_4.26\\Engine\\Source"
+	},
+	{
+		"file": "D:\\\\C plus plus projects\\\\TharsilProto\\\\Source\\\\TharsilProto\\\\Characters\\\\BaseCharacterPlayable.cpp",
+		"command": "cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.182.rsp\"",
+		"directory": "G:\\Games\\UE_4.26\\Engine\\Source"
+	},
+	{
+		"file": "D:\\\\C plus plus projects\\\\TharsilProto\\\\Source\\\\TharsilProto\\\\Characters\\\\BaseCharacterPlayable.h",
+		"command": "cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.182.rsp\"",
+		"directory": "G:\\Games\\UE_4.26\\Engine\\Source"
+	},
+	{
+		"file": "D:\\\\C plus plus projects\\\\TharsilProto\\\\Source\\\\TharsilProto\\\\Components\\\\AttributesComponent.cpp",
+		"command": "cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.182.rsp\"",
+		"directory": "G:\\Games\\UE_4.26\\Engine\\Source"
+	},
+	{
+		"file": "D:\\\\C plus plus projects\\\\TharsilProto\\\\Source\\\\TharsilProto\\\\Components\\\\AttributesComponent.h",
+		"command": "cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.182.rsp\"",
+		"directory": "G:\\Games\\UE_4.26\\Engine\\Source"
+	},
+	{
+		"file": "D:\\\\C plus plus projects\\\\TharsilProto\\\\Source\\\\TharsilProto\\\\Components\\\\ExperienceComponent.cpp",
+		"command": "cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.182.rsp\"",
+		"directory": "G:\\Games\\UE_4.26\\Engine\\Source"
+	},
+	{
+		"file": "D:\\\\C plus plus projects\\\\TharsilProto\\\\Source\\\\TharsilProto\\\\Components\\\\ExperienceComponent.h",
+		"command": "cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.182.rsp\"",
+		"directory": "G:\\Games\\UE_4.26\\Engine\\Source"
+	},
+	{
+		"file": "D:\\\\C plus plus projects\\\\TharsilProto\\\\Source\\\\TharsilProto\\\\Components\\\\HealthComponent.cpp",
+		"command": "cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.182.rsp\"",
+		"directory": "G:\\Games\\UE_4.26\\Engine\\Source"
+	},
+	{
+		"file": "D:\\\\C plus plus projects\\\\TharsilProto\\\\Source\\\\TharsilProto\\\\Components\\\\HealthComponent.h",
+		"command": "cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.182.rsp\"",
+		"directory": "G:\\Games\\UE_4.26\\Engine\\Source"
+	},
+	{
+		"file": "D:\\\\C plus plus projects\\\\TharsilProto\\\\Source\\\\TharsilProto\\\\DataAssets\\\\DA_CraftingMaterial.cpp",
+		"command": "cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.182.rsp\"",
+		"directory": "G:\\Games\\UE_4.26\\Engine\\Source"
+	},
+	{
+		"file": "D:\\\\C plus plus projects\\\\TharsilProto\\\\Source\\\\TharsilProto\\\\DataAssets\\\\DA_CraftingMaterial.h",
+		"command": "cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.182.rsp\"",
+		"directory": "G:\\Games\\UE_4.26\\Engine\\Source"
+	},
+	{
+		"file": "D:\\\\C plus plus projects\\\\TharsilProto\\\\Source\\\\TharsilProto\\\\DataAssets\\\\DA_PrimarySkillLine.cpp",
+		"command": "cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.182.rsp\"",
+		"directory": "G:\\Games\\UE_4.26\\Engine\\Source"
+	},
+	{
+		"file": "D:\\\\C plus plus projects\\\\TharsilProto\\\\Source\\\\TharsilProto\\\\DataAssets\\\\DA_PrimarySkillLine.h",
+		"command": "cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.182.rsp\"",
+		"directory": "G:\\Games\\UE_4.26\\Engine\\Source"
+	},
+	{
+		"file": "D:\\\\C plus plus projects\\\\TharsilProto\\\\Source\\\\TharsilProto\\\\Items\\\\BaseItem.cpp",
+		"command": "cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.182.rsp\"",
+		"directory": "G:\\Games\\UE_4.26\\Engine\\Source"
+	},
+	{
+		"file": "D:\\\\C plus plus projects\\\\TharsilProto\\\\Source\\\\TharsilProto\\\\Items\\\\BaseItem.h",
+		"command": "cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.182.rsp\"",
+		"directory": "G:\\Games\\UE_4.26\\Engine\\Source"
+	},
+	{
+		"file": "D:\\\\C plus plus projects\\\\TharsilProto\\\\Source\\\\TharsilProto\\\\Items\\\\BaseWeapon.cpp",
+		"command": "cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.182.rsp\"",
+		"directory": "G:\\Games\\UE_4.26\\Engine\\Source"
+	},
+	{
+		"file": "D:\\\\C plus plus projects\\\\TharsilProto\\\\Source\\\\TharsilProto\\\\Items\\\\BaseWeapon.h",
+		"command": "cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.182.rsp\"",
+		"directory": "G:\\Games\\UE_4.26\\Engine\\Source"
+	},
+	{
+		"file": "D:\\\\C plus plus projects\\\\TharsilProto\\\\Source\\\\TharsilProto\\\\TharsilProto.Build.cs",
+		"command": "cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.182.rsp\"",
+		"directory": "G:\\Games\\UE_4.26\\Engine\\Source"
+	},
+	{
+		"file": "D:\\\\C plus plus projects\\\\TharsilProto\\\\Source\\\\TharsilProto\\\\TharsilProto.cpp",
+		"command": "cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.182.rsp\"",
+		"directory": "G:\\Games\\UE_4.26\\Engine\\Source"
+	},
+	{
+		"file": "D:\\\\C plus plus projects\\\\TharsilProto\\\\Source\\\\TharsilProto\\\\TharsilProto.h",
+		"command": "cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.182.rsp\"",
+		"directory": "G:\\Games\\UE_4.26\\Engine\\Source"
+	},
+	{
+		"file": "D:\\\\C plus plus projects\\\\TharsilProto\\\\Source\\\\TharsilProto\\\\TharsilProtoGameModeBase.cpp",
+		"command": "cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.182.rsp\"",
+		"directory": "G:\\Games\\UE_4.26\\Engine\\Source"
+	},
+	{
+		"file": "D:\\\\C plus plus projects\\\\TharsilProto\\\\Source\\\\TharsilProto\\\\TharsilProtoGameModeBase.h",
+		"command": "cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.182.rsp\"",
+		"directory": "G:\\Games\\UE_4.26\\Engine\\Source"
+	}
+]

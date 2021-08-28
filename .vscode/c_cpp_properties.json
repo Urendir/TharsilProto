@@ -1,0 +1,19 @@
+{
+    "configurations": [
+        {
+            "name": "TharsilProtoEditor Editor Win64 Development (TharsilProto)",
+            "intelliSenseMode": "msvc-x64",
+            "compileCommands": "D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto.json",
+            "cStandard": "c17",
+            "cppStandard": "c++17"
+        },
+        {
+            "name": "Win32",
+            "intelliSenseMode": "msvc-x64",
+            "compileCommands": "D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_Default.json",
+            "cStandard": "c17",
+            "cppStandard": "c++17"
+        }
+    ],
+    "version": 4
+}
