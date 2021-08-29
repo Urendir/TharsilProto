@@ -36,12 +36,21 @@ void ABaseCharacterPlayable::SetupPlayerInputComponent(class UInputComponent* Pl
 	PlayerInputComponent->BindAction(TEXT("Jump"), IE_Pressed, this, &ACharacter::Jump);
 	//COMMENT THIS OUT AFTER TESTING:
 	PlayerInputComponent->BindAction(TEXT("XPDump"), IE_Pressed, this,&ABaseCharacterPlayable::DEBUG_XPRewarder); //DEBUG Item to add XP on button click
-
 }
+
+
+// Called when the game starts or when spawned
+void ABaseCharacterPlayable::BeginPlay()
+{
+	Super::BeginPlay();
+	
+    UpdateSecondaryAttributes();
+}
+
 
 void ABaseCharacterPlayable::InteractWithItem() 
 {
-    
+    //to be done via linetrace.
 }
 
 
@@ -54,6 +63,7 @@ void ABaseCharacterPlayable::HandleLevelUpProcess()
 void ABaseCharacterPlayable::UpdateSecondaryAttributes() 
 {
     ABaseCharacter::HealthComponent->UpdateMaxHealth(AttributesComponent->AttributeConstitution, XPComponent->CurrentLevel);
+    UE_LOG(LogTemp, Warning, TEXT("Healthcomponent pinged to update HP. "));
 }
 
 void ABaseCharacterPlayable::MoveForwardBack(float AxisValue) 
@@ -66,7 +76,7 @@ void ABaseCharacterPlayable::MoveLeftRight(float AxisValue)
     AddMovementInput(GetActorRightVector() * AxisValue);
 }
 
-void ABaseCharacterPlayable::BasicAttack() //Damage Calculation to be reworked. 
+void ABaseCharacterPlayable::BasicAttack() //Damage Calculation to be created based on Weapon equipped, skill used, attribute points assigned to Strength. 
 {
 	UE_LOG(LogTemp, Warning, TEXT("I Attack!"));
 }

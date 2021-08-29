@@ -23,9 +23,6 @@ protected:
 
 public:	
 	//------------------------MAIN PLAYER ATTRIBUTES-----------------------------------------------
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Main Stats", meta = (AllowPrivateAccess = "true"))	
-	int32 AttributeStartMinimum = 5;
-
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Stats", meta = (AllowPrivateAccess = "true"))
 	int32 AttributeStrength;
 
@@ -66,7 +63,4 @@ private:
 	float PerStrengthCarryCapacity = 1.3f;
 	int32 PerEnduranceStamina = 10.f;
 
-
-	UPROPERTY(VisibleAnywhere, Category = "Level Stats")
-	int32 AttributePointsPerLevel = 2;
 };

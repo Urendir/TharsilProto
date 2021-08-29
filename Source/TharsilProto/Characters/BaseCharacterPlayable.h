@@ -19,18 +19,22 @@ class THARSILPROTO_API ABaseCharacterPlayable : public ABaseCharacter
 {
 	GENERATED_BODY()
 
+protected: 
+	virtual void BeginPlay() override;
+
 public:
 	ABaseCharacterPlayable();
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-	
+
 	//-------------------------------------------Component Interaction--------------------------------------------
 	UFUNCTION(BlueprintCallable)	
 	void HandleLevelUpProcess();
 
 	UFUNCTION(BlueprintCallable)		
 	void UpdateSecondaryAttributes();
+
 
 private:
 	//-------------------------------------------Components --------------------------------------------

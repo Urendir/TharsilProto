@@ -22,6 +22,7 @@ void UHealthComponent::BeginPlay()
 	Owner = GetOwner();
 
 	RememberedLevel = 1;
+	CurrentHealth = CurrentMaxHealth;
 	// if(Owner)
 	// {
 	// Owner->OnTakeAnyDamage.AddDynamic(this, &UHealthComponent::TakeDamage);
@@ -48,15 +49,17 @@ void UHealthComponent::TakeDamage(AActor* DamagedActor, float Damage, const clas
 
 float UHealthComponent::DecreaseCurrentHealth(float DamageValue) 
 {
-	if(CurrentHealth - DamageValue < 0) 				//Improve this!
+	if(CurrentHealth - DamageValue > 0) 				//Improve this!
 	{
-		return CurrentHealth -= DamageValue;
+		CurrentHealth = CurrentHealth - DamageValue;
 	}
 	else
 	{
+		CurrentHealth = 0;
 		HandleCharacterDeath(); 
-		return CurrentHealth = 0;
 	}
+
+	return CurrentHealth;
 }
 
 float UHealthComponent::IncreaseCurrentHealth(float HealValue) 
@@ -87,6 +90,7 @@ void UHealthComponent::UpdateMaxHealth(int32 ConstitutionPoints, int32 CurrentLe
 void UHealthComponent::HandleCharacterDeath() 
 {
 	IsCharacterDead = true;	
+	UE_LOG(LogTemp, Warning, TEXT("CurrentHealth is: %f. Character is Dead."), CurrentHealth);	
 }
 
 

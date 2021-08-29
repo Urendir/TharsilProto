@@ -6,6 +6,8 @@
 #include "Components/ActorComponent.h"
 #include "ExperienceComponent.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FLevelUpDelegate, int32, Level);
+
 class ABaseCharacterPlayable;
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
@@ -22,13 +24,17 @@ protected:
 	virtual void BeginPlay() override;
 
 public: 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Level Stats", meta = (AllowPrivateAccess = "true"))
+	int32 CurrentLevel;
+
 	//------------------------FUNCTIONS for XP Accumulation and Leveling-----------------------------------	
-	
 	UFUNCTION(BlueprintCallable)
 	void IncreaseCurrentXP(int32 XPReward);
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Level Stats", meta = (AllowPrivateAccess = "true"))
-	int32 CurrentLevel;
+
+	//-------------------------------------------Delegates for BP Process on Leveling--------------------------------------------
+	UPROPERTY(BlueprintAssignable)
+	FLevelUpDelegate OnLevelUpDelegate;
 	
 private:
 	ABaseCharacterPlayable* Owner;

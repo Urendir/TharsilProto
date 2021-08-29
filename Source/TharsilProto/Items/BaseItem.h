@@ -23,4 +23,14 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item Descriptors")
+	FString ItemName;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item Descriptors")
+	float ItemWeight;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item Descriptors")
+	float ItemValue;
+
+
 };

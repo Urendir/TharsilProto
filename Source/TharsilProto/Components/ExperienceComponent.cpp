@@ -76,6 +76,7 @@ void UExperienceComponent::HandleLevelUp()
 	CurrentLevel++;
 	CalculateXPToNextLevel();
 	Owner->HandleLevelUpProcess();
+	OnLevelUpDelegate.Broadcast(CurrentLevel);
 	DEBUG_DisplayLevel();
 }
 

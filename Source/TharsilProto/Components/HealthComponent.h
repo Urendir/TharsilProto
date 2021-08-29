@@ -26,6 +26,9 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void UpdateMaxHealth(int32 ConstitutionPoints, int32 CurrentLevel);
 
+	UFUNCTION(BlueprintCallable)
+	void TakeDamage(AActor* DamagedActor, float Damage, const class UDamageType* DamageType, class AController* InstigatedBy, AActor* DamageCauser );	
+
 	void HandleCharacterDeath();
 
 protected:
@@ -50,9 +53,6 @@ private:
 	//------------------------PER ATTRIBUTEPOINT MODIFIERS---------------------------------------
 	int32 PerConstitutionHealth = 15;
 	int32 PerLevelHealth = 5;
-
-	UFUNCTION()
-	void TakeDamage(AActor* DamagedActor, float Damage, const class UDamageType* DamageType, class AController* InstigatedBy, AActor* DamageCauser );	
 
 		
 };
