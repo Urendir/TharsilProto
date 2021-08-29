@@ -20,15 +20,26 @@ protected:
 	virtual void BeginPlay() override;
 
 public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
 
+	/**This is the name that will be shown in the inventory*/
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item Descriptors")
-	FString ItemName;
+	FText ItemDisplayName;
 	
+	/**This is an optional description for the item*/
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Item Descriptors", meta = (MultiLine = true))
+	FText ItemDescription;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Item Descriptors")
+	UTexture2D* Thumbnail;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Item Descriptors")
+	UStaticMesh* PickupMesh;	
+
+	/**The amount of weight the item will use in the inventory*/
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item Descriptors")
 	float ItemWeight;
 
+	/**The monetary value of the item*/
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item Descriptors")
 	float ItemValue;
 
