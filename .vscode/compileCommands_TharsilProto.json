@@ -60,6 +60,16 @@
 		"directory": "G:\\Games\\UE_4.26\\Engine\\Source"
 	},
 	{
+		"file": "D:\\\\C plus plus projects\\\\TharsilProto\\\\Source\\\\TharsilProto\\\\Components\\\\InventoryComponent.cpp",
+		"command": "cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.182.rsp\"",
+		"directory": "G:\\Games\\UE_4.26\\Engine\\Source"
+	},
+	{
+		"file": "D:\\\\C plus plus projects\\\\TharsilProto\\\\Source\\\\TharsilProto\\\\Components\\\\InventoryComponent.h",
+		"command": "cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.182.rsp\"",
+		"directory": "G:\\Games\\UE_4.26\\Engine\\Source"
+	},
+	{
 		"file": "D:\\\\C plus plus projects\\\\TharsilProto\\\\Source\\\\TharsilProto\\\\DataAssets\\\\DA_CraftingMaterial.cpp",
 		"command": "cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.182.rsp\"",
 		"directory": "G:\\Games\\UE_4.26\\Engine\\Source"
@@ -80,22 +90,12 @@
 		"directory": "G:\\Games\\UE_4.26\\Engine\\Source"
 	},
 	{
-		"file": "D:\\\\C plus plus projects\\\\TharsilProto\\\\Source\\\\TharsilProto\\\\Items\\\\BaseItem.cpp",
+		"file": "D:\\\\C plus plus projects\\\\TharsilProto\\\\Source\\\\TharsilProto\\\\DataAssets\\\\Items\\\\DA_ItemBase.cpp",
 		"command": "cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.182.rsp\"",
 		"directory": "G:\\Games\\UE_4.26\\Engine\\Source"
 	},
 	{
-		"file": "D:\\\\C plus plus projects\\\\TharsilProto\\\\Source\\\\TharsilProto\\\\Items\\\\BaseItem.h",
-		"command": "cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.182.rsp\"",
-		"directory": "G:\\Games\\UE_4.26\\Engine\\Source"
-	},
-	{
-		"file": "D:\\\\C plus plus projects\\\\TharsilProto\\\\Source\\\\TharsilProto\\\\Items\\\\BaseWeapon.cpp",
-		"command": "cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.182.rsp\"",
-		"directory": "G:\\Games\\UE_4.26\\Engine\\Source"
-	},
-	{
-		"file": "D:\\\\C plus plus projects\\\\TharsilProto\\\\Source\\\\TharsilProto\\\\Items\\\\BaseWeapon.h",
+		"file": "D:\\\\C plus plus projects\\\\TharsilProto\\\\Source\\\\TharsilProto\\\\DataAssets\\\\Items\\\\DA_ItemBase.h",
 		"command": "cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.182.rsp\"",
 		"directory": "G:\\Games\\UE_4.26\\Engine\\Source"
 	},

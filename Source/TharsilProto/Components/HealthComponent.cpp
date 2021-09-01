@@ -22,7 +22,7 @@ void UHealthComponent::BeginPlay()
 	Owner = GetOwner();
 
 	RememberedLevel = 1;
-	CurrentHealth = CurrentMaxHealth;
+
 	// if(Owner)
 	// {
 	// Owner->OnTakeAnyDamage.AddDynamic(this, &UHealthComponent::TakeDamage);
@@ -78,13 +78,14 @@ float UHealthComponent::IncreaseCurrentHealth(float HealValue)
 
 void UHealthComponent::UpdateMaxHealth(int32 ConstitutionPoints, int32 CurrentLevel)
 {
+	UE_LOG(LogTemp, Warning, TEXT("Asked to update Health with the following: Constitution: %i; Current Level: %i"), ConstitutionPoints, CurrentLevel);
 	CurrentMaxHealth = ConstitutionPoints * PerConstitutionHealth + CurrentLevel * PerLevelHealth + BaseHealth;
-	if(CurrentLevel != RememberedLevel)
+	if(CurrentLevel != RememberedLevel || CurrentLevel == 1)
 	{
 	CurrentHealth = CurrentMaxHealth;
 	RememberedLevel = CurrentLevel;
 	}
-	UE_LOG(LogTemp, Warning, TEXT("CurrentHealth is: %f"), CurrentHealth);	
+	UE_LOG(LogTemp, Warning, TEXT("CurrentHealth is: %f, Maximum is %f, rememberedLevel: %i"), CurrentHealth, CurrentMaxHealth, RememberedLevel);	
 }
 
 void UHealthComponent::HandleCharacterDeath() 

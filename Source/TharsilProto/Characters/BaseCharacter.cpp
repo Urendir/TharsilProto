@@ -17,7 +17,10 @@ ABaseCharacter::ABaseCharacter()
 void ABaseCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-
+	if(!HealthComponent)
+	{
+		UE_LOG(LogTemp, Error, TEXT("Healthcomponent failed to be created on baseCharacter class "));
+	}
 	
 }
 

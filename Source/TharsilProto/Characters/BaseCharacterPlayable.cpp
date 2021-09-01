@@ -7,6 +7,7 @@
 #include "TharsilProto/Components/HealthComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
+#include "TharsilProto/Components/HealthComponent.h"
 
 
 ABaseCharacterPlayable::ABaseCharacterPlayable() 
@@ -43,9 +44,9 @@ void ABaseCharacterPlayable::SetupPlayerInputComponent(class UInputComponent* Pl
 // Called when the game starts or when spawned
 void ABaseCharacterPlayable::BeginPlay()
 {
-	Super::BeginPlay();
+	Super::BeginPlay();  
 	
-    // why is Healthcomponent a nullptr here?
+ 
     HasWeaponDrawn = false;
 	IsAttacking = false;
     UpdateSecondaryAttributes();
@@ -66,6 +67,7 @@ void ABaseCharacterPlayable::HandleLevelUpProcess()
 
 void ABaseCharacterPlayable::UpdateSecondaryAttributes() 
 {
+    UE_LOG(LogTemp, Warning, TEXT("Healthcomponent pinged to update HP. "));
     if(HealthComponent !=nullptr)
     {
         ABaseCharacter::HealthComponent->UpdateMaxHealth(AttributesComponent->AttributeConstitution, XPComponent->CurrentLevel);
@@ -74,8 +76,6 @@ void ABaseCharacterPlayable::UpdateSecondaryAttributes()
     {
         UE_LOG(LogTemp, Error, TEXT("Healthcomponent is nullptr."))
     }
-
-    UE_LOG(LogTemp, Warning, TEXT("Healthcomponent pinged to update HP. "));
 }
 
 void ABaseCharacterPlayable::MoveForwardBack(float AxisValue) 
