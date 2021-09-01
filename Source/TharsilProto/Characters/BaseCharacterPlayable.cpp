@@ -21,6 +21,7 @@ ABaseCharacterPlayable::ABaseCharacterPlayable()
 
     Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
 	Camera->SetupAttachment(SpringArm);
+
 }
 
 void ABaseCharacterPlayable::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) 
@@ -44,6 +45,9 @@ void ABaseCharacterPlayable::BeginPlay()
 {
 	Super::BeginPlay();
 	
+    // why is Healthcomponent a nullptr here?
+    HasWeaponDrawn = false;
+	IsAttacking = false;
     UpdateSecondaryAttributes();
 }
 
@@ -62,7 +66,15 @@ void ABaseCharacterPlayable::HandleLevelUpProcess()
 
 void ABaseCharacterPlayable::UpdateSecondaryAttributes() 
 {
-    ABaseCharacter::HealthComponent->UpdateMaxHealth(AttributesComponent->AttributeConstitution, XPComponent->CurrentLevel);
+    if(HealthComponent !=nullptr)
+    {
+        ABaseCharacter::HealthComponent->UpdateMaxHealth(AttributesComponent->AttributeConstitution, XPComponent->CurrentLevel);
+    }
+    else
+    {
+        UE_LOG(LogTemp, Error, TEXT("Healthcomponent is nullptr."))
+    }
+
     UE_LOG(LogTemp, Warning, TEXT("Healthcomponent pinged to update HP. "));
 }
 

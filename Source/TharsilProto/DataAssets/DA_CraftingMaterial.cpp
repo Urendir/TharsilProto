@@ -19,3 +19,4 @@ float UDA_CraftingMaterial::GetPricePerUnit()
     PricePerUnit = NormDurability*DurabilityModifier + NormWeight*WeightModifier + NormRarity*RarityModifier + NormComplexity*ComplexityModifier;
     return PricePerUnit;
 }
+

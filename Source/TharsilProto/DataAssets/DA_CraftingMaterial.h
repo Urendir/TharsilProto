@@ -63,7 +63,7 @@ public:
 	float RarityRating = 1.f;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	float ComplexityToProduce = 1.f;
+	float ComplexityToProduce;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	float PricePerUnit;
