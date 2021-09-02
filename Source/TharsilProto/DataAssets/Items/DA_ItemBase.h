@@ -24,12 +24,25 @@ enum class EItemQuality : uint8
 };
 
 
+UENUM(BlueprintType)
+enum class EQualityRating : uint8
+{
+	E_Default = 0		UMETA(DisplayName ="Default"),
+	E_Inferior = 1		UMETA(DisplayName ="Inferior"),
+	E_Basic	= 2		UMETA(DisplayName ="Basic"),
+	E_Common = 3		UMETA(DisplayName ="Common"),
+};
+
+
 UCLASS()
 class THARSILPROTO_API UDA_ItemBase : public UDataAsset
 {
 	GENERATED_BODY()
 	
 public:	
+	
+	UDA_ItemBase();
+	
 	/**This is the name that will be shown in the inventory*/
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item Descriptors")
 	FText ItemDisplayName;
@@ -54,7 +67,12 @@ public:
 
 	/**Selects the quality of the Item, influencing its value*/
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Item Descriptors")	
-	EItemQuality Quality;	
+	EItemQuality Quality;
+
+
+	/**Selects the quality of the Item, influencing its value*/
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Item Descriptors")	
+	EQualityRating QualityRating;		
 
 	/**The amount of weight the item will use in the inventory*/
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item Descriptors")
@@ -63,5 +81,9 @@ public:
 	/**The monetary value of the item*/
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item Descriptors")
 	float ItemValue;
+
+
+	float CalculateItemValue();
+	float CalculateItemWeight();
 
 };

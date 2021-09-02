@@ -2,6 +2,7 @@
 
 
 #include "HealthComponent.h"
+#include "GameFramework/CharacterMovementComponent.h"
 #include "Math/UnrealMathUtility.h"
 
 // Sets default values for this component's properties
@@ -23,7 +24,7 @@ void UHealthComponent::BeginPlay()
 
 	RememberedLevel = 1;
 
-	// if(Owner)
+	// if(Owner) this is already in BP. 
 	// {
 	// Owner->OnTakeAnyDamage.AddDynamic(this, &UHealthComponent::TakeDamage);
 	// }
@@ -91,6 +92,7 @@ void UHealthComponent::UpdateMaxHealth(int32 ConstitutionPoints, int32 CurrentLe
 void UHealthComponent::HandleCharacterDeath() 
 {
 	IsCharacterDead = true;	
+	Owner->FindComponentByClass<UCharacterMovementComponent>()->DisableMovement();
 	UE_LOG(LogTemp, Warning, TEXT("CurrentHealth is: %f. Character is Dead."), CurrentHealth);	
 }
 
