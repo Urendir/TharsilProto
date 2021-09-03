@@ -49,6 +49,7 @@ void ABaseCharacterPlayable::BeginPlay()
  
     HasWeaponDrawn = false;
 	IsAttacking = false;
+    bIsCharacterDead = false;
     UpdateSecondaryAttributes();
 }
 
@@ -78,14 +79,21 @@ void ABaseCharacterPlayable::UpdateSecondaryAttributes()
     }
 }
 
+
 void ABaseCharacterPlayable::MoveForwardBack(float AxisValue) 
 {
-	AddMovementInput(GetActorForwardVector() * AxisValue);
+	if(!bIsCharacterDead)
+    {
+        AddMovementInput(GetActorForwardVector() * AxisValue);
+    }
 }
 
 void ABaseCharacterPlayable::MoveLeftRight(float AxisValue) 
 {
-    AddMovementInput(GetActorRightVector() * AxisValue);
+    if(!bIsCharacterDead)
+    {
+        AddMovementInput(GetActorRightVector() * AxisValue);
+    }
 }
 
 void ABaseCharacterPlayable::BasicAttack() //Damage Calculation to be created based on Weapon equipped, skill used, attribute points assigned to Strength. 
@@ -95,7 +103,7 @@ void ABaseCharacterPlayable::BasicAttack() //Damage Calculation to be created ba
 
 void ABaseCharacterPlayable::DEBUG_XPRewarder() 
 {
-	int32 XPReward = 350; //DEBUG VALUE/ Should Be Dynamic. Value is here for testing purposes
+	 //DEBUG code/ Should Be Dynamic. Value is here for testing purposes
     if(XPComponent == nullptr)
     {
         UE_LOG(LogTemp, Error, TEXT("ERROR: Unable to access the XP Component.")); 

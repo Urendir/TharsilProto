@@ -9,6 +9,8 @@
 /**
  * 
  */
+
+
 class UExperienceComponent;
 class UAttributesComponent;
 class USpringArmComponent;
@@ -35,8 +37,8 @@ public:
 	UFUNCTION(BlueprintCallable)		
 	void UpdateSecondaryAttributes();
 
-
 private:
+
 	//-------------------------------------------Components --------------------------------------------
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components", meta = (AllowPrivateAccess = "true"))
 	UExperienceComponent* XPComponent;
@@ -50,6 +52,7 @@ private:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
 	UCameraComponent* Camera;
+
 
 	//-------------------------------------------Movement Functions--------------------------------------------
 	void MoveForwardBack(float AxisValue);

@@ -2,6 +2,7 @@
 
 
 #include "HealthComponent.h"
+#include "TharsilProto/Characters/BaseCharacter.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Math/UnrealMathUtility.h"
 
@@ -20,7 +21,7 @@ void UHealthComponent::BeginPlay()
 {
 	Super::BeginPlay();
 
-	Owner = GetOwner();
+	Owner = Cast<ABaseCharacter>(GetOwner());
 
 	RememberedLevel = 1;
 
@@ -42,7 +43,7 @@ void UHealthComponent::TakeDamage(AActor* DamagedActor, float Damage, const clas
 
 	if(CurrentHealth== 0)
 	{
-		HandleCharacterDeath();
+		Owner->HandleCharacterDeath();
 	}
 
 }
@@ -56,7 +57,7 @@ void UHealthComponent::DecreaseCurrentHealth(float DamageValue)
 	else
 	{
 		CurrentHealth = 0;
-		HandleCharacterDeath(); 
+		Owner->HandleCharacterDeath();
 	}
 }
 
@@ -86,11 +87,5 @@ void UHealthComponent::UpdateMaxHealth(int32 ConstitutionPoints, int32 CurrentLe
 	UE_LOG(LogTemp, Warning, TEXT("CurrentHealth is: %f, Maximum is %f, rememberedLevel: %i"), CurrentHealth, CurrentMaxHealth, RememberedLevel);	
 }
 
-void UHealthComponent::HandleCharacterDeath() 
-{
-	IsCharacterDead = true;	
-	CharacterDeathDelegate.Broadcast(XPReward);
-	// Owner->FindComponentByClass<UCharacterMovementComponent>()->DisableMovement();
-}
 
 

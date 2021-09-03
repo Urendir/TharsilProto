@@ -24,6 +24,12 @@ void ABaseCharacter::BeginPlay()
 	
 }
 
+void ABaseCharacter::HandleCharacterDeath() 
+{
+    CharacterDeathDelegate.Broadcast(XPReward);
+    bIsCharacterDead = true;
+}
+
 // Called every frame
 void ABaseCharacter::Tick(float DeltaTime)
 {
