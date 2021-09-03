@@ -43,12 +43,11 @@ void UHealthComponent::TakeDamage(AActor* DamagedActor, float Damage, const clas
 	if(CurrentHealth== 0)
 	{
 		HandleCharacterDeath();
-		UE_LOG(LogTemp, Warning, TEXT("Character Death"));
 	}
 
 }
 
-float UHealthComponent::DecreaseCurrentHealth(float DamageValue) 
+void UHealthComponent::DecreaseCurrentHealth(float DamageValue) 
 {
 	if(CurrentHealth - DamageValue > 0) 				//Improve this!
 	{
@@ -59,8 +58,6 @@ float UHealthComponent::DecreaseCurrentHealth(float DamageValue)
 		CurrentHealth = 0;
 		HandleCharacterDeath(); 
 	}
-
-	return CurrentHealth;
 }
 
 float UHealthComponent::IncreaseCurrentHealth(float HealValue) 
@@ -92,8 +89,8 @@ void UHealthComponent::UpdateMaxHealth(int32 ConstitutionPoints, int32 CurrentLe
 void UHealthComponent::HandleCharacterDeath() 
 {
 	IsCharacterDead = true;	
-	Owner->FindComponentByClass<UCharacterMovementComponent>()->DisableMovement();
-	UE_LOG(LogTemp, Warning, TEXT("CurrentHealth is: %f. Character is Dead."), CurrentHealth);	
+	CharacterDeathDelegate.Broadcast(XPReward);
+	// Owner->FindComponentByClass<UCharacterMovementComponent>()->DisableMovement();
 }
 
 

@@ -6,6 +6,8 @@
 #include "Components/ActorComponent.h"
 #include "HealthComponent.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FCharacterDeathDelegate, int32, XPToAssign);
+
 class AActor;
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
@@ -18,7 +20,7 @@ public:
 	UHealthComponent();
 
 	UFUNCTION(BlueprintCallable)
-	float DecreaseCurrentHealth(float DamageValue);
+	void DecreaseCurrentHealth(float DamageValue);
 
 	UFUNCTION(BlueprintCallable)
 	float IncreaseCurrentHealth(float HealValue);
@@ -30,6 +32,9 @@ public:
 	void TakeDamage(AActor* DamagedActor, float Damage, const class UDamageType* DamageType, class AController* InstigatedBy, AActor* DamageCauser );	
 
 	void HandleCharacterDeath();
+
+	UPROPERTY(BlueprintAssignable)
+	FCharacterDeathDelegate CharacterDeathDelegate;
 
 protected:
 	// Called when the game starts
@@ -49,6 +54,10 @@ private:
 	
 	float BaseHealth = 120.f;	//used as initial buffer for starting health
 	int32 RememberedLevel;
+
+	//THIS SHOULD BE MOVED TO THE XP COMPONENT!
+	int32 XPReward = 500;
+
 
 	//------------------------PER ATTRIBUTEPOINT MODIFIERS---------------------------------------
 	int32 PerConstitutionHealth = 15;
