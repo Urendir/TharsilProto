@@ -44,7 +44,23 @@ void UExperienceComponent::IncreaseCurrentXP(int32 XPReward)
 	{
 		CurrentXP = XPPool;
 	}
-	UE_LOG(LogTemp, Warning, TEXT("CurrentXP is: %i"), CurrentXP);
+
+	GetXPToNextLevelPercentage(); 
+	XPGainDelegate.Broadcast(XPToLevelPercent);
+}
+
+float UExperienceComponent::GetXPToNextLevelPercentage() 
+{
+	if(CurrentLevel >= 120)
+	{
+		XPToLevelPercent = 1;
+	}
+	else
+	{
+		XPToLevelPercent = (float)CurrentXP / (float)XPToNextLevel;
+	}
+
+	return XPToLevelPercent;
 }
 
 

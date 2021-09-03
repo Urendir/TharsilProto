@@ -7,6 +7,7 @@
 #include "ExperienceComponent.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FLevelUpDelegate, int32, Level);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FXPGainDelegate, float, XPToLevelPercent);
 
 class ABaseCharacterPlayable;
 
@@ -24,6 +25,7 @@ protected:
 	virtual void BeginPlay() override;
 
 public: 
+
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Level Stats", meta = (AllowPrivateAccess = "true"))
 	int32 CurrentLevel;
 
@@ -31,10 +33,15 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void IncreaseCurrentXP(int32 XPReward);
 
+	UFUNCTION(BlueprintCallable)
+	float GetXPToNextLevelPercentage();
 
 	//-------------------------------------------Delegates for BP Process on Leveling--------------------------------------------
 	UPROPERTY(BlueprintAssignable)
 	FLevelUpDelegate OnLevelUpDelegate;
+
+	UPROPERTY(BlueprintAssignable)
+	FXPGainDelegate XPGainDelegate;
 	
 private:
 	ABaseCharacterPlayable* Owner;
@@ -47,6 +54,8 @@ private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Level Stats", meta = (AllowPrivateAccess = "true"))
 	int32 XPToNextLevel;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Level Stats", meta = (AllowPrivateAccess = "true"))
+	float XPToLevelPercent;
 
 	//------------------------LEVELING XP MODIFIER VARIABLES-------------------------------------
 	//The below Calculates XP To Next Level = Current Level * Multiplier / Divider;
