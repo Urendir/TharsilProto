@@ -56,4 +56,8 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void HandleCharacterDeath();
 
+	UFUNCTION(BlueprintCallable)
+	void HandleIncomingDamage(float IncomingTotalDamage);
+
+
 };
