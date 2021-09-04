@@ -9,6 +9,7 @@
 #include "Camera/CameraComponent.h"
 #include "GameFramework/Controller.h"
 #include "DrawDebugHelpers.h"
+#include "Kismet/KismetSystemLibrary.h"
 
 
 ABaseCharacterPlayable::ABaseCharacterPlayable() 
@@ -57,7 +58,22 @@ void ABaseCharacterPlayable::BeginPlay()
 
 void ABaseCharacterPlayable::InteractWithItem() 
 {
-    //to be done via linetrace.
+    LineTraceForInteraction(); 
+}
+
+void ABaseCharacterPlayable::LineTraceForInteraction() 
+{
+    FVector Location;
+    FRotator Rotation;
+    FHitResult HitResult;
+
+    GetController()->GetPlayerViewPoint(Location, Rotation);
+    const FVector Start = Location;
+    const FVector End = Start + (Rotation.Vector() * LineTraceLength);
+    FCollisionQueryParams TraceParams;
+    TArray<AActor*> ActorsToIgnore;
+
+    bool bHit = UKismetSystemLibrary::LineTraceSingle(GetWorld(), Start, End, UEngineTypes::ConvertToTraceType(ECC_Camera), false, ActorsToIgnore, EDrawDebugTrace::ForDuration, HitResult, true, FLinearColor::Yellow, FLinearColor::White, 0.5f);
 }
 
 
@@ -111,4 +127,16 @@ void ABaseCharacterPlayable::DEBUG_XPRewarder()
         return;
     }
     XPComponent->IncreaseCurrentXP(XPReward);
+}
+
+
+void ABaseCharacterPlayable::HandleCharacterDeath() 
+{
+    CharacterDeathDelegate.Broadcast(XPReward);
+    bIsCharacterDead = true;
+}
+
+void ABaseCharacterPlayable::HandleIncomingDamage(float IncomingTotalDamage) 
+{
+	
 }

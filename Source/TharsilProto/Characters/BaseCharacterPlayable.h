@@ -37,6 +37,10 @@ public:
 	UFUNCTION(BlueprintCallable)		
 	void UpdateSecondaryAttributes();
 
+
+	virtual void HandleCharacterDeath() override;
+	virtual void HandleIncomingDamage(float IncomingTotalDamage) override;
+
 private:
 
 	//-------------------------------------------Components --------------------------------------------
@@ -54,6 +58,10 @@ private:
 	UCameraComponent* Camera;
 
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Targeting", meta = (AllowPrivateAccess = "true"))
+	float LineTraceLength = 1000.0f;	
+
+
 	//-------------------------------------------Movement Functions--------------------------------------------
 	void MoveForwardBack(float AxisValue);
 	void MoveLeftRight(float AxisValue);
@@ -61,6 +69,7 @@ private:
 	//-------------------------------------------Interaction Functions----------------------------------------------
 	void BasicAttack();
 	void InteractWithItem();
+	void LineTraceForInteraction();
 
 	void DEBUG_XPRewarder();
 

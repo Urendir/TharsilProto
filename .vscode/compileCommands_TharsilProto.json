@@ -80,6 +80,16 @@
 		"directory": "G:\\Games\\UE_4.26\\Engine\\Source"
 	},
 	{
+		"file": "D:\\\\C plus plus projects\\\\TharsilProto\\\\Source\\\\TharsilProto\\\\Components\\\\LineTraceWorldComponent.cpp",
+		"command": "cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.182.rsp\"",
+		"directory": "G:\\Games\\UE_4.26\\Engine\\Source"
+	},
+	{
+		"file": "D:\\\\C plus plus projects\\\\TharsilProto\\\\Source\\\\TharsilProto\\\\Components\\\\LineTraceWorldComponent.h",
+		"command": "cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.182.rsp\"",
+		"directory": "G:\\Games\\UE_4.26\\Engine\\Source"
+	},
+	{
 		"file": "D:\\\\C plus plus projects\\\\TharsilProto\\\\Source\\\\TharsilProto\\\\Components\\\\OffensiveCalculatorComponent.cpp",
 		"command": "cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.182.rsp\"",
 		"directory": "G:\\Games\\UE_4.26\\Engine\\Source"

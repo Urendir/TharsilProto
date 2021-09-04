@@ -54,10 +54,10 @@ public:
 	bool IsAttacking = false;
 
 	UFUNCTION(BlueprintCallable)
-	void HandleCharacterDeath();
+	virtual void HandleCharacterDeath();
 
 	UFUNCTION(BlueprintCallable)
-	void HandleIncomingDamage(float IncomingTotalDamage);
+	virtual void HandleIncomingDamage(float IncomingTotalDamage);
 
 
 };
