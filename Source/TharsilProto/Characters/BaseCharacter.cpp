@@ -24,17 +24,12 @@ void ABaseCharacter::BeginPlay()
 	
 }
 
-void ABaseCharacter::HandleCharacterDeath() 
-{
-    CharacterDeathDelegate.Broadcast(XPReward);
-    bIsCharacterDead = true;
-}
 
 // Called every frame
 void ABaseCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
+ 
 }
 
 // Called to bind functionality to input
@@ -43,4 +38,16 @@ void ABaseCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
 }
+
+void ABaseCharacter::HandleCharacterDeath() 
+{
+    CharacterDeathDelegate.Broadcast(XPReward);
+    bIsCharacterDead = true;
+}
+
+void ABaseCharacter::HandleIncomingDamage(float IncomingTotalDamage) 
+{
+	
+}
+
 

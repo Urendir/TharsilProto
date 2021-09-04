@@ -1,14 +1,15 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "Components/DefensiveCalculatorComponent.h"
+#include "DefensiveCalculatorComponent.h"
+
 
 // Sets default values for this component's properties
 UDefensiveCalculatorComponent::UDefensiveCalculatorComponent()
 {
 	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
 	// off to improve performance if you don't need them.
-	PrimaryComponentTick.bCanEverTick = true;
+	PrimaryComponentTick.bCanEverTick = false;
 
 	// ...
 }
@@ -23,12 +24,20 @@ void UDefensiveCalculatorComponent::BeginPlay()
 	
 }
 
-
-// Called every frame
-void UDefensiveCalculatorComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
+void UDefensiveCalculatorComponent::CalculateDamageToCharacter(float SlashDmg, float PierceDmg, float CrushDmg, float BleedChance, float KnockbackChance, ABaseCharacter* Damager) 
 {
-	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-
-	// ...
+	
 }
+
+void UDefensiveCalculatorComponent::CalculateDamageToArmor() 
+{
+	
+}
+
+void UDefensiveCalculatorComponent::CalculateBlockedDamage() 
+{
+	
+}
+
+
 

@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
+#include "TharsilProto/Characters/BaseCharacter.h"
 #include "DefensiveCalculatorComponent.generated.h"
 
 
@@ -20,9 +21,36 @@ protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 
-public:	
-	// Called every frame
-	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+private:	
 
-		
+//---------------------------- BASIC ARMOR & DEFENSE STATS ------------------------------------------------------------------------
+/*These will be obtained from the Armor that is equipped, as well as from any skills that grant bonuses to the various resistances*/
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Defensive Stats", meta = (AllowPrivateAccess = "true"))
+	float SlashDefense;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Defensive Stats", meta = (AllowPrivateAccess = "true"))
+	float PierceDefense;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Defensive Stats", meta = (AllowPrivateAccess = "true"))
+	float CrushDefense;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Defensive Stats", meta = (AllowPrivateAccess = "true"))
+	float BleedResist;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Defensive Stats", meta = (AllowPrivateAccess = "true"))
+	float KnockbackResist;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Defensive Stats", meta = (AllowPrivateAccess = "true"))
+	float CrippleResist;
+
+public:
+//---------------------------- FUNCTIONS TO CALCULATE INCOMING DMG ------------------------------------------------------------------------
+
+void CalculateDamageToCharacter(float SlashDmg, float PierceDmg, float CrushDmg, float BleedChance, float KnockbackChance, ABaseCharacter* Damager);
+
+void CalculateDamageToArmor();
+
+void CalculateBlockedDamage();
+
 };

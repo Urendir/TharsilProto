@@ -7,7 +7,8 @@
 #include "TharsilProto/Components/HealthComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
-#include "TharsilProto/Components/HealthComponent.h"
+#include "GameFramework/Controller.h"
+#include "DrawDebugHelpers.h"
 
 
 ABaseCharacterPlayable::ABaseCharacterPlayable() 

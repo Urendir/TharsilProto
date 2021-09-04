@@ -40,6 +40,16 @@
 		"directory": "G:\\Games\\UE_4.26\\Engine\\Source"
 	},
 	{
+		"file": "D:\\\\C plus plus projects\\\\TharsilProto\\\\Source\\\\TharsilProto\\\\Components\\\\DefensiveCalculatorComponent.cpp",
+		"command": "cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_Default\\TharsilProto.182.rsp\"",
+		"directory": "G:\\Games\\UE_4.26\\Engine\\Source"
+	},
+	{
+		"file": "D:\\\\C plus plus projects\\\\TharsilProto\\\\Source\\\\TharsilProto\\\\Components\\\\DefensiveCalculatorComponent.h",
+		"command": "cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_Default\\TharsilProto.182.rsp\"",
+		"directory": "G:\\Games\\UE_4.26\\Engine\\Source"
+	},
+	{
 		"file": "D:\\\\C plus plus projects\\\\TharsilProto\\\\Source\\\\TharsilProto\\\\Components\\\\ExperienceComponent.cpp",
 		"command": "cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_Default\\TharsilProto.182.rsp\"",
 		"directory": "G:\\Games\\UE_4.26\\Engine\\Source"
@@ -70,6 +80,16 @@
 		"directory": "G:\\Games\\UE_4.26\\Engine\\Source"
 	},
 	{
+		"file": "D:\\\\C plus plus projects\\\\TharsilProto\\\\Source\\\\TharsilProto\\\\Components\\\\OffensiveCalculatorComponent.cpp",
+		"command": "cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_Default\\TharsilProto.182.rsp\"",
+		"directory": "G:\\Games\\UE_4.26\\Engine\\Source"
+	},
+	{
+		"file": "D:\\\\C plus plus projects\\\\TharsilProto\\\\Source\\\\TharsilProto\\\\Components\\\\OffensiveCalculatorComponent.h",
+		"command": "cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_Default\\TharsilProto.182.rsp\"",
+		"directory": "G:\\Games\\UE_4.26\\Engine\\Source"
+	},
+	{
 		"file": "D:\\\\C plus plus projects\\\\TharsilProto\\\\Source\\\\TharsilProto\\\\DataAssets\\\\DA_CraftingMaterial.cpp",
 		"command": "cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_Default\\TharsilProto.182.rsp\"",
 		"directory": "G:\\Games\\UE_4.26\\Engine\\Source"
@@ -96,6 +116,26 @@
 	},
 	{
 		"file": "D:\\\\C plus plus projects\\\\TharsilProto\\\\Source\\\\TharsilProto\\\\DataAssets\\\\Items\\\\DA_ItemBase.h",
+		"command": "cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_Default\\TharsilProto.182.rsp\"",
+		"directory": "G:\\Games\\UE_4.26\\Engine\\Source"
+	},
+	{
+		"file": "D:\\\\C plus plus projects\\\\TharsilProto\\\\Source\\\\TharsilProto\\\\Interactions\\\\InteractableBase.cpp",
+		"command": "cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_Default\\TharsilProto.182.rsp\"",
+		"directory": "G:\\Games\\UE_4.26\\Engine\\Source"
+	},
+	{
+		"file": "D:\\\\C plus plus projects\\\\TharsilProto\\\\Source\\\\TharsilProto\\\\Interactions\\\\InteractableBase.h",
+		"command": "cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_Default\\TharsilProto.182.rsp\"",
+		"directory": "G:\\Games\\UE_4.26\\Engine\\Source"
+	},
+	{
+		"file": "D:\\\\C plus plus projects\\\\TharsilProto\\\\Source\\\\TharsilProto\\\\Interactions\\\\InteractionInterface.cpp",
+		"command": "cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_Default\\TharsilProto.182.rsp\"",
+		"directory": "G:\\Games\\UE_4.26\\Engine\\Source"
+	},
+	{
+		"file": "D:\\\\C plus plus projects\\\\TharsilProto\\\\Source\\\\TharsilProto\\\\Interactions\\\\InteractionInterface.h",
 		"command": "cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_Default\\TharsilProto.182.rsp\"",
 		"directory": "G:\\Games\\UE_4.26\\Engine\\Source"
 	},
