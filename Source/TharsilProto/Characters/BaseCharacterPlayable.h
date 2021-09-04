@@ -37,9 +37,15 @@ public:
 	UFUNCTION(BlueprintCallable)		
 	void UpdateSecondaryAttributes();
 
-
+	//------------------------------------------Combat Functions-------------------------------------------------
 	virtual void HandleCharacterDeath() override;
 	virtual void HandleIncomingDamage(float IncomingTotalDamage) override;
+
+	//------------------------------------------Interact with Items--------------------------------------------------
+	UFUNCTION(BlueprintNativeEvent)
+	void LineTraceForwardForInteraction();
+	void LineTraceForwardForInteraction_Implementation();
+
 
 private:
 
@@ -61,18 +67,19 @@ private:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Targeting", meta = (AllowPrivateAccess = "true"))
 	float LineTraceLength = 1000.0f;	
 
+	//-------------------------------------------Interaction Variables----------------------------------------------
+	AActor* CurrentlyFocusedActor;
 
-	//-------------------------------------------Movement Functions--------------------------------------------
-	void MoveForwardBack(float AxisValue);
-	void MoveLeftRight(float AxisValue);
 
 	//-------------------------------------------Interaction Functions----------------------------------------------
 	void BasicAttack();
 	void InteractWithItem();
-	void LineTraceForInteraction();
 
 	void DEBUG_XPRewarder();
 
+	//-------------------------------------------Movement Functions--------------------------------------------
+	void MoveForwardBack(float AxisValue);
+	void MoveLeftRight(float AxisValue);
 
 
 };

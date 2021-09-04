@@ -10,6 +10,7 @@
 #include "GameFramework/Controller.h"
 #include "DrawDebugHelpers.h"
 #include "Kismet/KismetSystemLibrary.h"
+#include "TharsilProto/Interactions/InteractionInterface.h"
 
 
 ABaseCharacterPlayable::ABaseCharacterPlayable() 
@@ -58,10 +59,20 @@ void ABaseCharacterPlayable::BeginPlay()
 
 void ABaseCharacterPlayable::InteractWithItem() 
 {
-    LineTraceForInteraction(); 
+    LineTraceForwardForInteraction(); 
+    if(CurrentlyFocusedActor)
+    {
+        IInteractionInterface* InteractionInterface = Cast<IInteractionInterface>(CurrentlyFocusedActor); //LEARNING: This is looking for the interface on the currently focused actor, to check if it has one.           
+        if(InteractionInterface)
+        {
+            InteractionInterface->Execute_OnInteract(CurrentlyFocusedActor, this);
+        }        
+    }
+
+
 }
 
-void ABaseCharacterPlayable::LineTraceForInteraction() 
+void ABaseCharacterPlayable::LineTraceForwardForInteraction_Implementation() 
 {
     FVector Location;
     FRotator Rotation;
@@ -73,7 +84,47 @@ void ABaseCharacterPlayable::LineTraceForInteraction()
     FCollisionQueryParams TraceParams;
     TArray<AActor*> ActorsToIgnore;
 
-    bool bHit = UKismetSystemLibrary::LineTraceSingle(GetWorld(), Start, End, UEngineTypes::ConvertToTraceType(ECC_Camera), false, ActorsToIgnore, EDrawDebugTrace::ForDuration, HitResult, true, FLinearColor::Yellow, FLinearColor::White, 0.5f);
+    bool bHit = UKismetSystemLibrary::LineTraceSingle(GetWorld(), Start, End, UEngineTypes::ConvertToTraceType(ECC_Camera), false, ActorsToIgnore, EDrawDebugTrace::ForDuration, HitResult, true, FLinearColor::Yellow, FLinearColor::White, 0.5f);    
+
+    if(bHit)
+    {
+        AActor* Interactable = HitResult.GetActor();
+
+        if(Interactable)
+        {
+            if(Interactable != CurrentlyFocusedActor)
+            {
+                if(CurrentlyFocusedActor)
+                {
+                    IInteractionInterface* InteractionInterface = Cast<IInteractionInterface>(CurrentlyFocusedActor); //LEARNING: This is looking for the interface on the currently focused actor, to check if it has one. 
+                    
+                    if(InteractionInterface)
+                    {
+                        InteractionInterface->Execute_EndFocus(CurrentlyFocusedActor);
+                    }
+                }
+                IInteractionInterface* InteractionInterface = Cast<IInteractionInterface>(Interactable);
+                if(InteractionInterface)
+                {
+                    InteractionInterface->Execute_StartFocus(Interactable);
+                }
+                CurrentlyFocusedActor = Interactable;
+            }
+        }
+        else
+        {
+            if(CurrentlyFocusedActor)
+            {
+                IInteractionInterface* InteractionInterface = Cast<IInteractionInterface>(CurrentlyFocusedActor); //LEARNING: This is looking for the interface on the currently focused actor, to check if it has one. 
+                if(InteractionInterface)
+                {
+                    InteractionInterface->Execute_EndFocus(CurrentlyFocusedActor);
+                }
+            }
+            CurrentlyFocusedActor = nullptr;
+        }
+    }
+
 }
 
 
