@@ -45,6 +45,11 @@ void UExperienceComponent::IncreaseCurrentXP(int32 XPReward)
 		CurrentXP = XPPool;
 	}
 
+	if(CurrentXP >= XPToNextLevel)
+	{
+		IncreaseCurrentXP(0); //This will recursively re-call the function until the current XP is no longer larger than the XP to level, thus giving multiple levels, as the current XP will just be the XPPool used.
+	}
+
 	GetXPToNextLevelPercentage(); 
 	XPGainDelegate.Broadcast(XPToLevelPercent);
 }
@@ -93,14 +98,8 @@ void UExperienceComponent::HandleLevelUp()
 	CalculateXPToNextLevel();
 	Owner->HandleLevelUpProcess();
 	OnLevelUpDelegate.Broadcast(CurrentLevel);
-	DEBUG_DisplayLevel();
 }
 
-
-void UExperienceComponent::DEBUG_DisplayLevel() 
-{
-	UE_LOG(LogTemp, Warning, TEXT("Ding! Current Level is %i. For next level, %i XP is needed."), CurrentLevel, XPToNextLevel);
-}
 
 
 

@@ -79,7 +79,4 @@ private:
 	int32 CalculateXPToNextLevel();
 	void HandleLevelUp();
 
-
-	void DEBUG_DisplayLevel();
-
 };

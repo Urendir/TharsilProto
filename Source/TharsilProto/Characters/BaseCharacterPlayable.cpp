@@ -53,6 +53,7 @@ void ABaseCharacterPlayable::BeginPlay()
     HasWeaponDrawn = false;
 	IsAttacking = false;
     bIsCharacterDead = false;
+    XPReward = 50000;
     UpdateSecondaryAttributes();
 }
 
@@ -171,7 +172,7 @@ void ABaseCharacterPlayable::BasicAttack() //Damage Calculation to be created ba
 
 void ABaseCharacterPlayable::DEBUG_XPRewarder() 
 {
-	 //DEBUG code/ Should Be Dynamic. Value is here for testing purposes
+	 //DEBUG code/ Should Be Dynamic. FUNCTION is here for testing purposes
     if(XPComponent == nullptr)
     {
         UE_LOG(LogTemp, Error, TEXT("ERROR: Unable to access the XP Component.")); 
