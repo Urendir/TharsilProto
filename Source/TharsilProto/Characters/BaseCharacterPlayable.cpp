@@ -53,7 +53,7 @@ void ABaseCharacterPlayable::BeginPlay()
     HasWeaponDrawn = false;
 	IsAttacking = false;
     bIsCharacterDead = false;
-    XPReward = 50000;
+    XPReward = 500;
     UpdateSecondaryAttributes();
 }
 
