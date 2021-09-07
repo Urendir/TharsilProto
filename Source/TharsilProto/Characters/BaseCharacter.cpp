@@ -3,6 +3,8 @@
 
 #include "BaseCharacter.h"
 #include "TharsilProto/Components/HealthComponent.h"
+#include "TharsilProto/Components/InventoryComponent.h"
+#include "TharsilProto/DataAssets/Items/DA_ItemBase.h"
 
 // Sets default values
 ABaseCharacter::ABaseCharacter()
@@ -11,6 +13,8 @@ ABaseCharacter::ABaseCharacter()
 	PrimaryActorTick.bCanEverTick = true;
 
 	HealthComponent = CreateDefaultSubobject<UHealthComponent>(TEXT("Health Component"));
+	InventoryComponent = CreateDefaultSubobject<UInventoryComponent>(TEXT("Inventory Component"));
+
 }
 
 // Called when the game starts or when spawned
@@ -19,7 +23,11 @@ void ABaseCharacter::BeginPlay()
 	Super::BeginPlay();
 	if(!HealthComponent)
 	{
-		UE_LOG(LogTemp, Error, TEXT("Healthcomponent failed to be created on baseCharacter class "));
+		UE_LOG(LogTemp, Error, TEXT("HealthComponent failed to be created on baseCharacter class "));
+	}
+	if(!InventoryComponent)
+	{
+		UE_LOG(LogTemp, Error, TEXT("InventoryComponent failed to be created on baseCharacter class "));
 	}
 	
 }
@@ -39,6 +47,11 @@ void ABaseCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 
 }
 
+float ABaseCharacter::CalculateCarryWeight() 
+{
+	return InventoryComponent->CarryWeightBaseCapacity;
+}	
+
 void ABaseCharacter::HandleCharacterDeath() 
 {
     CharacterDeathDelegate.Broadcast(XPReward);
@@ -48,6 +61,11 @@ void ABaseCharacter::HandleCharacterDeath()
 void ABaseCharacter::HandleIncomingDamage(float IncomingTotalDamage) 
 {
 	
+}
+
+void ABaseCharacter::UseItem(UDA_ItemBase* Item) 
+{
+	Item->UseItem(this);
 }
 
 

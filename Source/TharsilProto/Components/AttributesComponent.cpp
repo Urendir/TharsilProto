@@ -48,6 +48,11 @@ void UAttributesComponent::ResetAttributePoints()
 
 }
 
+float UAttributesComponent::CalculateCarryCapPerStrength() 
+{
+	return PerStrengthCarryCapacity * (float)AttributeStrength;
+}
+
 
 
 

@@ -2,6 +2,8 @@
 
 
 #include "InventoryComponent.h"
+#include "TharsilProto/DataAssets/Items/DA_ItemBase.h"
+#include "TharsilProto/Characters/BaseCharacter.h"
 
 // Sets default values for this component's properties
 UInventoryComponent::UInventoryComponent()
@@ -19,8 +21,67 @@ void UInventoryComponent::BeginPlay()
 {
 	Super::BeginPlay();
 
-	// ...
+	Owner->GetOwner();
+	InventorySlotsUsed = 0;
+	CarryWeightCurrent = 0;
+	CalculateCarryCapacity();
+}
+
+bool UInventoryComponent::AddItemToInventory(UDA_ItemBase* Item) 
+{
+	if(!Item)
+	{
+		return false;
+	}
+	if(Item->ItemWeight + CarryWeightCurrent < CarryWeightTotalCapacity && InventorySlotsUsed < InventorySlotsTotal)
+	{
+		Item->OwningInventory = this;
+		Item->World = GetWorld();
+		InventoryItems.Add(Item);
+		//Update UI via delegate:
+		OnInventoryUpdated.Broadcast();
+		InventorySlotsUsed++;
+		CarryWeightCurrent += Item->ItemWeight;
+
+		return true;
+	}
+	else if(Item->ItemWeight + CarryWeightCurrent >= CarryWeightTotalCapacity && InventorySlotsUsed < InventorySlotsTotal)
+	{
+		// Do something like Over-Encumber Character
+		return true;
+	}
+	else
+	{
+		// Display insufficient Space message
+		return false;
+	}
+}
+
+bool UInventoryComponent::RemoveFromInventory(UDA_ItemBase* Item) 
+{
+	if(Item)
+	{
+		Item->OwningInventory = nullptr;
+		Item->World = nullptr;
+		InventoryItems.RemoveSingle(Item);
+		//Update UI via delegate:
+		OnInventoryUpdated.Broadcast();
+		InventorySlotsUsed--;
+		CarryWeightCurrent -= Item->ItemWeight;
+
+		return true;
+	}
+	return false;
+}
+
+float UInventoryComponent::CalculateCarryCapacity() 
+{
+	if(Owner)
+	{
+		CarryWeightTotalCapacity = Owner->CalculateCarryWeight();
+	}
 	
+	return CarryWeightTotalCapacity;
 }
 
 

@@ -55,12 +55,17 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void ResetAttributePoints();
 
+	float CalculateCarryCapPerStrength();
+
 private: 
 	ABaseCharacter* Owner;
 
 	//------------------------PER ATTRIBUTEPOINT MODIFIERS---------------------------------------
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Attribute Modifiers", meta = (AllowPrivateAccess = "true"))	
 	float PerConstitutionHealth = 15.f;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Attribute Modifiers", meta = (AllowPrivateAccess = "true"))	
 	float PerStrengthCarryCapacity = 1.3f;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Attribute Modifiers", meta = (AllowPrivateAccess = "true"))	
 	int32 PerEnduranceStamina = 10.f;
 
 };

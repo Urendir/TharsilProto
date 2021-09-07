@@ -46,6 +46,9 @@ public:
 	void LineTraceForwardForInteraction();
 	void LineTraceForwardForInteraction_Implementation();
 
+	UFUNCTION(BlueprintCallable)
+	virtual float CalculateCarryWeight() override;
+
 
 private:
 

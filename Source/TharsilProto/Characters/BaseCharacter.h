@@ -10,6 +10,8 @@
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FCharacterDeathDelegate, int32, XPToAssign);
 
 class UHealthComponent;
+class UInventoryComponent;
+class UDA_ItemBase;
 
 UCLASS()
 class THARSILPROTO_API ABaseCharacter : public ACharacter
@@ -34,18 +36,26 @@ public:
 	UPROPERTY(BlueprintAssignable)
 	FCharacterDeathDelegate CharacterDeathDelegate;
 	
-	//THIS SHOULD BE MOVED TO THE XP COMPONENT!
+	//TO DO : THIS SHOULD BE MOVED TO THE XP COMPONENT!
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components", meta = (AllowPrivateAccess = "true"))
 	int32 XPReward = 500;
 
-	//-----------------------------------------
+	//-----------------------------------------COMPONENTS-------------------------------------------------------------
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components", meta = (AllowPrivateAccess = "true"))
 	UHealthComponent* HealthComponent;
-	
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components", meta = (AllowPrivateAccess = "true"))
+	UInventoryComponent* InventoryComponent;
+
+	//--------------------------------------Component Influencing Variables and Functions---------------------------------
+
+	virtual float CalculateCarryWeight();
+
+	//------------------------------------Booleans for character state-------------------------------------
+
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Character Stats", meta = (AllowPrivateAccess = "true"))
 	bool bIsCharacterDead = false;
-
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Combat", meta = (AllowPrivateAccess = "true"))
 	bool HasWeaponDrawn = false;
@@ -53,11 +63,16 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Combat", meta = (AllowPrivateAccess = "true"))
 	bool IsAttacking = false;
 
+	//-------------------------------------Character state change and Interaction Functions----------------------------------	
+
 	UFUNCTION(BlueprintCallable)
 	virtual void HandleCharacterDeath();
 
 	UFUNCTION(BlueprintCallable)
 	virtual void HandleIncomingDamage(float IncomingTotalDamage);
+
+	UFUNCTION(BlueprintCallable, Category = "Item Interaction")
+	void UseItem(UDA_ItemBase* Item);
 
 
 };

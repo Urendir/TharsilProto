@@ -5,6 +5,7 @@
 #include "TharsilProto/Components/ExperienceComponent.h"
 #include "TharsilProto/Components/AttributesComponent.h"
 #include "TharsilProto/Components/HealthComponent.h"
+#include "TharsilProto/Components/InventoryComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/Controller.h"
@@ -129,6 +130,23 @@ void ABaseCharacterPlayable::LineTraceForwardForInteraction_Implementation()
 }
 
 
+float ABaseCharacterPlayable::CalculateCarryWeight() 
+{
+    float CarryWeightTotal;
+    
+    if(InventoryComponent && AttributesComponent && XPComponent)
+    {
+        CarryWeightTotal = InventoryComponent->CarryWeightBaseCapacity + AttributesComponent->CalculateCarryCapPerStrength() + XPComponent->CurrentLevel * InventoryComponent->CarryWeightPerLevel;
+    }
+    else
+    {
+        CarryWeightTotal = 20.0f;
+    }
+
+    return CarryWeightTotal;
+}
+
+
 void ABaseCharacterPlayable::HandleLevelUpProcess() 
 {
     UpdateSecondaryAttributes();
@@ -138,6 +156,7 @@ void ABaseCharacterPlayable::HandleLevelUpProcess()
 void ABaseCharacterPlayable::UpdateSecondaryAttributes() 
 {
     UE_LOG(LogTemp, Warning, TEXT("Healthcomponent pinged to update HP. "));
+    CalculateCarryWeight();
     if(HealthComponent !=nullptr)
     {
         ABaseCharacter::HealthComponent->UpdateMaxHealth(AttributesComponent->AttributeConstitution, XPComponent->CurrentLevel);
