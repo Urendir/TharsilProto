@@ -6,6 +6,8 @@
 #include "Components/ActorComponent.h"
 #include "AttributesComponent.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnAttributesUpdated);
+
 class ABaseCharacter;
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
@@ -56,6 +58,9 @@ public:
 	void ResetAttributePoints();
 
 	float CalculateCarryCapPerStrength();
+
+	UPROPERTY(BlueprintAssignable)
+	FOnAttributesUpdated OnAttributesUpdated;
 
 private: 
 	ABaseCharacter* Owner;

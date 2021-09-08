@@ -45,7 +45,7 @@ void UAttributesComponent::ResetAttributePoints()
 	AttributeEndurance = AttributeStartMinimum;
 
 	UnspentAttributePoints = TotalAttributePoints - AttributeStartMinimum*4; //This is to account for the points that remain in the 4 attributes.
-
+	OnAttributesUpdated.Broadcast();
 }
 
 float UAttributesComponent::CalculateCarryCapPerStrength() 

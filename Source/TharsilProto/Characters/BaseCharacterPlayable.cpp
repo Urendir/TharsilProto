@@ -147,8 +147,8 @@ void ABaseCharacterPlayable::LineTraceForwardForInteraction_Implementation()
 
 }
 
-
-float ABaseCharacterPlayable::CalculateCarryWeight() 
+//------------------------------------------------------------------ COMPONENT INTERACTION / RPG SYSTEMS------------------------------------------------------------------
+void ABaseCharacterPlayable::CalculateCarryWeight() 
 {
     float CarryWeightTotal;
     
@@ -159,18 +159,19 @@ float ABaseCharacterPlayable::CalculateCarryWeight()
     }
     else
     {
-        CarryWeightTotal = 20.0f;
+        CarryWeightTotal = 1.0f;
     }
+    UE_LOG(LogTemp, Error, TEXT("CarryweightTotal: %f"), CarryWeightTotal);
 
-    return CarryWeightTotal;
+    InventoryComponent->UpdateCarryCapacity(CarryWeightTotal);
 }
-
 
 void ABaseCharacterPlayable::HandleLevelUpProcess() 
 {
     UpdateSecondaryAttributes();
     AttributesComponent->IncreaseAttributePoints();
 }
+
 
 void ABaseCharacterPlayable::UpdateSecondaryAttributes() 
 {
@@ -183,9 +184,10 @@ void ABaseCharacterPlayable::UpdateSecondaryAttributes()
     {
         UE_LOG(LogTemp, Error, TEXT("Healthcomponent is nullptr."));
     }
+    AttributesComponent->OnAttributesUpdated.Broadcast();
 }
 
-
+//---------------------------------------------------------------------------LOCOMOTION--------------------------------------------------------------------------
 void ABaseCharacterPlayable::MoveForwardBack(float AxisValue) 
 {
 	if(!bIsCharacterDead)
@@ -202,9 +204,22 @@ void ABaseCharacterPlayable::MoveLeftRight(float AxisValue)
     }
 }
 
+
+//---------------------------------------------------------------------------------COMBAT FUNCTIONS--------------------------------------------------------------------
 void ABaseCharacterPlayable::BasicAttack() //Damage Calculation to be created based on Weapon equipped, skill used, attribute points assigned to Strength. 
 {
 	UE_LOG(LogTemp, Warning, TEXT("I Attack!"));
+}
+
+void ABaseCharacterPlayable::HandleCharacterDeath() 
+{
+    CharacterDeathDelegate.Broadcast(XPReward);
+    bIsCharacterDead = true;
+}
+
+void ABaseCharacterPlayable::HandleIncomingDamage(float IncomingTotalDamage) 
+{
+	
 }
 
 void ABaseCharacterPlayable::DEBUG_XPRewarder() 
@@ -218,14 +233,3 @@ void ABaseCharacterPlayable::DEBUG_XPRewarder()
     XPComponent->IncreaseCurrentXP(XPReward);
 }
 
-
-void ABaseCharacterPlayable::HandleCharacterDeath() 
-{
-    CharacterDeathDelegate.Broadcast(XPReward);
-    bIsCharacterDead = true;
-}
-
-void ABaseCharacterPlayable::HandleIncomingDamage(float IncomingTotalDamage) 
-{
-	
-}

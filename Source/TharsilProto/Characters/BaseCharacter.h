@@ -50,7 +50,7 @@ public:
 
 	//--------------------------------------Component Influencing Variables and Functions---------------------------------
 
-	virtual float CalculateCarryWeight();
+	virtual void CalculateCarryWeight();
 
 	//------------------------------------Booleans for character state-------------------------------------
 

@@ -25,7 +25,7 @@ void UInventoryComponent::BeginPlay()
 	InventorySlotsTotal = 20;
 	InventorySlotsUsed = 0;
 	CarryWeightCurrent = 0;
-	CalculateCarryCapacity();
+	CarryWeightTotalCapacity = CarryWeightBaseCapacity;
 }
 
 bool UInventoryComponent::AddItemToInventory(UDA_ItemBase* Item) 
@@ -75,18 +75,10 @@ bool UInventoryComponent::RemoveFromInventory(UDA_ItemBase* Item)
 	return false;
 }
 
-float UInventoryComponent::CalculateCarryCapacity() 
+void UInventoryComponent::UpdateCarryCapacity(float NewValue) 
 {
-	if(Owner)
-	{
-		CarryWeightTotalCapacity = Owner->CalculateCarryWeight();
-	}
-	else
-	{
-		UE_LOG(LogTemp, Error, TEXT("Owner of InventoryComponent is nullptr."));
-	}
-	
-	return CarryWeightTotalCapacity;
+	CarryWeightTotalCapacity = NewValue;
+	OnInventoryUpdated.Broadcast();
 }
 
 

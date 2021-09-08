@@ -47,9 +47,9 @@ void ABaseCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 
 }
 
-float ABaseCharacter::CalculateCarryWeight() 
+void ABaseCharacter::CalculateCarryWeight() 
 {
-	return InventoryComponent->CarryWeightBaseCapacity;
+	InventoryComponent->CarryWeightBaseCapacity = 1.0f;
 }	
 
 void ABaseCharacter::HandleCharacterDeath() 

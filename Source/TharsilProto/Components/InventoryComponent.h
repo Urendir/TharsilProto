@@ -51,7 +51,7 @@ public:
 	bool AddItemToInventory(UDA_ItemBase* Item);
 	bool RemoveFromInventory(UDA_ItemBase* Item);
 
-	float CalculateCarryCapacity();
+	void UpdateCarryCapacity(float NewValue);
 
 
 //------------------------DELEGATES---------------------------------		
