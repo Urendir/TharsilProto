@@ -55,6 +55,24 @@ void ABaseCharacterPlayable::BeginPlay()
 	IsAttacking = false;
     bIsCharacterDead = false;
     XPReward = 500;
+
+    if(!InventoryComponent)
+    {
+        UE_LOG(LogTemp, Error, TEXT("InventoryComponent is nullptr."));
+    }
+    if(!AttributesComponent)
+    {
+        UE_LOG(LogTemp, Error, TEXT("AttributesComponent is nullptr."));
+    }
+    if(!XPComponent)
+    {
+        UE_LOG(LogTemp, Error, TEXT("XPComponent is nullptr."));
+    }
+    if(!HealthComponent)
+    {
+        UE_LOG(LogTemp, Error, TEXT("HealthComponent is nullptr."));
+    }   
+
     UpdateSecondaryAttributes();
 }
 
@@ -136,7 +154,8 @@ float ABaseCharacterPlayable::CalculateCarryWeight()
     
     if(InventoryComponent && AttributesComponent && XPComponent)
     {
-        CarryWeightTotal = InventoryComponent->CarryWeightBaseCapacity + AttributesComponent->CalculateCarryCapPerStrength() + XPComponent->CurrentLevel * InventoryComponent->CarryWeightPerLevel;
+        UE_LOG(LogTemp, Error, TEXT("Carryweightbase (%f) + CarryweightPerStr (%f) + Currentlvl (%i) * CarryWEightPerLvl(%f)"), InventoryComponent->CarryWeightBaseCapacity, AttributesComponent->CalculateCarryCapPerStrength(), XPComponent->CurrentLevel, InventoryComponent->CarryWeightPerLevel);
+        CarryWeightTotal = InventoryComponent->CarryWeightBaseCapacity + AttributesComponent->CalculateCarryCapPerStrength() + (float)XPComponent->CurrentLevel * InventoryComponent->CarryWeightPerLevel;
     }
     else
     {
@@ -155,7 +174,6 @@ void ABaseCharacterPlayable::HandleLevelUpProcess()
 
 void ABaseCharacterPlayable::UpdateSecondaryAttributes() 
 {
-    UE_LOG(LogTemp, Warning, TEXT("Healthcomponent pinged to update HP. "));
     CalculateCarryWeight();
     if(HealthComponent !=nullptr)
     {
@@ -163,7 +181,7 @@ void ABaseCharacterPlayable::UpdateSecondaryAttributes()
     }
     else
     {
-        UE_LOG(LogTemp, Error, TEXT("Healthcomponent is nullptr."))
+        UE_LOG(LogTemp, Error, TEXT("Healthcomponent is nullptr."));
     }
 }
 

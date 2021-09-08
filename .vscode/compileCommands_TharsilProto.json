@@ -1,177 +1,177 @@
 [
 	{
 		"file": "D:\\\\C plus plus projects\\\\TharsilProto\\\\Source\\\\TharsilProto\\\\Characters\\\\BaseCharacter.cpp",
-		"command": "cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.182.rsp\"",
-		"directory": "G:\\Games\\UE_4.26\\Engine\\Source"
+		"command": "D:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.28.29910\\bin\\HostX64\\x64\\cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.202.rsp\"",
+		"directory": "G:\\UnrealEngine\\UE_4.27\\Engine\\Source"
 	},
 	{
 		"file": "D:\\\\C plus plus projects\\\\TharsilProto\\\\Source\\\\TharsilProto\\\\Characters\\\\BaseCharacter.h",
-		"command": "cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.182.rsp\"",
-		"directory": "G:\\Games\\UE_4.26\\Engine\\Source"
+		"command": "D:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.28.29910\\bin\\HostX64\\x64\\cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.202.rsp\"",
+		"directory": "G:\\UnrealEngine\\UE_4.27\\Engine\\Source"
 	},
 	{
 		"file": "D:\\\\C plus plus projects\\\\TharsilProto\\\\Source\\\\TharsilProto\\\\Characters\\\\BaseCharacterNPC.cpp",
-		"command": "cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.182.rsp\"",
-		"directory": "G:\\Games\\UE_4.26\\Engine\\Source"
+		"command": "D:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.28.29910\\bin\\HostX64\\x64\\cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.202.rsp\"",
+		"directory": "G:\\UnrealEngine\\UE_4.27\\Engine\\Source"
 	},
 	{
 		"file": "D:\\\\C plus plus projects\\\\TharsilProto\\\\Source\\\\TharsilProto\\\\Characters\\\\BaseCharacterNPC.h",
-		"command": "cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.182.rsp\"",
-		"directory": "G:\\Games\\UE_4.26\\Engine\\Source"
+		"command": "D:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.28.29910\\bin\\HostX64\\x64\\cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.202.rsp\"",
+		"directory": "G:\\UnrealEngine\\UE_4.27\\Engine\\Source"
 	},
 	{
 		"file": "D:\\\\C plus plus projects\\\\TharsilProto\\\\Source\\\\TharsilProto\\\\Characters\\\\BaseCharacterPlayable.cpp",
-		"command": "cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.182.rsp\"",
-		"directory": "G:\\Games\\UE_4.26\\Engine\\Source"
+		"command": "D:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.28.29910\\bin\\HostX64\\x64\\cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.202.rsp\"",
+		"directory": "G:\\UnrealEngine\\UE_4.27\\Engine\\Source"
 	},
 	{
 		"file": "D:\\\\C plus plus projects\\\\TharsilProto\\\\Source\\\\TharsilProto\\\\Characters\\\\BaseCharacterPlayable.h",
-		"command": "cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.182.rsp\"",
-		"directory": "G:\\Games\\UE_4.26\\Engine\\Source"
+		"command": "D:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.28.29910\\bin\\HostX64\\x64\\cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.202.rsp\"",
+		"directory": "G:\\UnrealEngine\\UE_4.27\\Engine\\Source"
 	},
 	{
 		"file": "D:\\\\C plus plus projects\\\\TharsilProto\\\\Source\\\\TharsilProto\\\\Components\\\\AttributesComponent.cpp",
-		"command": "cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.182.rsp\"",
-		"directory": "G:\\Games\\UE_4.26\\Engine\\Source"
+		"command": "D:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.28.29910\\bin\\HostX64\\x64\\cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.202.rsp\"",
+		"directory": "G:\\UnrealEngine\\UE_4.27\\Engine\\Source"
 	},
 	{
 		"file": "D:\\\\C plus plus projects\\\\TharsilProto\\\\Source\\\\TharsilProto\\\\Components\\\\AttributesComponent.h",
-		"command": "cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.182.rsp\"",
-		"directory": "G:\\Games\\UE_4.26\\Engine\\Source"
+		"command": "D:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.28.29910\\bin\\HostX64\\x64\\cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.202.rsp\"",
+		"directory": "G:\\UnrealEngine\\UE_4.27\\Engine\\Source"
 	},
 	{
 		"file": "D:\\\\C plus plus projects\\\\TharsilProto\\\\Source\\\\TharsilProto\\\\Components\\\\DefensiveCalculatorComponent.cpp",
-		"command": "cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.182.rsp\"",
-		"directory": "G:\\Games\\UE_4.26\\Engine\\Source"
+		"command": "D:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.28.29910\\bin\\HostX64\\x64\\cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.202.rsp\"",
+		"directory": "G:\\UnrealEngine\\UE_4.27\\Engine\\Source"
 	},
 	{
 		"file": "D:\\\\C plus plus projects\\\\TharsilProto\\\\Source\\\\TharsilProto\\\\Components\\\\DefensiveCalculatorComponent.h",
-		"command": "cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.182.rsp\"",
-		"directory": "G:\\Games\\UE_4.26\\Engine\\Source"
+		"command": "D:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.28.29910\\bin\\HostX64\\x64\\cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.202.rsp\"",
+		"directory": "G:\\UnrealEngine\\UE_4.27\\Engine\\Source"
 	},
 	{
 		"file": "D:\\\\C plus plus projects\\\\TharsilProto\\\\Source\\\\TharsilProto\\\\Components\\\\ExperienceComponent.cpp",
-		"command": "cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.182.rsp\"",
-		"directory": "G:\\Games\\UE_4.26\\Engine\\Source"
+		"command": "D:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.28.29910\\bin\\HostX64\\x64\\cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.202.rsp\"",
+		"directory": "G:\\UnrealEngine\\UE_4.27\\Engine\\Source"
 	},
 	{
 		"file": "D:\\\\C plus plus projects\\\\TharsilProto\\\\Source\\\\TharsilProto\\\\Components\\\\ExperienceComponent.h",
-		"command": "cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.182.rsp\"",
-		"directory": "G:\\Games\\UE_4.26\\Engine\\Source"
+		"command": "D:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.28.29910\\bin\\HostX64\\x64\\cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.202.rsp\"",
+		"directory": "G:\\UnrealEngine\\UE_4.27\\Engine\\Source"
 	},
 	{
 		"file": "D:\\\\C plus plus projects\\\\TharsilProto\\\\Source\\\\TharsilProto\\\\Components\\\\HealthComponent.cpp",
-		"command": "cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.182.rsp\"",
-		"directory": "G:\\Games\\UE_4.26\\Engine\\Source"
+		"command": "D:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.28.29910\\bin\\HostX64\\x64\\cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.202.rsp\"",
+		"directory": "G:\\UnrealEngine\\UE_4.27\\Engine\\Source"
 	},
 	{
 		"file": "D:\\\\C plus plus projects\\\\TharsilProto\\\\Source\\\\TharsilProto\\\\Components\\\\HealthComponent.h",
-		"command": "cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.182.rsp\"",
-		"directory": "G:\\Games\\UE_4.26\\Engine\\Source"
+		"command": "D:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.28.29910\\bin\\HostX64\\x64\\cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.202.rsp\"",
+		"directory": "G:\\UnrealEngine\\UE_4.27\\Engine\\Source"
 	},
 	{
 		"file": "D:\\\\C plus plus projects\\\\TharsilProto\\\\Source\\\\TharsilProto\\\\Components\\\\InventoryComponent.cpp",
-		"command": "cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.182.rsp\"",
-		"directory": "G:\\Games\\UE_4.26\\Engine\\Source"
+		"command": "D:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.28.29910\\bin\\HostX64\\x64\\cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.202.rsp\"",
+		"directory": "G:\\UnrealEngine\\UE_4.27\\Engine\\Source"
 	},
 	{
 		"file": "D:\\\\C plus plus projects\\\\TharsilProto\\\\Source\\\\TharsilProto\\\\Components\\\\InventoryComponent.h",
-		"command": "cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.182.rsp\"",
-		"directory": "G:\\Games\\UE_4.26\\Engine\\Source"
+		"command": "D:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.28.29910\\bin\\HostX64\\x64\\cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.202.rsp\"",
+		"directory": "G:\\UnrealEngine\\UE_4.27\\Engine\\Source"
 	},
 	{
 		"file": "D:\\\\C plus plus projects\\\\TharsilProto\\\\Source\\\\TharsilProto\\\\Components\\\\LineTraceWorldComponent.cpp",
-		"command": "cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.182.rsp\"",
-		"directory": "G:\\Games\\UE_4.26\\Engine\\Source"
+		"command": "D:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.28.29910\\bin\\HostX64\\x64\\cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.202.rsp\"",
+		"directory": "G:\\UnrealEngine\\UE_4.27\\Engine\\Source"
 	},
 	{
 		"file": "D:\\\\C plus plus projects\\\\TharsilProto\\\\Source\\\\TharsilProto\\\\Components\\\\LineTraceWorldComponent.h",
-		"command": "cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.182.rsp\"",
-		"directory": "G:\\Games\\UE_4.26\\Engine\\Source"
+		"command": "D:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.28.29910\\bin\\HostX64\\x64\\cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.202.rsp\"",
+		"directory": "G:\\UnrealEngine\\UE_4.27\\Engine\\Source"
 	},
 	{
 		"file": "D:\\\\C plus plus projects\\\\TharsilProto\\\\Source\\\\TharsilProto\\\\Components\\\\OffensiveCalculatorComponent.cpp",
-		"command": "cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.182.rsp\"",
-		"directory": "G:\\Games\\UE_4.26\\Engine\\Source"
+		"command": "D:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.28.29910\\bin\\HostX64\\x64\\cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.202.rsp\"",
+		"directory": "G:\\UnrealEngine\\UE_4.27\\Engine\\Source"
 	},
 	{
 		"file": "D:\\\\C plus plus projects\\\\TharsilProto\\\\Source\\\\TharsilProto\\\\Components\\\\OffensiveCalculatorComponent.h",
-		"command": "cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.182.rsp\"",
-		"directory": "G:\\Games\\UE_4.26\\Engine\\Source"
+		"command": "D:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.28.29910\\bin\\HostX64\\x64\\cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.202.rsp\"",
+		"directory": "G:\\UnrealEngine\\UE_4.27\\Engine\\Source"
 	},
 	{
 		"file": "D:\\\\C plus plus projects\\\\TharsilProto\\\\Source\\\\TharsilProto\\\\DataAssets\\\\DA_CraftingMaterial.cpp",
-		"command": "cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.182.rsp\"",
-		"directory": "G:\\Games\\UE_4.26\\Engine\\Source"
+		"command": "D:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.28.29910\\bin\\HostX64\\x64\\cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.202.rsp\"",
+		"directory": "G:\\UnrealEngine\\UE_4.27\\Engine\\Source"
 	},
 	{
 		"file": "D:\\\\C plus plus projects\\\\TharsilProto\\\\Source\\\\TharsilProto\\\\DataAssets\\\\DA_CraftingMaterial.h",
-		"command": "cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.182.rsp\"",
-		"directory": "G:\\Games\\UE_4.26\\Engine\\Source"
+		"command": "D:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.28.29910\\bin\\HostX64\\x64\\cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.202.rsp\"",
+		"directory": "G:\\UnrealEngine\\UE_4.27\\Engine\\Source"
 	},
 	{
 		"file": "D:\\\\C plus plus projects\\\\TharsilProto\\\\Source\\\\TharsilProto\\\\DataAssets\\\\DA_PrimarySkillLine.cpp",
-		"command": "cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.182.rsp\"",
-		"directory": "G:\\Games\\UE_4.26\\Engine\\Source"
+		"command": "D:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.28.29910\\bin\\HostX64\\x64\\cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.202.rsp\"",
+		"directory": "G:\\UnrealEngine\\UE_4.27\\Engine\\Source"
 	},
 	{
 		"file": "D:\\\\C plus plus projects\\\\TharsilProto\\\\Source\\\\TharsilProto\\\\DataAssets\\\\DA_PrimarySkillLine.h",
-		"command": "cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.182.rsp\"",
-		"directory": "G:\\Games\\UE_4.26\\Engine\\Source"
+		"command": "D:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.28.29910\\bin\\HostX64\\x64\\cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.202.rsp\"",
+		"directory": "G:\\UnrealEngine\\UE_4.27\\Engine\\Source"
 	},
 	{
 		"file": "D:\\\\C plus plus projects\\\\TharsilProto\\\\Source\\\\TharsilProto\\\\DataAssets\\\\Items\\\\DA_ItemBase.cpp",
-		"command": "cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.182.rsp\"",
-		"directory": "G:\\Games\\UE_4.26\\Engine\\Source"
+		"command": "D:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.28.29910\\bin\\HostX64\\x64\\cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.202.rsp\"",
+		"directory": "G:\\UnrealEngine\\UE_4.27\\Engine\\Source"
 	},
 	{
 		"file": "D:\\\\C plus plus projects\\\\TharsilProto\\\\Source\\\\TharsilProto\\\\DataAssets\\\\Items\\\\DA_ItemBase.h",
-		"command": "cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.182.rsp\"",
-		"directory": "G:\\Games\\UE_4.26\\Engine\\Source"
+		"command": "D:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.28.29910\\bin\\HostX64\\x64\\cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.202.rsp\"",
+		"directory": "G:\\UnrealEngine\\UE_4.27\\Engine\\Source"
 	},
 	{
 		"file": "D:\\\\C plus plus projects\\\\TharsilProto\\\\Source\\\\TharsilProto\\\\Interactions\\\\InteractableBase.cpp",
-		"command": "cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.182.rsp\"",
-		"directory": "G:\\Games\\UE_4.26\\Engine\\Source"
+		"command": "D:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.28.29910\\bin\\HostX64\\x64\\cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.202.rsp\"",
+		"directory": "G:\\UnrealEngine\\UE_4.27\\Engine\\Source"
 	},
 	{
 		"file": "D:\\\\C plus plus projects\\\\TharsilProto\\\\Source\\\\TharsilProto\\\\Interactions\\\\InteractableBase.h",
-		"command": "cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.182.rsp\"",
-		"directory": "G:\\Games\\UE_4.26\\Engine\\Source"
+		"command": "D:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.28.29910\\bin\\HostX64\\x64\\cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.202.rsp\"",
+		"directory": "G:\\UnrealEngine\\UE_4.27\\Engine\\Source"
 	},
 	{
 		"file": "D:\\\\C plus plus projects\\\\TharsilProto\\\\Source\\\\TharsilProto\\\\Interactions\\\\InteractionInterface.cpp",
-		"command": "cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.182.rsp\"",
-		"directory": "G:\\Games\\UE_4.26\\Engine\\Source"
+		"command": "D:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.28.29910\\bin\\HostX64\\x64\\cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.202.rsp\"",
+		"directory": "G:\\UnrealEngine\\UE_4.27\\Engine\\Source"
 	},
 	{
 		"file": "D:\\\\C plus plus projects\\\\TharsilProto\\\\Source\\\\TharsilProto\\\\Interactions\\\\InteractionInterface.h",
-		"command": "cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.182.rsp\"",
-		"directory": "G:\\Games\\UE_4.26\\Engine\\Source"
+		"command": "D:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.28.29910\\bin\\HostX64\\x64\\cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.202.rsp\"",
+		"directory": "G:\\UnrealEngine\\UE_4.27\\Engine\\Source"
 	},
 	{
 		"file": "D:\\\\C plus plus projects\\\\TharsilProto\\\\Source\\\\TharsilProto\\\\TharsilProto.Build.cs",
-		"command": "cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.182.rsp\"",
-		"directory": "G:\\Games\\UE_4.26\\Engine\\Source"
+		"command": "D:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.28.29910\\bin\\HostX64\\x64\\cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.202.rsp\"",
+		"directory": "G:\\UnrealEngine\\UE_4.27\\Engine\\Source"
 	},
 	{
 		"file": "D:\\\\C plus plus projects\\\\TharsilProto\\\\Source\\\\TharsilProto\\\\TharsilProto.cpp",
-		"command": "cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.182.rsp\"",
-		"directory": "G:\\Games\\UE_4.26\\Engine\\Source"
+		"command": "D:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.28.29910\\bin\\HostX64\\x64\\cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.202.rsp\"",
+		"directory": "G:\\UnrealEngine\\UE_4.27\\Engine\\Source"
 	},
 	{
 		"file": "D:\\\\C plus plus projects\\\\TharsilProto\\\\Source\\\\TharsilProto\\\\TharsilProto.h",
-		"command": "cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.182.rsp\"",
-		"directory": "G:\\Games\\UE_4.26\\Engine\\Source"
+		"command": "D:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.28.29910\\bin\\HostX64\\x64\\cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.202.rsp\"",
+		"directory": "G:\\UnrealEngine\\UE_4.27\\Engine\\Source"
 	},
 	{
 		"file": "D:\\\\C plus plus projects\\\\TharsilProto\\\\Source\\\\TharsilProto\\\\TharsilProtoGameModeBase.cpp",
-		"command": "cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.182.rsp\"",
-		"directory": "G:\\Games\\UE_4.26\\Engine\\Source"
+		"command": "D:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.28.29910\\bin\\HostX64\\x64\\cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.202.rsp\"",
+		"directory": "G:\\UnrealEngine\\UE_4.27\\Engine\\Source"
 	},
 	{
 		"file": "D:\\\\C plus plus projects\\\\TharsilProto\\\\Source\\\\TharsilProto\\\\TharsilProtoGameModeBase.h",
-		"command": "cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.182.rsp\"",
-		"directory": "G:\\Games\\UE_4.26\\Engine\\Source"
+		"command": "D:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.28.29910\\bin\\HostX64\\x64\\cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.202.rsp\"",
+		"directory": "G:\\UnrealEngine\\UE_4.27\\Engine\\Source"
 	}
 ]

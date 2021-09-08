@@ -22,6 +22,7 @@ void UInventoryComponent::BeginPlay()
 	Super::BeginPlay();
 
 	Owner->GetOwner();
+	InventorySlotsTotal = 20;
 	InventorySlotsUsed = 0;
 	CarryWeightCurrent = 0;
 	CalculateCarryCapacity();
@@ -79,6 +80,10 @@ float UInventoryComponent::CalculateCarryCapacity()
 	if(Owner)
 	{
 		CarryWeightTotalCapacity = Owner->CalculateCarryWeight();
+	}
+	else
+	{
+		UE_LOG(LogTemp, Error, TEXT("Owner of InventoryComponent is nullptr."));
 	}
 	
 	return CarryWeightTotalCapacity;
