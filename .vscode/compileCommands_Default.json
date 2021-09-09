@@ -150,6 +150,16 @@
 		"directory": "G:\\UnrealEngine\\UE_4.27\\Engine\\Source"
 	},
 	{
+		"file": "D:\\\\C plus plus projects\\\\TharsilProto\\\\Source\\\\TharsilProto\\\\ObjectsAndItems\\\\ItemBaseActor.cpp",
+		"command": "D:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.28.29910\\bin\\HostX64\\x64\\cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_Default\\TharsilProto.202.rsp\"",
+		"directory": "G:\\UnrealEngine\\UE_4.27\\Engine\\Source"
+	},
+	{
+		"file": "D:\\\\C plus plus projects\\\\TharsilProto\\\\Source\\\\TharsilProto\\\\ObjectsAndItems\\\\ItemBaseActor.h",
+		"command": "D:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.28.29910\\bin\\HostX64\\x64\\cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_Default\\TharsilProto.202.rsp\"",
+		"directory": "G:\\UnrealEngine\\UE_4.27\\Engine\\Source"
+	},
+	{
 		"file": "D:\\\\C plus plus projects\\\\TharsilProto\\\\Source\\\\TharsilProto\\\\TharsilProto.Build.cs",
 		"command": "D:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.28.29910\\bin\\HostX64\\x64\\cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_Default\\TharsilProto.202.rsp\"",
 		"directory": "G:\\UnrealEngine\\UE_4.27\\Engine\\Source"

@@ -3,22 +3,29 @@
 
 #include "DA_ItemBase.h"
 #include "TharsilProto/DataAssets/DA_CraftingMaterial.h"
-#include "TharsilProto/Characters/BaseCharacter.h"
+#include "Internationalization/Text.h"
+#include "Containers/UnrealString.h"
+
 
 UDA_ItemBase::UDA_ItemBase() 
 {
+    DefineItemName();
+}
+
+FText UDA_ItemBase::DefineItemName() 
+{
+    FString Space = " ";
+    FString Name = PrimaryCraftingMaterial->MaterialName + Space + ItemType;
     
+    ItemDisplayName = FText::AsCultureInvariant(Name);
+    return ItemDisplayName;
 }
 
-class UWorld* UDA_ItemBase::GetWorld() const
-{
-    return World;
-}
 
-float UDA_ItemBase::CalculateItemValue() //NEEDS TO BE FLESHED OUT WITH FULL CALCULATION.
+float UDA_ItemBase::CalculateBaseItemValue() //NEEDS TO BE FLESHED OUT WITH FULL CALCULATION.
 {
-    int32 QualityRatingValue = (int32)QualityRating;
-    return QualityRatingValue;
+    
+    return BaseItemValue;
 }
 
 float UDA_ItemBase::CalculateItemWeight() //NEEDS TO BE FLESHED OUT WITH FULL CALCULATION.
@@ -26,7 +33,4 @@ float UDA_ItemBase::CalculateItemWeight() //NEEDS TO BE FLESHED OUT WITH FULL CA
     return 0;
 }
 
-void UDA_ItemBase::UseItem(ABaseCharacter* Character) 
-{
-    
-}
+
