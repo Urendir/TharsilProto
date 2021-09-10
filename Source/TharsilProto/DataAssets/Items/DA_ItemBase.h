@@ -21,7 +21,7 @@ public:
 
 	/**What is this? a pot? a bow? a cart?*/
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Item Descriptors")
-	FString ItemType;
+	FString ItemType = "ItemType";
 
 	/**This is the name that will be shown in the inventory*/
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Item Descriptors")

@@ -10,8 +10,7 @@
 // Sets default values
 AItemBaseActor::AItemBaseActor()
 {
-	ItemWeight = 0;
-	ItemValue = 0;
+
 
 }
 
