@@ -4,7 +4,8 @@
 #include "BaseCharacter.h"
 #include "TharsilProto/Components/HealthComponent.h"
 #include "TharsilProto/Components/InventoryComponent.h"
-#include "TharsilProto/DataAssets/Items/DA_ItemBase.h"
+#include "TharsilProto/InventoryItems/InventoryItemBase.h"
+#include "TharsilProto/Interactions/InteractablePickupItem.h"
 
 // Sets default values
 ABaseCharacter::ABaseCharacter()
@@ -63,7 +64,7 @@ void ABaseCharacter::HandleIncomingDamage(float IncomingTotalDamage)
 	
 }
 
-void ABaseCharacter::UseItem(UDA_ItemBase* Item) 
+void ABaseCharacter::UseItem(UInventoryItemBase* Item) 
 {
 	Item->UseItem(this);
 }

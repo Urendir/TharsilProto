@@ -4,6 +4,8 @@
 #include "InventoryComponent.h"
 #include "TharsilProto/DataAssets/Items/DA_ItemBase.h"
 #include "TharsilProto/Characters/BaseCharacter.h"
+#include "TharsilProto/Interactions/InteractablePickupItem.h"
+#include "TharsilProto/InventoryItems/InventoryItemBase.h"
 
 // Sets default values for this component's properties
 UInventoryComponent::UInventoryComponent()
@@ -28,7 +30,7 @@ void UInventoryComponent::BeginPlay()
 	CarryWeightTotalCapacity = CarryWeightBaseCapacity;
 }
 
-bool UInventoryComponent::AddItemToInventory(UDA_ItemBase* Item) 
+bool UInventoryComponent::AddItemToInventory(UInventoryItemBase* Item) 
 {
 	if(!Item)
 	{
@@ -58,7 +60,7 @@ bool UInventoryComponent::AddItemToInventory(UDA_ItemBase* Item)
 	}
 }
 
-bool UInventoryComponent::RemoveFromInventory(UDA_ItemBase* Item) 
+bool UInventoryComponent::RemoveFromInventory(UInventoryItemBase* Item) 
 {
 	if(Item)
 	{
