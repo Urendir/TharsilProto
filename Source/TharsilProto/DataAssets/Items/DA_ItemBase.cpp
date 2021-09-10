@@ -17,8 +17,8 @@ class UWorld* UDA_ItemBase::GetWorld() const
 
 float UDA_ItemBase::CalculateItemValue() //NEEDS TO BE FLESHED OUT WITH FULL CALCULATION.
 {
-    int32 QualityRatingValue = (int32)QualityRating;
-    return QualityRatingValue;
+   
+    return 0;
 }
 
 float UDA_ItemBase::CalculateItemWeight() //NEEDS TO BE FLESHED OUT WITH FULL CALCULATION.

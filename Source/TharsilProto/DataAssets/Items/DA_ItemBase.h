@@ -25,20 +25,20 @@ class ABaseCharacter;
 // };
 
 
-UENUM(BlueprintType)
-enum class EQualityRating : uint8
-{
-	E_Default = 0		UMETA(DisplayName = "Default"),
-	E_Inferior = 1		UMETA(DisplayName = "Inferior"),
-	E_Basic	= 2			UMETA(DisplayName = "Basic"),
-	E_Common = 3		UMETA(DisplayName = "Common"),
-	E_Good = 4			UMETA(DisplayName = "Good"),
-	E_Fine = 5			UMETA(DisplayName = "Fine"),
-	E_Superior = 6		UMETA(DisplayName = "Superior"),
-	E_Exquisite	= 7		UMETA(DisplayName = "Exquisite"),
-	E_Unique = 8		UMETA(DisplayName = "Unique"),
-	E_Legendary = 9		UMETA(DisplayName = "Legendary"),
-};
+// UENUM(BlueprintType)
+// enum class EQualityRating : uint8
+// {
+// 	E_Default = 0		UMETA(DisplayName = "Default"),
+// 	E_Inferior = 1		UMETA(DisplayName = "Inferior"),
+// 	E_Basic	= 2			UMETA(DisplayName = "Basic"),
+// 	E_Common = 3		UMETA(DisplayName = "Common"),
+// 	E_Good = 4			UMETA(DisplayName = "Good"),
+// 	E_Fine = 5			UMETA(DisplayName = "Fine"),
+// 	E_Superior = 6		UMETA(DisplayName = "Superior"),
+// 	E_Exquisite	= 7		UMETA(DisplayName = "Exquisite"),
+// 	E_Unique = 8		UMETA(DisplayName = "Unique"),
+// 	E_Legendary = 9		UMETA(DisplayName = "Legendary"),
+// };
 
 class UInventoryComponent;
 class UWorld;
@@ -85,9 +85,9 @@ public:
 	// EItemQuality Quality;
 
 
-	/**Selects the quality of the Item, influencing its value*/
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Item Descriptors")	
-	EQualityRating QualityRating;		
+	// /**Selects the quality of the Item, influencing its value*/
+	// UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Item Descriptors")	
+	// EQualityRating QualityRating;		
 
 	/**The amount of weight the item will use in the inventory*/
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item Descriptors")
