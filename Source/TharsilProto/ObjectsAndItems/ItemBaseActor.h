@@ -46,27 +46,14 @@ public:
 
 	/**Selects the quality of the Item, influencing its value*/
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Item Descriptors")	
-	EQualityRating QualityRating;	
+	EQualityRating QualityRating = EQualityRating::E_Default;	
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Item Descriptors")
 	UDA_ItemBase* ItemBaseData;
 
-	/**The amount of weight the item will use in the inventory*/
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Item Descriptors")
-	float ItemWeight;
+	FString ItemType = "ItemType";
 
-	/**The monetary value of the item*/
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Item Descriptors")
-	float ItemValue;
-
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Item Descriptors");
-	UInventoryComponent* OwningInventory;
-
-protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
-
-public:
 	/**This is the name that will be shown in the inventory*/
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Item Descriptors")
 	FText ItemDisplayName;
@@ -84,6 +71,24 @@ public:
 	/**Material Primarily used in crafting this object. E.g. for a Sword, it would be steel. For a spear, it would be wood. */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Item Descriptors")
 	UDA_CraftingMaterial* PrimaryCraftingMaterial;
+
+	/**The amount of weight the item will use in the inventory*/
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Item Descriptors")
+	float ItemWeight;
+
+	/**The monetary value of the item*/
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Item Descriptors")
+	float ItemValue;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Item Descriptors");
+	UInventoryComponent* OwningInventory;
+
+protected:
+	// Called when the game starts or when spawned
+	virtual void BeginPlay() override;
+
+public:
+	
 
 
 	UFUNCTION(BlueprintCallable)

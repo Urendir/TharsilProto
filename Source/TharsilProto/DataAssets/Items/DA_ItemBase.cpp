@@ -9,7 +9,10 @@
 
 UDA_ItemBase::UDA_ItemBase() 
 {
-    DefineItemName();
+    ItemType = "ItemType";
+    MaterialUnitsUsed = 1;
+    ItemWeight = 1;
+    BaseItemValue = 1;
 }
 
 FText UDA_ItemBase::DefineItemName() 
