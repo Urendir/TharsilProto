@@ -11,7 +11,7 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FCharacterDeathDelegate, int32, XPTo
 
 class UHealthComponent;
 class UInventoryComponent;
-class AItemBaseActor;
+class UDA_ItemBase;
 
 UCLASS()
 class THARSILPROTO_API ABaseCharacter : public ACharacter
@@ -72,7 +72,7 @@ public:
 	virtual void HandleIncomingDamage(float IncomingTotalDamage);
 
 	UFUNCTION(BlueprintCallable, Category = "Item Interaction")
-	void UseItem(AItemBaseActor* Item);
+	void UseItem(UDA_ItemBase* Item);
 
 
 };

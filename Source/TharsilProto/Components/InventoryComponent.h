@@ -8,7 +8,7 @@
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnInventoryUpdated);
 
-class AItemBaseActor;
+class UDA_ItemBase;
 class ABaseCharacter;
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
@@ -45,11 +45,11 @@ public:
 //--------------------INVENTORY ARRAY -----------------------
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-	TArray<AItemBaseActor*> InventoryItems;
+	TArray<UDA_ItemBase*> InventoryItems;
 
 //-----------------INVENTORY MANAGEMENT FUNCTIONS-------------------------
-	bool AddItemToInventory(AItemBaseActor* Item);
-	bool RemoveFromInventory(AItemBaseActor* Item);
+	bool AddItemToInventory(UDA_ItemBase* Item);
+	bool RemoveFromInventory(UDA_ItemBase* Item);
 
 	void UpdateCarryCapacity(float NewValue);
 
