@@ -3,30 +3,29 @@
 
 #include "DA_ItemBase.h"
 #include "TharsilProto/DataAssets/DA_CraftingMaterial.h"
-#include "TharsilProto/Characters/BaseCharacter.h"
+
 
 UDA_ItemBase::UDA_ItemBase() 
 {
     
 }
 
-class UWorld* UDA_ItemBase::GetWorld() const
+float UDA_ItemBase::CalculateBaseItemValue() //NEEDS TO BE FLESHED OUT WITH FULL CALCULATION.
 {
-    return World;
-}
-
-float UDA_ItemBase::CalculateItemValue() //NEEDS TO BE FLESHED OUT WITH FULL CALCULATION.
-{
-   
-    return 0;
-}
-
-float UDA_ItemBase::CalculateItemWeight() //NEEDS TO BE FLESHED OUT WITH FULL CALCULATION.
-{
-    return 0;
-}
-
-void UDA_ItemBase::UseItem(ABaseCharacter* Character) 
-{
+    float BaseItemValue = PrimaryCraftingMaterial->GetPricePerUnit() * MaterialUnitsUsed;
+    UE_LOG(LogTemp, Warning, TEXT("The BaseItem Value is: %f"), BaseItemValue);
     
+    return BaseItemValue;
 }
+
+float UDA_ItemBase::CalculateBaseItemWeight() //NEEDS TO BE FLESHED OUT WITH FULL CALCULATION.
+{
+    return 0;
+}
+
+float UDA_ItemBase::CalculateBaseItemDurability() 
+{
+    ItemBaseDurability = PrimaryCraftingMaterial->DurabilityPerUnit * MaterialUnitsUsed * DurabilityModifier;
+    return ItemBaseDurability;
+}
+

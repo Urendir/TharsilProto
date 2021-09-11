@@ -3,15 +3,21 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "TharsilProto/DataAssets/Items/DA_ItemBase.h"
+#include "TharsilProto/Interactions/InteractionInterface.h"
 #include "UObject/NoExportTypes.h"
 #include "InventoryItemBase.generated.h"
+
+
+
+//------------------------------------ This Enum Allows for Quality Selection--------------------------------
 
 UENUM(BlueprintType)
 enum class EQualityRating : uint8
 {
 	E_Default = 0		UMETA(DisplayName = "Default"),
 	E_Inferior = 1		UMETA(DisplayName = "Inferior"),
-	E_Basic	= 2			UMETA(DisplayName = "Basic"),
+	E_Lesser = 2		UMETA(DisplayName = "Lesser"),
 	E_Common = 3		UMETA(DisplayName = "Common"),
 	E_Good = 4			UMETA(DisplayName = "Good"),
 	E_Fine = 5			UMETA(DisplayName = "Fine"),
@@ -26,12 +32,17 @@ class UInventoryComponent;
 class UWorld;
 class ABaseCharacter;
 class AInteractablePickupItem;
+class UDA_ItemBase;
 
 
 UCLASS(Blueprintable)
 class THARSILPROTO_API UInventoryItemBase : public UObject
 {
 	GENERATED_BODY()
+
+protected:
+	// Called when the game starts or when spawned
+	virtual void BeginPlay();	
 
 public:
 	UInventoryItemBase();
@@ -42,42 +53,53 @@ public:
 	UWorld* World;
 
 	/**This is the name that will be shown in the inventory*/
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item Descriptors")
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Item Descriptors")
 	FText ItemDisplayName;
 	
 	/**This is an optional description for the item*/
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Item Descriptors", meta = (MultiLine = true))
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Item Descriptors", meta = (MultiLine = true))
 	FText ItemDescription;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Item Descriptors")
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Item Descriptors")
 	UTexture2D* Thumbnail;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Item Descriptors")
-	UStaticMesh* PickupMesh;	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Referenced Items")
+	UDA_ItemBase* BaseItem;
 
-	/**One unit = 1000 cubic centimeters, so a cube with 10cm on each side*/
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Item Descriptors")	
-	float MaterialUnitsUsed;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Item Descriptors")  //This will be used once we drop items back into the world. 
+	TSubclassOf<AInteractablePickupItem> PickupItem;
+
+	AInteractablePickupItem* PickupItemReference;	
 
 	/**Selects the quality of the Item, influencing its value*/
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Item Descriptors")	
 	EQualityRating QualityRating;		
 
 	/**The amount of weight the item will use in the inventory*/
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item Descriptors")
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Item Descriptors")
 	float ItemWeight;
+
+	/**The maximum durability score of the item*/
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Item Descriptors")
+	float ItemDurability;	
 
 	/**The Inventory This item will belong to*/
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Item Descriptors")
 	UInventoryComponent* OwningInventory;
 
 	/**The monetary value of the item*/
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item Descriptors")
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Item Descriptors")
 	float ItemValue;
 
+	float QualityModifierWeight;
+	float QualityModifierValue;
+	float QualityModifierDurability;
 
-	float CalculateItemValue();
-	float CalculateItemWeight();
+	void InitializeItemValues();
+	void CalculateQualityModifiers();
+	float CalculateTotalItemValue();
+	float CalculateTotalItemWeight();
+	float CalculateTotalItemDurability();
 
 	UFUNCTION(BlueprintCallable)
 	virtual void UseItem(ABaseCharacter* Character);

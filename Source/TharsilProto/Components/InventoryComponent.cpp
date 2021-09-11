@@ -4,6 +4,7 @@
 #include "InventoryComponent.h"
 #include "TharsilProto/InventoryItems/InventoryItemBase.h"
 #include "TharsilProto/Characters/BaseCharacter.h"
+#include "GameFramework/Actor.h"
 
 // Sets default values for this component's properties
 UInventoryComponent::UInventoryComponent()
@@ -28,25 +29,28 @@ void UInventoryComponent::BeginPlay()
 	CarryWeightTotalCapacity = CarryWeightBaseCapacity;
 }
 
-bool UInventoryComponent::AddItemToInventory(UInventoryItemBase* Item) 
+bool UInventoryComponent::AddItemToInventory(TSubclassOf<UInventoryItemBase> Item) 
 {
 	if(!Item)
 	{
 		return false;
 	}
-	if(Item->ItemWeight + CarryWeightCurrent < CarryWeightTotalCapacity && InventorySlotsUsed < InventorySlotsTotal)
+
+	ThisInventoryItem = Cast<UInventoryItemBase>(Item);
+	
+	if(ThisInventoryItem->ItemWeight + CarryWeightCurrent < CarryWeightTotalCapacity && InventorySlotsUsed < InventorySlotsTotal)
 	{
-		Item->OwningInventory = this;
-		Item->World = GetWorld();
-		InventoryItems.Add(Item);
-		//Update UI via delegate:
-		OnInventoryUpdated.Broadcast();
+		ThisInventoryItem->OwningInventory = this;
+		ThisInventoryItem->World = GetWorld();
+		InventoryItems.Add(ThisInventoryItem);
+
+		OnInventoryUpdated.Broadcast(); 		//This will update UI via delegate:
 		InventorySlotsUsed++;
-		CarryWeightCurrent += Item->ItemWeight;
+		CarryWeightCurrent += ThisInventoryItem->ItemWeight;
 
 		return true;
 	}
-	else if(Item->ItemWeight + CarryWeightCurrent >= CarryWeightTotalCapacity && InventorySlotsUsed < InventorySlotsTotal)
+	else if(ThisInventoryItem->ItemWeight + CarryWeightCurrent >= CarryWeightTotalCapacity && InventorySlotsUsed < InventorySlotsTotal)
 	{
 		// Do something like Over-Encumber Character
 		return true;
@@ -58,17 +62,19 @@ bool UInventoryComponent::AddItemToInventory(UInventoryItemBase* Item)
 	}
 }
 
-bool UInventoryComponent::RemoveFromInventory(UInventoryItemBase* Item) 
+bool UInventoryComponent::RemoveFromInventory(TSubclassOf<UInventoryItemBase> Item) 
 {
 	if(Item)
 	{
-		Item->OwningInventory = nullptr;
-		Item->World = nullptr;
-		InventoryItems.RemoveSingle(Item);
-		//Update UI via delegate:
-		OnInventoryUpdated.Broadcast();
+		ThisInventoryItem = Cast<UInventoryItemBase>(Item);
+
+		ThisInventoryItem->OwningInventory = nullptr;
+		ThisInventoryItem->World = nullptr;
+		InventoryItems.RemoveSingle(ThisInventoryItem);
+
+		OnInventoryUpdated.Broadcast(); 		//This will update UI via delegate:
 		InventorySlotsUsed--;
-		CarryWeightCurrent -= Item->ItemWeight;
+		CarryWeightCurrent -= ThisInventoryItem->ItemWeight;
 
 		return true;
 	}

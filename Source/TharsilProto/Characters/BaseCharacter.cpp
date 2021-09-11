@@ -63,9 +63,10 @@ void ABaseCharacter::HandleIncomingDamage(float IncomingTotalDamage)
 	
 }
 
-void ABaseCharacter::UseItem(UInventoryItemBase* Item) 
+void ABaseCharacter::UseItem(TSubclassOf<UInventoryItemBase> Item) 
 {
-	Item->UseItem(this);
+	ThisInventoryItem = Cast<UInventoryItemBase>(Item);
+	ThisInventoryItem->UseItem(this);
 }
 
 

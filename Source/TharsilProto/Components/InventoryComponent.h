@@ -44,12 +44,14 @@ public:
 
 //--------------------INVENTORY ARRAY -----------------------
 
+	UInventoryItemBase* ThisInventoryItem; //This is used to ensure the proper usage of "Item" in the Add and Remove functions.
+
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	TArray<UInventoryItemBase*> InventoryItems;
 
 //-----------------INVENTORY MANAGEMENT FUNCTIONS-------------------------
-	bool AddItemToInventory(UInventoryItemBase* Item);
-	bool RemoveFromInventory(UInventoryItemBase* Item);
+	bool AddItemToInventory(TSubclassOf<UInventoryItemBase> Item);
+	bool RemoveFromInventory(TSubclassOf<UInventoryItemBase> Item);
 
 	void UpdateCarryCapacity(float NewValue);
 

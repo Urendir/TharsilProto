@@ -7,42 +7,7 @@
 #include "DA_ItemBase.generated.h"
 
 class UDA_CraftingMaterial;
-class ABaseCharacter;
 
-//------------------------------------ This Enum Allows for Quality Selection--------------------------------
-// UENUM(BlueprintType)  
-// enum class EItemQuality : uint8
-// {
-// 	E_Default 		UMETA(DisplayName ="Default"),
-// 	E_Inferior		UMETA(DisplayName ="Inferior"),
-// 	E_Basic			UMETA(DisplayName ="Basic"),
-// 	E_Common		UMETA(DisplayName ="Common"),
-// 	E_Good			UMETA(DisplayName ="Good"),
-// 	E_Fine			UMETA(DisplayName ="Fine"),
-// 	E_Superior		UMETA(DisplayName ="Superior"),
-// 	E_Exquisite		UMETA(DisplayName ="Exquisite"),
-// 	E_Unique		UMETA(DisplayName ="Unique"),
-// };
-
-
-// UENUM(BlueprintType)
-// enum class EQualityRating : uint8
-// {
-// 	E_Default = 0		UMETA(DisplayName = "Default"),
-// 	E_Inferior = 1		UMETA(DisplayName = "Inferior"),
-// 	E_Basic	= 2			UMETA(DisplayName = "Basic"),
-// 	E_Common = 3		UMETA(DisplayName = "Common"),
-// 	E_Good = 4			UMETA(DisplayName = "Good"),
-// 	E_Fine = 5			UMETA(DisplayName = "Fine"),
-// 	E_Superior = 6		UMETA(DisplayName = "Superior"),
-// 	E_Exquisite	= 7		UMETA(DisplayName = "Exquisite"),
-// 	E_Unique = 8		UMETA(DisplayName = "Unique"),
-// 	E_Legendary = 9		UMETA(DisplayName = "Legendary"),
-// };
-
-class UInventoryComponent;
-class UWorld;
-class ABaseCharacter;
 
 UCLASS()
 class THARSILPROTO_API UDA_ItemBase : public UDataAsset
@@ -53,10 +18,6 @@ public:
 	
 	UDA_ItemBase();
 
-	virtual class UWorld* GetWorld() const;
-
-	UPROPERTY(Transient)
-	UWorld* World;
 
 	/**This is the name that will be shown in the inventory*/
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item Descriptors")
@@ -80,31 +41,24 @@ public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Item Descriptors")	
 	float MaterialUnitsUsed;
 
-	// /**Selects the quality of the Item, influencing its value*/
-	// UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Item Descriptors")	
-	// EItemQuality Quality;
-
-
-	// /**Selects the quality of the Item, influencing its value*/
-	// UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Item Descriptors")	
-	// EQualityRating QualityRating;		
-
 	/**The amount of weight the item will use in the inventory*/
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item Descriptors")
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Item Descriptors")
 	float ItemWeight;
 
-	/**The monetary value of the item*/
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item Descriptors")
+	/**The monetary value of the base item*/
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Item Descriptors")
 	float ItemValue;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Item Descriptors");
-	UInventoryComponent* OwningInventory;
+	/**The max durability value of the base item*/
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Item Descriptors")
+	float ItemBaseDurability;
 
-	float CalculateItemValue();
-	float CalculateItemWeight();
+	float DurabilityModifier = 0.8f;
 
-	UFUNCTION(BlueprintCallable)
-	virtual void UseItem(ABaseCharacter* Character);
+	float CalculateBaseItemValue();
+	float CalculateBaseItemWeight();
+	float CalculateBaseItemDurability();
+
 
 
 

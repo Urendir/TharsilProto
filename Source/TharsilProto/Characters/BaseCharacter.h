@@ -35,6 +35,8 @@ public:
 
 	UPROPERTY(BlueprintAssignable)
 	FCharacterDeathDelegate CharacterDeathDelegate;
+
+	UInventoryItemBase* ThisInventoryItem;
 	
 	//TO DO : THIS SHOULD BE MOVED TO THE XP COMPONENT!
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components", meta = (AllowPrivateAccess = "true"))
@@ -72,7 +74,7 @@ public:
 	virtual void HandleIncomingDamage(float IncomingTotalDamage);
 
 	UFUNCTION(BlueprintCallable, Category = "Item Interaction")
-	void UseItem(UInventoryItemBase* Item);
+	void UseItem(TSubclassOf<UInventoryItemBase> Item);
 
 
 };

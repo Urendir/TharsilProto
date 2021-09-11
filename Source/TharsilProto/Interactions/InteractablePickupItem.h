@@ -5,6 +5,8 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "TharsilProto/Interactions/InteractionInterface.h"
+#include "TharsilProto/DataAssets/Items/DA_ItemBase.h"
+#include "GameFramework/Actor.h"
 #include "InteractablePickupItem.generated.h"
 
 
@@ -13,9 +15,9 @@ class ABaseCharacter;
 class UInventoryItemBase;
 class UWorld;
 class ABaseCharacter;
+class UDA_ItemBase;
 
-
-UCLASS()
+UCLASS(Blueprintable)
 class THARSILPROTO_API AInteractablePickupItem : public AActor, public IInteractionInterface
 {
 	GENERATED_BODY()
@@ -36,19 +38,24 @@ public:
 	// UWorld* World;
 
 	/**This is the name that will be shown in the inventory*/
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item Descriptors")
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Item Descriptors")
 	FText ItemDisplayName;
 	
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Item Descriptors")
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Item Descriptors")
 	UStaticMesh* PickupMesh;	
 
 	/**The amount of weight the item will use in the inventory*/
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item Descriptors")
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Item Descriptors")
 	float ItemWeight;
 
 	/**The Inventory Element for this Item*/
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item Descriptors")
-	UInventoryItemBase* InventoryItem;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Referenced Items")
+	TSubclassOf<UInventoryItemBase> InventoryItem;
+
+	UInventoryItemBase* ThisInventoryItem;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Referenced Items")
+	UDA_ItemBase* BaseItem;
 
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category= "Interaction")
 	void OnInteract(AActor* Caller);

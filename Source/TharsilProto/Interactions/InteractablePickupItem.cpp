@@ -10,6 +10,20 @@
 // Sets default values
 AInteractablePickupItem::AInteractablePickupItem()
 {
+	if(BaseItem)
+	{
+		ItemDisplayName = BaseItem->ItemDisplayName;
+		PickupMesh = BaseItem->PickupMesh;
+	}
+
+	
+
+	if(InventoryItem)
+	{
+		ThisInventoryItem = Cast<UInventoryItemBase>(InventoryItem);
+		ItemWeight = ThisInventoryItem->CalculateTotalItemWeight();
+	}
+
 }
 
 // Called when the game starts or when spawned
