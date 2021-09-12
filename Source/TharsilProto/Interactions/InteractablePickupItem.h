@@ -6,7 +6,6 @@
 #include "GameFramework/Actor.h"
 #include "TharsilProto/Interactions/InteractionInterface.h"
 #include "TharsilProto/DataAssets/Items/DA_ItemBase.h"
-#include "GameFramework/Actor.h"
 #include "InteractablePickupItem.generated.h"
 
 

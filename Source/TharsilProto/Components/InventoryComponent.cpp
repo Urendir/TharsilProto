@@ -58,8 +58,10 @@ bool UInventoryComponent::AddItemToInventory(TSubclassOf<UInventoryItemBase> Ite
 		ThisInventoryItem->World = GetWorld();
 		InventoryItems.Add(ThisInventoryItem);
 		InventorySlotsUsed++;
+
+		UE_LOG(LogTemp, Error, TEXT("'ThisInventoryItem' item weight to be added to inventory is: %f."), ThisInventoryItem->ItemWeight);
 		CarryWeightCurrent += ThisInventoryItem->ItemWeight;
-		
+		UE_LOG(LogTemp, Error, TEXT("Current CarryWeight: %f."), CarryWeightCurrent);
 		OnInventoryUpdated.Broadcast(); 		//This will update UI via delegate:
 
 		return true;

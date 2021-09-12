@@ -10,17 +10,17 @@ UDA_ItemBase::UDA_ItemBase()
     
 }
 
-float UDA_ItemBase::CalculateBaseItemValue() //NEEDS TO BE FLESHED OUT WITH FULL CALCULATION.
+float UDA_ItemBase::CalculateBaseItemValue() 
 {
     float BaseItemValue = PrimaryCraftingMaterial->GetPricePerUnit() * MaterialUnitsUsed;
-    UE_LOG(LogTemp, Warning, TEXT("The BaseItem Value is: %f"), BaseItemValue);
     
     return BaseItemValue;
 }
 
-float UDA_ItemBase::CalculateBaseItemWeight() //NEEDS TO BE FLESHED OUT WITH FULL CALCULATION.
+float UDA_ItemBase::CalculateBaseItemWeight() 
 {
-    return 0;
+    ItemWeight = PrimaryCraftingMaterial->WeightPerUnit * MaterialUnitsUsed;
+    return ItemWeight;
 }
 
 float UDA_ItemBase::CalculateBaseItemDurability() 

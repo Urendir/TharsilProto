@@ -75,7 +75,7 @@ public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Item Descriptors")	
 	EQualityRating QualityRating;	
 
-	TEnumAsByte<EQualityRating> QualityVariable;	
+	// TEnumAsByte<EQualityRating> QualityVariable;	
 
 	/**The amount of weight the item will use in the inventory*/
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Item Descriptors")

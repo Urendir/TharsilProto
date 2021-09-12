@@ -9,7 +9,12 @@
 
 UInventoryItemBase::UInventoryItemBase() 
 {
-    if(BaseItem)
+
+}
+
+void UInventoryItemBase::BeginPlay() 
+{
+    if (BaseItem)
     {
         InitializeItemValues();
     }
@@ -19,25 +24,15 @@ UInventoryItemBase::UInventoryItemBase()
     }
 }
 
-void UInventoryItemBase::BeginPlay() 
-{
-    //InitializeItemValues();
-}
-
 void UInventoryItemBase::InitializeItemValues() 
 {
-    UE_LOG(LogTemp, Error, TEXT("InitializeItemValues was called"));
     CalculateQualityModifiers(); 
-
-	ItemDisplayName = BaseItem->ItemDisplayName;
+  	ItemDisplayName = BaseItem->ItemDisplayName;
     ItemDescription = BaseItem->ItemDescription;
 	Thumbnail = BaseItem->Thumbnail;
     CalculateTotalItemDurability();
     CalculateTotalItemWeight();
     CalculateTotalItemValue();
-    UE_LOG(LogTemp, Error, TEXT("InitializeItemValues has gone through all the functions."));
-
-
 }
 
 
@@ -48,38 +43,37 @@ class UWorld* UInventoryItemBase::GetWorld() const
 
 void UInventoryItemBase::CalculateQualityModifiers() 
 {
-
-    if(QualityRating = EQualityRating::E_Inferior)
+    if(QualityRating == EQualityRating::E_Inferior)
     {
         QualityModifierWeight = 1.5f;
         QualityModifierValue = 0.6f;
         QualityModifierDurability = 0.5f;
     }
-    else if(QualityRating = EQualityRating::E_Lesser)
+    else if(QualityRating == EQualityRating::E_Lesser)
     {
         QualityModifierWeight = 1.3f;
         QualityModifierValue = 0.8f;
         QualityModifierDurability = 0.75f;  
     }
-    else if(QualityRating = EQualityRating::E_Common)
+    else if(QualityRating == EQualityRating::E_Common)
     {
         QualityModifierWeight = 1.0f;
         QualityModifierValue = 1.0f;
         QualityModifierDurability = 1.0f;        
     }
-    else if(QualityRating = EQualityRating::E_Good)
+    else if(QualityRating == EQualityRating::E_Good)
     {
         QualityModifierWeight = 0.9f;
         QualityModifierValue = 1.2f;
         QualityModifierDurability = 1.5f;       
     }  
-    else if(QualityRating = EQualityRating::E_Fine)
+    else if(QualityRating == EQualityRating::E_Fine)
     {
         QualityModifierWeight = 0.8f;
         QualityModifierValue = 1.75f;
         QualityModifierDurability = 2.0f;    
     }    
-    else if(QualityRating = EQualityRating::E_Exquisite)
+    else if(QualityRating == EQualityRating::E_Exquisite)
     {
         QualityModifierWeight = 0.75f;
         QualityModifierValue = 2.5f;
@@ -130,6 +124,7 @@ float UInventoryItemBase::CalculateTotalItemWeight()
     UE_LOG(LogTemp, Error, TEXT("QualityModifier for Weight is: %f"), QualityModifierWeight);
     ItemWeight = BaseItem->CalculateBaseItemWeight() * QualityModifierWeight;
 
+    UE_LOG(LogTemp, Error, TEXT("Weight is: %f"), ItemWeight);
     return ItemWeight;
 }
 

@@ -12,14 +12,7 @@
 AInteractablePickupItem::AInteractablePickupItem()
 {
 	StaticMeshItem = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("PickupMesh"));
-	// RootComponent = StaticMeshItem;
-
-	if(BaseItem)
-	{
-		ItemDisplayName = BaseItem->ItemDisplayName;
-		PickupMesh = BaseItem->PickupMesh;
-		StaticMeshItem->SetStaticMesh(PickupMesh);
-	}
+	RootComponent = StaticMeshItem;
 
 }
 
@@ -42,7 +35,9 @@ void AInteractablePickupItem::BeginPlay()
 		{
 			UE_LOG(LogTemp, Error, TEXT("Error retrieving 'Inventory Item' from within interactablePickup, when trying to calculate Item Weight"));
 		}
-		ItemWeight = ThisInventoryItem->CalculateTotalItemWeight();
+		
+		ThisInventoryItem->InitializeItemValues();
+		ItemWeight = ThisInventoryItem->ItemWeight;
 
 	}
 	
