@@ -6,22 +6,19 @@
 #include "TharsilProto/DataAssets/Items/DA_ItemBase.h"
 #include "TharsilProto/InventoryItems/InventoryItemBase.h"
 #include "TharsilProto/Components/InventoryComponent.h"
+#include "Components/StaticMeshComponent.h"
 
 // Sets default values
 AInteractablePickupItem::AInteractablePickupItem()
 {
+	StaticMeshItem = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("PickupMesh"));
+	// RootComponent = StaticMeshItem;
+
 	if(BaseItem)
 	{
 		ItemDisplayName = BaseItem->ItemDisplayName;
 		PickupMesh = BaseItem->PickupMesh;
-	}
-
-	
-
-	if(InventoryItem)
-	{
-		ThisInventoryItem = Cast<UInventoryItemBase>(InventoryItem);
-		ItemWeight = ThisInventoryItem->CalculateTotalItemWeight();
+		StaticMeshItem->SetStaticMesh(PickupMesh);
 	}
 
 }
@@ -31,6 +28,24 @@ void AInteractablePickupItem::BeginPlay()
 {
 	Super::BeginPlay();
 
+	if(BaseItem)
+	{
+		ItemDisplayName = BaseItem->ItemDisplayName;
+		PickupMesh = BaseItem->PickupMesh;
+		StaticMeshItem->SetStaticMesh(PickupMesh);
+	}
+
+	if(InventoryItem)
+	{
+		ThisInventoryItem = InventoryItem->GetDefaultObject<UInventoryItemBase>();
+		if(!ThisInventoryItem)
+		{
+			UE_LOG(LogTemp, Error, TEXT("Error retrieving 'Inventory Item' from within interactablePickup, when trying to calculate Item Weight"));
+		}
+		ItemWeight = ThisInventoryItem->CalculateTotalItemWeight();
+
+	}
+	
 }
 
 // class UWorld* AInteractablePickupItem::GetWorld() const
@@ -45,7 +60,8 @@ void AInteractablePickupItem::OnInteract_Implementation(AActor* Caller)
 	if(InteractingCharacter)
 	{
 		InteractingCharacter->InventoryComponent->AddItemToInventory(InventoryItem);
-		Destroy();
+		//Destroy();
+		StaticMeshItem->SetStaticMesh(nullptr);
 	}
 
 }

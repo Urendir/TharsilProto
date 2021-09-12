@@ -16,6 +16,8 @@ class UInventoryItemBase;
 class UWorld;
 class ABaseCharacter;
 class UDA_ItemBase;
+class UStaticMeshComponent;
+class UCapsuleComponent;
 
 UCLASS(Blueprintable)
 class THARSILPROTO_API AInteractablePickupItem : public AActor, public IInteractionInterface
@@ -36,6 +38,10 @@ public:
 
 	// UPROPERTY(Transient)
 	// UWorld* World;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Item Descriptors")
+	UStaticMeshComponent* StaticMeshItem;
+
 
 	/**This is the name that will be shown in the inventory*/
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Item Descriptors")

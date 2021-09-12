@@ -17,14 +17,14 @@ enum class EQualityRating : uint8
 {
 	E_Default = 0		UMETA(DisplayName = "Default"),
 	E_Inferior = 1		UMETA(DisplayName = "Inferior"),
-	E_Lesser = 2		UMETA(DisplayName = "Lesser"),
-	E_Common = 3		UMETA(DisplayName = "Common"),
-	E_Good = 4			UMETA(DisplayName = "Good"),
-	E_Fine = 5			UMETA(DisplayName = "Fine"),
-	E_Superior = 6		UMETA(DisplayName = "Superior"),
+	E_Lesser	= 2		UMETA(DisplayName = "Lesser"),
+	E_Common	= 3		UMETA(DisplayName = "Common"),
+	E_Good		= 4		UMETA(DisplayName = "Good"),
+	E_Fine		= 5		UMETA(DisplayName = "Fine"),
+	E_Superior	= 6		UMETA(DisplayName = "Superior"),
 	E_Exquisite	= 7		UMETA(DisplayName = "Exquisite"),
-	E_Unique = 8		UMETA(DisplayName = "Unique"),
-	E_Legendary = 9		UMETA(DisplayName = "Legendary"),
+	E_Unique	= 8		UMETA(DisplayName = "Unique"),
+	E_Legendary	= 9		UMETA(DisplayName = "Legendary"),
 };
 
 class ABaseCharacter;
@@ -63,33 +63,35 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Item Descriptors")
 	UTexture2D* Thumbnail;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Referenced Items")
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Referenced Items")
 	UDA_ItemBase* BaseItem;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Item Descriptors")  //This will be used once we drop items back into the world. 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Referenced items")  //This will be used once we drop items back into the world. 
 	TSubclassOf<AInteractablePickupItem> PickupItem;
 
 	AInteractablePickupItem* PickupItemReference;	
 
 	/**Selects the quality of the Item, influencing its value*/
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Item Descriptors")	
-	EQualityRating QualityRating;		
+	EQualityRating QualityRating;	
+
+	TEnumAsByte<EQualityRating> QualityVariable;	
 
 	/**The amount of weight the item will use in the inventory*/
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Item Descriptors")
-	float ItemWeight;
+	float ItemWeight = 1.0f;
 
 	/**The maximum durability score of the item*/
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Item Descriptors")
-	float ItemDurability;	
+	float ItemDurability = 1.0f;	
+
+	/**The monetary value of the item*/
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Item Descriptors")
+	float ItemValue = 1.0f;
 
 	/**The Inventory This item will belong to*/
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Item Descriptors")
 	UInventoryComponent* OwningInventory;
-
-	/**The monetary value of the item*/
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Item Descriptors")
-	float ItemValue;
 
 	float QualityModifierWeight;
 	float QualityModifierValue;

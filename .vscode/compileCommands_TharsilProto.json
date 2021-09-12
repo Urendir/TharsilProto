@@ -140,12 +140,42 @@
 		"directory": "G:\\UnrealEngine\\UE_4.27\\Engine\\Source"
 	},
 	{
+		"file": "D:\\\\C plus plus projects\\\\TharsilProto\\\\Source\\\\TharsilProto\\\\Interactions\\\\InteractablePickupItem.cpp",
+		"command": "D:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.28.29910\\bin\\HostX64\\x64\\cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.202.rsp\"",
+		"directory": "G:\\UnrealEngine\\UE_4.27\\Engine\\Source"
+	},
+	{
+		"file": "D:\\\\C plus plus projects\\\\TharsilProto\\\\Source\\\\TharsilProto\\\\Interactions\\\\InteractablePickupItem.h",
+		"command": "D:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.28.29910\\bin\\HostX64\\x64\\cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.202.rsp\"",
+		"directory": "G:\\UnrealEngine\\UE_4.27\\Engine\\Source"
+	},
+	{
 		"file": "D:\\\\C plus plus projects\\\\TharsilProto\\\\Source\\\\TharsilProto\\\\Interactions\\\\InteractionInterface.cpp",
 		"command": "D:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.28.29910\\bin\\HostX64\\x64\\cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.202.rsp\"",
 		"directory": "G:\\UnrealEngine\\UE_4.27\\Engine\\Source"
 	},
 	{
 		"file": "D:\\\\C plus plus projects\\\\TharsilProto\\\\Source\\\\TharsilProto\\\\Interactions\\\\InteractionInterface.h",
+		"command": "D:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.28.29910\\bin\\HostX64\\x64\\cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.202.rsp\"",
+		"directory": "G:\\UnrealEngine\\UE_4.27\\Engine\\Source"
+	},
+	{
+		"file": "D:\\\\C plus plus projects\\\\TharsilProto\\\\Source\\\\TharsilProto\\\\InventoryItems\\\\InventoryItemBase.cpp",
+		"command": "D:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.28.29910\\bin\\HostX64\\x64\\cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.202.rsp\"",
+		"directory": "G:\\UnrealEngine\\UE_4.27\\Engine\\Source"
+	},
+	{
+		"file": "D:\\\\C plus plus projects\\\\TharsilProto\\\\Source\\\\TharsilProto\\\\InventoryItems\\\\InventoryItemBase.h",
+		"command": "D:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.28.29910\\bin\\HostX64\\x64\\cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.202.rsp\"",
+		"directory": "G:\\UnrealEngine\\UE_4.27\\Engine\\Source"
+	},
+	{
+		"file": "D:\\\\C plus plus projects\\\\TharsilProto\\\\Source\\\\TharsilProto\\\\InventoryItems\\\\InventoryTestItem.cpp",
+		"command": "D:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.28.29910\\bin\\HostX64\\x64\\cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.202.rsp\"",
+		"directory": "G:\\UnrealEngine\\UE_4.27\\Engine\\Source"
+	},
+	{
+		"file": "D:\\\\C plus plus projects\\\\TharsilProto\\\\Source\\\\TharsilProto\\\\InventoryItems\\\\InventoryTestItem.h",
 		"command": "D:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.28.29910\\bin\\HostX64\\x64\\cl.exe @\"D:\\C plus plus projects\\TharsilProto\\.vscode\\compileCommands_TharsilProto\\TharsilProto.202.rsp\"",
 		"directory": "G:\\UnrealEngine\\UE_4.27\\Engine\\Source"
 	},

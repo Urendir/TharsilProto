@@ -4,6 +4,7 @@
 #include "InventoryComponent.h"
 #include "TharsilProto/InventoryItems/InventoryItemBase.h"
 #include "TharsilProto/Characters/BaseCharacter.h"
+#include "Containers/Array.h"
 #include "GameFramework/Actor.h"
 
 // Sets default values for this component's properties
@@ -36,23 +37,31 @@ bool UInventoryComponent::AddItemToInventory(TSubclassOf<UInventoryItemBase> Ite
 		return false;
 	}
 
-	ThisInventoryItem = Cast<UInventoryItemBase>(Item);
+	//ThisInventoryItem = Cast<UInventoryItemBase>(Item); //this stupid cast doesn't wanna work!
+	ThisInventoryItem = Item->GetDefaultObject<UInventoryItemBase>();
+
+	if(!ThisInventoryItem)
+	{
+		UE_LOG(LogTemp, Error, TEXT("Error retrieving 'ThisInventoryItem' to be added to Inventory"));
+		return false;
+	}
 	
-	if(ThisInventoryItem->ItemWeight + CarryWeightCurrent < CarryWeightTotalCapacity && InventorySlotsUsed < InventorySlotsTotal)
+	if(ThisInventoryItem->ItemWeight + CarryWeightCurrent >= CarryWeightTotalCapacity && InventorySlotsUsed < InventorySlotsTotal)
+	{
+		// Do something like Over-Encumber Character
+		UE_LOG(LogTemp, Error, TEXT("Character Is Overencumbered"));
+		return true;
+	}
+	else if(ThisInventoryItem->ItemWeight + CarryWeightCurrent < CarryWeightTotalCapacity && InventorySlotsUsed < InventorySlotsTotal)
 	{
 		ThisInventoryItem->OwningInventory = this;
 		ThisInventoryItem->World = GetWorld();
 		InventoryItems.Add(ThisInventoryItem);
-
-		OnInventoryUpdated.Broadcast(); 		//This will update UI via delegate:
 		InventorySlotsUsed++;
 		CarryWeightCurrent += ThisInventoryItem->ItemWeight;
+		
+		OnInventoryUpdated.Broadcast(); 		//This will update UI via delegate:
 
-		return true;
-	}
-	else if(ThisInventoryItem->ItemWeight + CarryWeightCurrent >= CarryWeightTotalCapacity && InventorySlotsUsed < InventorySlotsTotal)
-	{
-		// Do something like Over-Encumber Character
 		return true;
 	}
 	else

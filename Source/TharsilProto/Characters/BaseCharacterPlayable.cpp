@@ -88,8 +88,6 @@ void ABaseCharacterPlayable::InteractWithItem()
             InteractionInterface->Execute_OnInteract(CurrentlyFocusedActor, this);
         }        
     }
-
-
 }
 
 void ABaseCharacterPlayable::LineTraceForwardForInteraction_Implementation() 
