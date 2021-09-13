@@ -46,22 +46,23 @@ bool UInventoryComponent::AddItemToInventory(TSubclassOf<UInventoryItemBase> Ite
 		return false;
 	}
 	
-	if(ThisInventoryItem->ItemWeight + CarryWeightCurrent >= CarryWeightTotalCapacity && InventorySlotsUsed < InventorySlotsTotal)
+	if(InventorySlotsUsed < InventorySlotsTotal)
 	{
-		// Do something like Over-Encumber Character
-		UE_LOG(LogTemp, Error, TEXT("Character Is Overencumbered"));
-		return true;
-	}
-	else if(ThisInventoryItem->ItemWeight + CarryWeightCurrent < CarryWeightTotalCapacity && InventorySlotsUsed < InventorySlotsTotal)
-	{
+		CarryWeightCurrent += ThisInventoryItem->ItemWeight;
+		UE_LOG(LogTemp, Error, TEXT("Current CarryWeight: %f."), CarryWeightCurrent);
+
+		if (CarryWeightCurrent >= CarryWeightTotalCapacity)
+		{
+			Owner->HandleCharacterSlowedEffect(true);
+			UE_LOG(LogTemp, Error, TEXT("Character Is Overencumbered"));
+		}
+
+		UE_LOG(LogTemp, Error, TEXT("'ThisInventoryItem' item weight to be added to inventory is: %f."), ThisInventoryItem->ItemWeight);
+
 		ThisInventoryItem->OwningInventory = this;
 		ThisInventoryItem->World = GetWorld();
 		InventoryItems.Add(ThisInventoryItem);
 		InventorySlotsUsed++;
-
-		UE_LOG(LogTemp, Error, TEXT("'ThisInventoryItem' item weight to be added to inventory is: %f."), ThisInventoryItem->ItemWeight);
-		CarryWeightCurrent += ThisInventoryItem->ItemWeight;
-		UE_LOG(LogTemp, Error, TEXT("Current CarryWeight: %f."), CarryWeightCurrent);
 		OnInventoryUpdated.Broadcast(); 		//This will update UI via delegate:
 
 		return true;
@@ -86,6 +87,11 @@ bool UInventoryComponent::RemoveFromInventory(TSubclassOf<UInventoryItemBase> It
 		OnInventoryUpdated.Broadcast(); 		//This will update UI via delegate:
 		InventorySlotsUsed--;
 		CarryWeightCurrent -= ThisInventoryItem->ItemWeight;
+
+		if (CarryWeightCurrent < CarryWeightTotalCapacity)
+		{
+			Owner->HandleCharacterSlowedEffect(false);
+		}
 
 		return true;
 	}

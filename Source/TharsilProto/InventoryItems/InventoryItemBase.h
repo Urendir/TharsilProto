@@ -52,9 +52,13 @@ public:
 	UPROPERTY(Transient)
 	UWorld* World;
 
+	bool bValuesAreInitialized;
+
 	/**This is the name that will be shown in the inventory*/
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Item Descriptors")
-	FText ItemDisplayName;
+	FString ItemDisplayName;
+
+	FString QualityPrefix;
 	
 	/**This is an optional description for the item*/
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Item Descriptors", meta = (MultiLine = true))
@@ -72,7 +76,7 @@ public:
 	AInteractablePickupItem* PickupItemReference;	
 
 	/**Selects the quality of the Item, influencing its value*/
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Item Descriptors")	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item Descriptors")	
 	EQualityRating QualityRating;	
 
 	// TEnumAsByte<EQualityRating> QualityVariable;	

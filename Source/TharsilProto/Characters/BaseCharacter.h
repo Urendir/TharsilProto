@@ -12,6 +12,7 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FCharacterDeathDelegate, int32, XPTo
 class UHealthComponent;
 class UInventoryComponent;
 class UInventoryItemBase;
+class UCharacterMovementComponent;
 
 UCLASS()
 class THARSILPROTO_API ABaseCharacter : public ACharacter
@@ -50,11 +51,24 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components", meta = (AllowPrivateAccess = "true"))
 	UInventoryComponent* InventoryComponent;
 
+	UCharacterMovementComponent* MovementComponent;
+
 	//--------------------------------------Component Influencing Variables and Functions---------------------------------
 
 	virtual void CalculateCarryWeight();
 
-	//------------------------------------Booleans for character state-------------------------------------
+	UFUNCTION(BlueprintCallable) 
+	void SaveCharacterSpeedValues(); //This is used to restore Slow effects to health values. Should be calculated on each attribute point redistribution, to account for speed buffs from Agility.
+
+	//------------------------------------Variables for character state-------------------------------------
+
+	float SavedMaxWalkSpeed;
+	float SavedMaxWalkSpeedCrouched;
+	float SavedMaxSwimSpeed;
+	float SavedMaxFlySpeed;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Character Stats", meta = (AllowPrivateAccess = "true"))
+	bool bIsCharacterSlowed = false;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Character Stats", meta = (AllowPrivateAccess = "true"))
 	bool bIsCharacterDead = false;
@@ -65,6 +79,9 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Combat", meta = (AllowPrivateAccess = "true"))
 	bool IsAttacking = false;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Combat", meta = (AllowPrivateAccess = "true"))
+	float SlowDebuffValue = 3; //This influences how much a slowdebuff (like overencumberance) will reduce movement speed. Default is 3, so walk speed will be 600/3 = 200.
+
 	//-------------------------------------Character state change and Interaction Functions----------------------------------	
 
 	UFUNCTION(BlueprintCallable)
@@ -73,8 +90,12 @@ public:
 	UFUNCTION(BlueprintCallable)
 	virtual void HandleIncomingDamage(float IncomingTotalDamage);
 
+
+	UFUNCTION(BlueprintCallable)
+	virtual void HandleCharacterSlowedEffect(bool bIsSlowed);
+
 	UFUNCTION(BlueprintCallable, Category = "Item Interaction")
 	void UseItem(TSubclassOf<UInventoryItemBase> Item);
 
-
+	
 };

@@ -21,7 +21,7 @@ public:
 
 	/**This is the name that will be shown in the inventory*/
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item Descriptors")
-	FText ItemDisplayName;
+	FString ItemDisplayName;
 	
 	/**This is an optional description for the item*/
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Item Descriptors", meta = (MultiLine = true))

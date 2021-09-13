@@ -5,6 +5,7 @@
 #include "TharsilProto/Components/HealthComponent.h"
 #include "TharsilProto/Components/InventoryComponent.h"
 #include "TharsilProto/InventoryItems/InventoryItemBase.h"
+#include "GameFramework/CharacterMovementComponent.h"
 
 // Sets default values
 ABaseCharacter::ABaseCharacter()
@@ -14,13 +15,15 @@ ABaseCharacter::ABaseCharacter()
 
 	HealthComponent = CreateDefaultSubobject<UHealthComponent>(TEXT("Health Component"));
 	InventoryComponent = CreateDefaultSubobject<UInventoryComponent>(TEXT("Inventory Component"));
-
+	MovementComponent = GetCharacterMovement();
 }
 
 // Called when the game starts or when spawned
 void ABaseCharacter::BeginPlay()
 {
 	Super::BeginPlay();
+
+	SaveCharacterSpeedValues();
 	if(!HealthComponent)
 	{
 		UE_LOG(LogTemp, Error, TEXT("HealthComponent failed to be created on baseCharacter class "));
@@ -61,6 +64,43 @@ void ABaseCharacter::HandleCharacterDeath()
 void ABaseCharacter::HandleIncomingDamage(float IncomingTotalDamage) 
 {
 	
+}
+
+void ABaseCharacter::SaveCharacterSpeedValues()
+{
+	if (!bIsCharacterSlowed)
+	{
+		SavedMaxWalkSpeed = MovementComponent->MaxWalkSpeed;
+		SavedMaxWalkSpeedCrouched = MovementComponent->MaxWalkSpeedCrouched;
+		SavedMaxSwimSpeed = MovementComponent->MaxSwimSpeed;
+		SavedMaxFlySpeed = MovementComponent->MaxFlySpeed;
+	}
+}
+
+void ABaseCharacter::HandleCharacterSlowedEffect(bool bIsSlowed)
+{
+
+
+	if (bIsSlowed)
+	{
+		MovementComponent->MaxWalkSpeed /= SlowDebuffValue;
+		MovementComponent->MaxWalkSpeedCrouched /= SlowDebuffValue;
+		MovementComponent->MaxSwimSpeed /= SlowDebuffValue;
+		MovementComponent->MaxFlySpeed /= SlowDebuffValue;
+		MovementComponent->SetJumpAllowed(false);
+		bIsCharacterSlowed = true;
+		
+	}
+	else
+	{
+		MovementComponent->MaxWalkSpeed = SavedMaxWalkSpeed;
+		MovementComponent->MaxWalkSpeedCrouched = SavedMaxWalkSpeedCrouched;
+		MovementComponent->MaxSwimSpeed = SavedMaxSwimSpeed;
+		MovementComponent->MaxFlySpeed = SavedMaxFlySpeed;
+		MovementComponent->SetJumpAllowed(true);
+		bIsCharacterSlowed = false;
+	}
+
 }
 
 void ABaseCharacter::UseItem(TSubclassOf<UInventoryItemBase> Item) 

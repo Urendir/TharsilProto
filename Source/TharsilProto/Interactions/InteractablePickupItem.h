@@ -38,14 +38,26 @@ public:
 	// UPROPERTY(Transient)
 	// UWorld* World;
 
+	/**The Inventory Element for this Item*/
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Referenced Items")
+	TSubclassOf<UInventoryItemBase> InventoryItem;
+
+	UInventoryItemBase* ThisInventoryItem;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Referenced Items")
+	UDA_ItemBase* BaseItem;
+
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Item Descriptors")
 	UStaticMeshComponent* StaticMeshItem;
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Item Descriptors")
+	UStaticMeshComponent* HelperMesh;
 
-	/**This is the name that will be shown in the inventory*/
+	/**This is the name that will be shown in the inventory. Determined by the Item's Data Asset.*/
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Item Descriptors")
-	FText ItemDisplayName;
-	
+	FString ItemDisplayName;
+
+	/**This is the Static Mesh that will be shown in the world. Determined by the Item's Data Asset.*/
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Item Descriptors")
 	UStaticMesh* PickupMesh;	
 
@@ -53,14 +65,6 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Item Descriptors")
 	float ItemWeight;
 
-	/**The Inventory Element for this Item*/
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Referenced Items")
-	TSubclassOf<UInventoryItemBase> InventoryItem;
-
-	UInventoryItemBase* ThisInventoryItem;
-
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Referenced Items")
-	UDA_ItemBase* BaseItem;
 
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category= "Interaction")
 	void OnInteract(AActor* Caller);
