@@ -23,7 +23,7 @@ void UInventoryComponent::BeginPlay()
 {
 	Super::BeginPlay();
 
-	Owner->GetOwner();
+	Owner = Cast<ABaseCharacter>(GetOwner());
 	InventorySlotsTotal = 20;
 	InventorySlotsUsed = 0;
 	CarryWeightCurrent = 0;
@@ -53,7 +53,11 @@ bool UInventoryComponent::AddItemToInventory(TSubclassOf<UInventoryItemBase> Ite
 
 		if (CarryWeightCurrent >= CarryWeightTotalCapacity)
 		{
-			Owner->HandleCharacterSlowedEffect(true);
+			if (Owner)
+			{
+				Owner->HandleCharacterSlowedEffect(true);
+			}
+
 			UE_LOG(LogTemp, Error, TEXT("Character Is Overencumbered"));
 		}
 
@@ -101,6 +105,14 @@ bool UInventoryComponent::RemoveFromInventory(TSubclassOf<UInventoryItemBase> It
 void UInventoryComponent::UpdateCarryCapacity(float NewValue) 
 {
 	CarryWeightTotalCapacity = NewValue;
+	if (CarryWeightTotalCapacity > CarryWeightCurrent)
+	{
+		Owner->HandleCharacterSlowedEffect(false);
+	}
+	else
+	{
+		Owner->HandleCharacterSlowedEffect(true);
+	}
 	OnInventoryUpdated.Broadcast();
 }
 

@@ -79,9 +79,11 @@ void ABaseCharacter::SaveCharacterSpeedValues()
 
 void ABaseCharacter::HandleCharacterSlowedEffect(bool bIsSlowed)
 {
+	
+	UE_LOG(LogTemp, Error, TEXT("Character Is Slowed"));
+	
 
-
-	if (bIsSlowed)
+	if (bIsSlowed && !bIsCharacterSlowed)
 	{
 		MovementComponent->MaxWalkSpeed /= SlowDebuffValue;
 		MovementComponent->MaxWalkSpeedCrouched /= SlowDebuffValue;
@@ -91,7 +93,8 @@ void ABaseCharacter::HandleCharacterSlowedEffect(bool bIsSlowed)
 		bIsCharacterSlowed = true;
 		
 	}
-	else
+	
+	if(!bIsSlowed && bIsCharacterSlowed)
 	{
 		MovementComponent->MaxWalkSpeed = SavedMaxWalkSpeed;
 		MovementComponent->MaxWalkSpeedCrouched = SavedMaxWalkSpeedCrouched;
@@ -100,7 +103,6 @@ void ABaseCharacter::HandleCharacterSlowedEffect(bool bIsSlowed)
 		MovementComponent->SetJumpAllowed(true);
 		bIsCharacterSlowed = false;
 	}
-
 }
 
 void ABaseCharacter::UseItem(TSubclassOf<UInventoryItemBase> Item) 

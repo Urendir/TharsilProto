@@ -39,11 +39,6 @@ void AInteractablePickupItem::BeginPlay()
 		ItemDisplayName = BaseItem->ItemDisplayName;
 	}
 
-	if (!InventoryItem)
-	{
-		UE_LOG(LogTemp, Error, TEXT("The InventoryItem isn't being called properly by InteractablePickupItem."));
-	}
-
 	if(InventoryItem)
 	{
 		ThisInventoryItem = InventoryItem->GetDefaultObject<UInventoryItemBase>();
@@ -73,8 +68,8 @@ void AInteractablePickupItem::OnInteract_Implementation(AActor* Caller)
 	if(InteractingCharacter)
 	{
 		InteractingCharacter->InventoryComponent->AddItemToInventory(InventoryItem);
-		//Destroy();
 		StaticMeshItem->SetStaticMesh(nullptr);  //rather than fully destroying the item now, we just make it invisible. 
+		Destroy();
 	}
 
 }
