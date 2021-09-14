@@ -89,6 +89,10 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Item Descriptors")
 	float ItemDurability = 1.0f;	
 
+	/**The current durability score of the item*/
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Item Descriptors")
+	float CurrentDurability = 1.0f;
+
 	/**The monetary value of the item*/
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Item Descriptors")
 	float ItemValue = 1.0f;

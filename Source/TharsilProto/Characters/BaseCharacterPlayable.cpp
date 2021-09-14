@@ -121,6 +121,7 @@ void ABaseCharacterPlayable::LineTraceForwardForInteraction_Implementation()
                         InteractionInterface->Execute_EndFocus(CurrentlyFocusedActor);
                     }
                 }
+
                 IInteractionInterface* InteractionInterface = Cast<IInteractionInterface>(Interactable);
                 if(InteractionInterface)
                 {

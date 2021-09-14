@@ -49,7 +49,6 @@ bool UInventoryComponent::AddItemToInventory(TSubclassOf<UInventoryItemBase> Ite
 	if(InventorySlotsUsed < InventorySlotsTotal)
 	{
 		CarryWeightCurrent += ThisInventoryItem->ItemWeight;
-		UE_LOG(LogTemp, Error, TEXT("Current CarryWeight: %f."), CarryWeightCurrent);
 
 		if (CarryWeightCurrent >= CarryWeightTotalCapacity)
 		{

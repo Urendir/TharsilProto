@@ -16,6 +16,7 @@ ABaseCharacter::ABaseCharacter()
 	HealthComponent = CreateDefaultSubobject<UHealthComponent>(TEXT("Health Component"));
 	InventoryComponent = CreateDefaultSubobject<UInventoryComponent>(TEXT("Inventory Component"));
 	MovementComponent = GetCharacterMovement();
+
 }
 
 // Called when the game starts or when spawned
@@ -23,7 +24,6 @@ void ABaseCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 
-	SaveCharacterSpeedValues();
 	if(!HealthComponent)
 	{
 		UE_LOG(LogTemp, Error, TEXT("HealthComponent failed to be created on baseCharacter class "));
@@ -32,6 +32,13 @@ void ABaseCharacter::BeginPlay()
 	{
 		UE_LOG(LogTemp, Error, TEXT("InventoryComponent failed to be created on baseCharacter class "));
 	}
+
+	bIsCharacterDead = false;
+	bIsCharacterSlowed = false;
+	IsAttacking = false;
+	HasWeaponDrawn = false;
+
+	SaveCharacterSpeedValues();
 	
 }
 
@@ -91,7 +98,6 @@ void ABaseCharacter::HandleCharacterSlowedEffect(bool bIsSlowed)
 		MovementComponent->MaxFlySpeed /= SlowDebuffValue;
 		MovementComponent->SetJumpAllowed(false);
 		bIsCharacterSlowed = true;
-		
 	}
 	
 	if(!bIsSlowed && bIsCharacterSlowed)

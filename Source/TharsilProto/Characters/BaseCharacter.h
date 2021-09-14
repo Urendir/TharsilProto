@@ -68,16 +68,16 @@ public:
 	float SavedMaxFlySpeed;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Character Stats", meta = (AllowPrivateAccess = "true"))
-	bool bIsCharacterSlowed = false;
+	bool bIsCharacterSlowed;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Character Stats", meta = (AllowPrivateAccess = "true"))
-	bool bIsCharacterDead = false;
+	bool bIsCharacterDead;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Combat", meta = (AllowPrivateAccess = "true"))
-	bool HasWeaponDrawn = false;
+	bool HasWeaponDrawn;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Combat", meta = (AllowPrivateAccess = "true"))
-	bool IsAttacking = false;
+	bool IsAttacking;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Combat", meta = (AllowPrivateAccess = "true"))
 	float SlowDebuffValue = 3; //This influences how much a slowdebuff (like overencumberance) will reduce movement speed. Default is 3, so walk speed will be 600/3 = 200.

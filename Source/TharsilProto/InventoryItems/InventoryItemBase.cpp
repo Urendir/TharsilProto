@@ -33,8 +33,10 @@ void UInventoryItemBase::InitializeItemValues()
     ItemDescription = BaseItem->ItemDescription;
 	Thumbnail = BaseItem->Thumbnail;
     CalculateTotalItemDurability();
+    CurrentDurability = ItemDurability;
     CalculateTotalItemWeight();
     CalculateTotalItemValue();
+
     if (QualityPrefix.Len() == 0)
     {
         ItemDisplayName = BaseItem->ItemDisplayName;
