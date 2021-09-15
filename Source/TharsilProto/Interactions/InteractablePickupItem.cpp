@@ -69,19 +69,21 @@ void AInteractablePickupItem::OnInteract_Implementation(AActor* Caller)
 	{
 		InteractingCharacter->InventoryComponent->AddItemToInventory(InventoryItem);
 		StaticMeshItem->SetStaticMesh(nullptr);  //rather than fully destroying the item now, we just make it invisible. 
-		Destroy();
+		//Destroy();
 	}
 
 }
 
 void AInteractablePickupItem::StartFocus_Implementation() 
 {
-	
+	GEngine->AddOnScreenDebugMessage(-1, 3.0f, FColor::Orange, TEXT("Start Focus"));
+	UE_LOG(LogTemp, Warning, TEXT("Start Focus"));
 }
 
 void AInteractablePickupItem::EndFocus_Implementation() 
 {
-	
+	GEngine->AddOnScreenDebugMessage(-1, 3.0f, FColor::Red, TEXT("End Focus"));
+	UE_LOG(LogTemp, Error, TEXT("End Focus"));
 }
 
 
