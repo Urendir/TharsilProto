@@ -73,13 +73,14 @@ public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Referenced items")  //This will be used once we drop items back into the world. 
 	TSubclassOf<AInteractablePickupItem> PickupItem;
 
-	AInteractablePickupItem* PickupItemReference;	
+	AInteractablePickupItem* PickupItemReference;						//This will be used once we drop items back into the world. 
+
+	//---------------------------------------Basic Item Descriptor Values ---------------------------------------------------
+
 
 	/**Selects the quality of the Item, influencing its value*/
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item Descriptors")	
 	EQualityRating QualityRating;	
-
-	// TEnumAsByte<EQualityRating> QualityVariable;	
 
 	/**The amount of weight the item will use in the inventory*/
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Item Descriptors")
