@@ -70,8 +70,8 @@ void AInteractablePickupItem::OnInteract_Implementation(AActor* Caller)
 	{
 		InteractingCharacter->InventoryComponent->AddItemToInventory(InventoryItem);
 		InteractingCharacter->RemoveFocusedActor();
-		StaticMeshItem->SetStaticMesh(nullptr);  //rather than fully destroying the item now, we just make it invisible. 
-		//Destroy();
+		StaticMeshItem->SetStaticMesh(nullptr);   
+		Destroy();
 	}
 
 }
