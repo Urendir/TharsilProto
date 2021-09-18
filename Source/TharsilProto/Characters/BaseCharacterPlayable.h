@@ -49,6 +49,8 @@ public:
 	UFUNCTION(BlueprintCallable)
 	virtual void CalculateCarryWeight() override;
 
+	void RemoveFocusedActor();
+
 
 private:
 

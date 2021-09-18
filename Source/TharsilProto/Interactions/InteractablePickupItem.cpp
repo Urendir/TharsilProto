@@ -3,6 +3,7 @@
 
 #include "InteractablePickupItem.h"
 #include "TharsilProto/Characters/BaseCharacter.h"
+#include "TharsilProto/Characters/BaseCharacterPlayable.h"
 #include "TharsilProto/DataAssets/Items/DA_ItemBase.h"
 #include "TharsilProto/InventoryItems/InventoryItemBase.h"
 #include "TharsilProto/Components/InventoryComponent.h"
@@ -63,11 +64,12 @@ void AInteractablePickupItem::BeginPlay()
 
 void AInteractablePickupItem::OnInteract_Implementation(AActor* Caller) 
 {
-	ABaseCharacter* InteractingCharacter = Cast<ABaseCharacter>(Caller);
+	ABaseCharacterPlayable* InteractingCharacter = Cast<ABaseCharacterPlayable>(Caller);
 	
 	if(InteractingCharacter)
 	{
 		InteractingCharacter->InventoryComponent->AddItemToInventory(InventoryItem);
+		InteractingCharacter->RemoveFocusedActor();
 		StaticMeshItem->SetStaticMesh(nullptr);  //rather than fully destroying the item now, we just make it invisible. 
 		//Destroy();
 	}

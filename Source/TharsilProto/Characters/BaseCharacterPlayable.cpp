@@ -165,6 +165,11 @@ void ABaseCharacterPlayable::CalculateCarryWeight()
     InventoryComponent->UpdateCarryCapacity(CarryWeightTotal);
 }
 
+void ABaseCharacterPlayable::RemoveFocusedActor()
+{
+    CurrentlyFocusedActor = nullptr;
+}
+
 void ABaseCharacterPlayable::HandleLevelUpProcess() 
 {
     UpdateSecondaryAttributes();
