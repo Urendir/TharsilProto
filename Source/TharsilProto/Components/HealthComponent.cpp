@@ -39,7 +39,6 @@ void UHealthComponent::TakeDamage(AActor* DamagedActor, float Damage, const clas
 	}
 
 	CurrentHealth = FMath::Clamp(CurrentHealth - Damage, 0.0f, CurrentMaxHealth);
-	UE_LOG(LogTemp, Warning, TEXT("CurrentHealth is: %f"), CurrentHealth);
 
 	if(CurrentHealth== 0)
 	{

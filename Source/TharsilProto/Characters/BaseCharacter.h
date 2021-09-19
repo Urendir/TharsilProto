@@ -12,6 +12,8 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FCharacterDeathDelegate, int32, XPTo
 class UHealthComponent;
 class UInventoryComponent;
 class UInventoryItemBase;
+class UOffensiveCalculatorComponent;
+class UDefensiveCalculatorComponent;
 class UCharacterMovementComponent;
 
 UCLASS()
@@ -50,6 +52,12 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components", meta = (AllowPrivateAccess = "true"))
 	UInventoryComponent* InventoryComponent;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components", meta = (AllowPrivateAccess = "true"))
+	UDefensiveCalculatorComponent* DefenseComponent;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components", meta = (AllowPrivateAccess = "true"))
+	UOffensiveCalculatorComponent* OffenseComponent;
 
 	UCharacterMovementComponent* MovementComponent;
 

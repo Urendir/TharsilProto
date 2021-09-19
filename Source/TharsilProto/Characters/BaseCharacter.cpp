@@ -4,6 +4,8 @@
 #include "BaseCharacter.h"
 #include "TharsilProto/Components/HealthComponent.h"
 #include "TharsilProto/Components/InventoryComponent.h"
+#include "TharsilProto/Components/DefensiveCalculatorComponent.h"
+#include "TharsilProto/Components/OffensiveCalculatorComponent.h"
 #include "TharsilProto/InventoryItems/InventoryItemBase.h"
 #include "GameFramework/CharacterMovementComponent.h"
 
@@ -15,6 +17,8 @@ ABaseCharacter::ABaseCharacter()
 
 	HealthComponent = CreateDefaultSubobject<UHealthComponent>(TEXT("Health Component"));
 	InventoryComponent = CreateDefaultSubobject<UInventoryComponent>(TEXT("Inventory Component"));
+	DefenseComponent = CreateDefaultSubobject<UDefensiveCalculatorComponent>(TEXT("Defense Component"));
+	OffenseComponent = CreateDefaultSubobject<UOffensiveCalculatorComponent>(TEXT("Offense Component"));
 	MovementComponent = GetCharacterMovement();
 
 }

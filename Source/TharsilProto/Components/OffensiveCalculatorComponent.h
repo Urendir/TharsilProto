@@ -5,9 +5,11 @@
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
 #include "TharsilProto/Characters/BaseCharacter.h"
+#include "TharsilProto/Interactions/DamageTypeStruct.h"
 #include "OffensiveCalculatorComponent.generated.h"
 
 class ABaseCharacter;
+
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class THARSILPROTO_API UOffensiveCalculatorComponent : public UActorComponent
@@ -47,8 +49,11 @@ private:
 
 public:	
 
-	void DamageCharacter(ABaseCharacter* DamageTarget );
+	FDamageTypeBreakdown DamageCollection;
+
+	void DamageCharacter(ABaseCharacter* DamageTarget, FDamageTypeBreakdown* Damage);
 
 	void DamageOwnEquipment();
+
 
 };

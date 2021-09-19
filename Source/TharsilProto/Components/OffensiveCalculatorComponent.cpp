@@ -20,11 +20,11 @@ void UOffensiveCalculatorComponent::BeginPlay()
 {
 	Super::BeginPlay();
 
-	// ...
+	
 	
 }
 
-void UOffensiveCalculatorComponent::DamageCharacter(ABaseCharacter* DamageTarget) 
+void UOffensiveCalculatorComponent::DamageCharacter(ABaseCharacter* DamageTarget, FDamageTypeBreakdown* Damage)
 {
 	
 }

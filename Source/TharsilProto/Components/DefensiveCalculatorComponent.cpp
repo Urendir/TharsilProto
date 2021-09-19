@@ -20,11 +20,24 @@ void UDefensiveCalculatorComponent::BeginPlay()
 {
 	Super::BeginPlay();
 
-	// ...
+
+		CalculateCharacterResistances(DefensiveStats);
 	
 }
 
-void UDefensiveCalculatorComponent::CalculateDamageToCharacter(float SlashDmg, float PierceDmg, float CrushDmg, float BleedChance, float KnockbackChance, ABaseCharacter* Damager) 
+void UDefensiveCalculatorComponent::CalculateCharacterResistances(FDamageTypeBreakdown Resistances)
+{
+	Resistances.SlashDmg = 5.0f;
+	Resistances.PierceDmg = 6.0f;
+	Resistances.BluntDmg = 7.0f;
+	Resistances.BleedChance = 0.053f;
+
+	UE_LOG(LogTemp, Warning, TEXT("The Resistances for %s are Slash: %f, Pierce: %f, Blunt: %f, Bleed: %f"), *GetOwner()->GetName(), Resistances.SlashDmg, Resistances.PierceDmg, Resistances.BluntDmg, Resistances.BleedChance);
+
+
+}
+
+void UDefensiveCalculatorComponent::CalculateDamageToCharacter(ABaseCharacter* ThisCharacter, ABaseCharacter* Damager, FDamageTypeBreakdown* Damage)
 {
 	
 }
