@@ -6,6 +6,14 @@
 #include "UObject/NoExportTypes.h"
 #include "DamageTypeStruct.generated.h"
 
+//-----------------------------------------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------Damage Types Struct Below ---------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------------------------------------------------------
+//-------These will be obtained from the Weapon that is equipped, as well as from any skills that grant bonuses to the various attack types------
+
 USTRUCT(BlueprintType)
 struct FDamageTypeBreakdown
 {
@@ -16,113 +24,167 @@ public:
 // -------------------------------------------------- Physical Damage Variables---------------------
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float SlashDmg;
+	float SlashDmg = 0.0f;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float BluntDmg;
+	float CrushDmg = 0.0f;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float PierceDmg;
+	float PierceDmg = 0.0f;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float BleedDmg;
+	float BleedDmg = 0.0f;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float ToxicDmg;
+	float ToxicDmg = 0.0f;
 
 // -------------------------------------------------- Magical Damage Variables---------------------
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float CorrosiveDmg;
+	float CorrosiveDmg = 0.0f;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float FireDmg;
+	float FireDmg = 0.0f;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float ColdDmg;
+	float ColdDmg = 0.0f;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float WaterDmg;
+	float WaterDmg = 0.0f;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float LightningDmg;
+	float LightningDmg = 0.0f;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float FaeDmg;
+	float FaeDmg = 0.0f;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float NecroticDmg;
+	float NecroticDmg = 0.0f;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float EtherealDmg;
+	float EtherealDmg = 0.0f;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float DarknessDmg;
+	float DarknessDmg = 0.0f;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float LightDmg;
+	float LightDmg = 0.0f;
 
 //------------------------------------------------ Status Condition Variables ----------------------
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float BleedChance;
+	float BleedChance = 0.0f;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float CrippleChance;
+	float CrippleChance = 0.0f;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float KnockdownChance;
+	float KnockdownChance = 0.0f;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float KnockbackChance;
+	float KnockbackChance = 0.0f;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float StunChance;
+	float StunChance = 0.0f;
 
 
 	FDamageTypeBreakdown()
 	{
-		SlashDmg = 0.0f;
-
-		BluntDmg = 0.0f;
-
-		PierceDmg = 0.0f;
-
-		BleedDmg = 0.0f;
-
-		ToxicDmg = 0.0f;
-
-		CorrosiveDmg = 0.0f;
-
-		FireDmg = 0.0f;
-
-		ColdDmg = 0.0f;
-
-		WaterDmg = 0.0f;
-
-		LightningDmg = 0.0f;
-
-		FaeDmg = 0.0f;
-
-		NecroticDmg = 0.0f;
-
-		EtherealDmg = 0.0f;
-
-		DarknessDmg = 0.0f;
-
-		LightDmg = 0.0f;
-
-		BleedChance = 0.0f;
-
-		CrippleChance = 0.0f;
-
-		KnockdownChance = 0.0f;
-
-		KnockbackChance = 0.0f;
-
-		StunChance = 0.0f;
-
 	};
 
 };
+
+//-----------------------------------------------------------------------------------------------------------------------------------------------
+//---------------------------------------------Defensive Damage Resistances Struct below---------------------------------------------------------
+//-----------------------------------------------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------------------------------------------------------
+//-------These will be obtained from the Armor that is equipped, as well as from any skills that grant bonuses to the various resistances--------
+
+
+USTRUCT(BlueprintType)
+struct FDamageResistanceBreakdown
+{
+	GENERATED_BODY()
+
+public:
+
+	//---------------------------- BASIC PHYSICAL ARMOR & DEFENSE STATS ------------------------------------------------------------------------
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		float SlashDefense = 0.0f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		float PierceDefense = 0.0f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		float CrushDefense = 0.0f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		float KnockbackResist = 0.0f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		float KnockdownResist = 0.0f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		float CrippleResist = 0.0f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		float StunResist = 0.0f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)		
+		float BleedResist = 0.0f;
+
+	// poison damage, spores etc.
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		float ToxinResist = 0.0f;
+
+	// high armor damage.
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		float CorrosionResist = 0.0f;
+
+	//---------------------------- MAGICAL DEFENSE STATS ------------------------------------------------------------------------
+	/*These will be obtained from the Armor that is equipped, as well as from any skills that grant bonuses to the various resistances*/
+
+		// This is supposed to be high in fire-based creatures, medium in fleshy creatures and low in dried undead, for example.
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		float FireResist = 0.0f;
+
+	// Molten creatures would be slowed by this. 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		float ColdResist = 0.0f;
+
+	// Fire creatures would be susceptible to this.
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		float WaterResist = 0.0f;
+
+	// Lightning damages living creatures and water based creatures.
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		float LightningResist = 0.0f;
+
+	// Fae damage is higher against necrotic creatures
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		float FaeResist = 0.0f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		float NecroticResist = 0.0f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		float EtherealResist = 0.0f;
+
+	//Creatures based on Darkness (shadows or other) are immune to this. Light creatures are weak.
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		float DarknessResist = 0.0f;
+
+	//Creatures based on Darness are weak to this, ones based on light are immune
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		float LightResist = 0.0f;
+
+	FDamageResistanceBreakdown()
+	{
+	};
+};
+
+
+
 

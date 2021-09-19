@@ -26,29 +26,10 @@ protected:
 
 private:	
 
-//---------------------------- BASIC ATTACK STATS ------------------------------------------------------------------------
-/*These will be obtained from the Weapon that is equipped, as well as from any skills that grant bonuses to the various modifiers*/
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Defensive Stats", meta = (AllowPrivateAccess = "true"))
-	float SlashDmg;
-
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Defensive Stats", meta = (AllowPrivateAccess = "true"))
-	float PierceDmg;
-
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Defensive Stats", meta = (AllowPrivateAccess = "true"))
-	float CrushDmg;
-
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Defensive Stats", meta = (AllowPrivateAccess = "true"))
-	float BleedChance;
-
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Defensive Stats", meta = (AllowPrivateAccess = "true"))
-	float KnockbackChance;
-
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Defensive Stats", meta = (AllowPrivateAccess = "true"))
-	float CrippleChance;
 
 public:	
-
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Offensive Stats", meta = (AllowPrivateAccess = "true"))
 	FDamageTypeBreakdown DamageCollection;
 
 	void DamageCharacter(ABaseCharacter* DamageTarget, FDamageTypeBreakdown* Damage);
