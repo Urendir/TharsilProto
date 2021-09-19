@@ -62,7 +62,7 @@ public:
 	float NecroticDmg = 0.0f;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float EtherealDmg = 0.0f;
+	float AetherealResist = 0.0f;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float DarknessDmg = 0.0f;
@@ -87,6 +87,8 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float StunChance = 0.0f;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float BlindChance = 0.0f;
 
 	FDamageTypeBreakdown()
 	{
@@ -170,7 +172,7 @@ public:
 		float NecroticResist = 0.0f;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		float EtherealResist = 0.0f;
+		float AetherealResist = 0.0f;
 
 	//Creatures based on Darkness (shadows or other) are immune to this. Light creatures are weak.
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)

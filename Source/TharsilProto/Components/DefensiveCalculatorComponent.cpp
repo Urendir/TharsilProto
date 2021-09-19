@@ -21,8 +21,11 @@ void UDefensiveCalculatorComponent::BeginPlay()
 	Super::BeginPlay();
 
 
-		CalculateCharacterResistances(DefensiveStats);
-	
+	CalculateCharacterResistances(DefensiveStats);
+	UE_LOG(LogTemp, Warning, TEXT("The Resistances for %s are Slash: %f, Pierce: %f, Blunt: %f, Bleed: %f"), *GetOwner()->GetName(), DefensiveStats.SlashDefense, DefensiveStats.PierceDefense, DefensiveStats.CrushDefense, DefensiveStats.BleedResist);
+	UE_LOG(LogTemp, Warning, TEXT("The Resistances for %s are Fae: %f, Fire: %f, Darkness: %f, Water: %f"), *GetOwner()->GetName(), DefensiveStats.FaeResist, DefensiveStats.FireResist,  DefensiveStats.DarknessResist, DefensiveStats.WaterResist);
+
+
 }
 
 void UDefensiveCalculatorComponent::CalculateCharacterResistances(FDamageResistanceBreakdown Resistances)
@@ -31,10 +34,22 @@ void UDefensiveCalculatorComponent::CalculateCharacterResistances(FDamageResista
 	Resistances.PierceDefense = 6.0f;
 	Resistances.CrushDefense = 7.0f;
 	Resistances.BleedResist = 0.053f;
+	Resistances.ColdResist = 0.01f;
+	Resistances.CorrosionResist = 0.01f;
+	Resistances.DarknessResist = 0.05f;;
+	Resistances.AetherealResist = 0.01f;
+	Resistances.FaeResist = 0.05f;
+	Resistances.FireResist = 0.05f;
+	Resistances.LightningResist = 0.01f;
+	Resistances.LightResist = 0.1f;
+	Resistances.NecroticResist = 0.03f;
+	Resistances.ToxinResist = 0.02f;
+	Resistances.WaterResist = 0.1f;
 
-	UE_LOG(LogTemp, Warning, TEXT("The Resistances for %s are Slash: %f, Pierce: %f, Blunt: %f, Bleed: %f"), *GetOwner()->GetName(), Resistances.SlashDefense, Resistances.PierceDefense, Resistances.CrushDefense, Resistances.BleedResist);
+	DefensiveStats = Resistances;
+	UE_LOG(LogTemp, Warning, TEXT("The Resistances for %s are Fae: %f, Fire: %f, Darkness: %f, Water: %f"), *GetOwner()->GetName(), DefensiveStats.FaeResist, DefensiveStats.FireResist, DefensiveStats.DarknessResist, DefensiveStats.WaterResist);
 
-
+	DefensiveStats.FaeResist = 15.0f;
 }
 
 void UDefensiveCalculatorComponent::CalculateDamageToCharacter(ABaseCharacter* ThisCharacter, ABaseCharacter* Damager, FDamageTypeBreakdown* Damage)
