@@ -39,7 +39,7 @@ public:
 
 	//------------------------------------------Combat Functions-------------------------------------------------
 	virtual void HandleCharacterDeath() override;
-	virtual void HandleIncomingDamage(float IncomingTotalDamage) override;
+
 
 	//------------------------------------------Interact with Items--------------------------------------------------
 	UFUNCTION(BlueprintNativeEvent)

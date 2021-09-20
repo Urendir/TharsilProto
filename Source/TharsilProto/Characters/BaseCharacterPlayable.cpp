@@ -221,10 +221,7 @@ void ABaseCharacterPlayable::HandleCharacterDeath()
     bIsCharacterDead = true;
 }
 
-void ABaseCharacterPlayable::HandleIncomingDamage(float IncomingTotalDamage) 
-{
-	
-}
+
 
 void ABaseCharacterPlayable::DEBUG_XPRewarder() 
 {

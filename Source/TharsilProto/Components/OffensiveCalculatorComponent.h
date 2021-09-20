@@ -24,17 +24,23 @@ protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 
-private:	
-
-
 
 public:	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Offensive Stats", meta = (AllowPrivateAccess = "true"))
 	FDamageTypeBreakdown DamageCollection;
 
-	void DamageCharacter(ABaseCharacter* DamageTarget, FDamageTypeBreakdown* Damage);
+//----------------------------------------------- This is the basic Outgoing Damage Function----------------------------------------------
+	UFUNCTION(BlueprintCallable)
+	void DamageEnemyCharacter(ABaseCharacter* DamageTarget, FDamageTypeBreakdown Damage);
 
+
+private:	
+	ABaseCharacter* Owner;
+
+	UFUNCTION()
+	void CalculateDamageRatings();
+
+	UFUNCTION()
 	void DamageOwnEquipment();
-
 
 };

@@ -21,22 +21,48 @@ struct FDamageTypeBreakdown
 
 public:
 
-// -------------------------------------------------- Physical Damage Variables---------------------
+// -------------Fixed Number-------------------- Physical Damage Variables---------------------
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float SlashDmg = 0.0f;
+	float SlashDmg = 50.0f;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float CrushDmg = 0.0f;
+	float CrushDmg = 15.0f;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float PierceDmg = 0.0f;
+	float PierceDmg = 15.0f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 ArmorPenetration = 5.0f;
+
+	//--------------------------------------- Status Effect Variables-----------------------------------
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float CrippleChance = 0.0f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float KnockdownChance = 0.0f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float KnockbackChance = 0.0f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float StunChance = 0.0f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float BlindChance = 0.0f;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float BleedDmg = 0.0f;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float BleedChance = 0.0f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float ToxicDmg = 0.0f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float PoisonChance = 0.0f;
 
 // -------------------------------------------------- Magical Damage Variables---------------------
 
@@ -70,25 +96,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float LightDmg = 0.0f;
 
-//------------------------------------------------ Status Condition Variables ----------------------
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float BleedChance = 0.0f;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float CrippleChance = 0.0f;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float KnockdownChance = 0.0f;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float KnockbackChance = 0.0f;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float StunChance = 0.0f;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float BlindChance = 0.0f;
 
 	FDamageTypeBreakdown()
 	{
@@ -111,17 +119,18 @@ struct FDamageResistanceBreakdown
 
 public:
 
-	//---------------------------- BASIC PHYSICAL ARMOR & DEFENSE STATS ------------------------------------------------------------------------
+	//------------PERCENTILE!!!!!------ BASIC PHYSICAL ARMOR & DEFENSE STATS ------------------------------------------------------------------------
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		float SlashDefense = 0.0f;
+		float SlashDefense = 0.3f;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		float PierceDefense = 0.0f;
+		float PierceDefense = 0.3f;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		float CrushDefense = 0.0f;
+		float CrushDefense = 0.3f;
 
+	//-----------------------------Percentage Modifiers for Resistance to Status Effects ----------------------------------------------------
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		float KnockbackResist = 0.0f;
 
@@ -141,12 +150,13 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		float ToxinResist = 0.0f;
 
-	// high armor damage.
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		float CorrosionResist = 0.0f;
 
 	//---------------------------- MAGICAL DEFENSE STATS ------------------------------------------------------------------------
 	/*These will be obtained from the Armor that is equipped, as well as from any skills that grant bonuses to the various resistances*/
+	
+	// high armor damage.
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		float CorrosionResist = 0.0f;
 
 		// This is supposed to be high in fire-based creatures, medium in fleshy creatures and low in dried undead, for example.
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)

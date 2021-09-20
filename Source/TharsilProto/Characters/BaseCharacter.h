@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "TharsilProto/Interactions/DamageTypeStruct.h"
 #include "BaseCharacter.generated.h"
 
 
@@ -15,6 +16,7 @@ class UInventoryItemBase;
 class UOffensiveCalculatorComponent;
 class UDefensiveCalculatorComponent;
 class UCharacterMovementComponent;
+struct FDamageTypeBreakdown;
 
 UCLASS()
 class THARSILPROTO_API ABaseCharacter : public ACharacter
@@ -96,8 +98,10 @@ public:
 	virtual void HandleCharacterDeath();
 
 	UFUNCTION(BlueprintCallable)
-	virtual void HandleIncomingDamage(float IncomingTotalDamage);
+	virtual void ForwardIncomingDamageToCalculator(ABaseCharacter* ThisCharacter, ABaseCharacter* Damager, FDamageTypeBreakdown Damage);
 
+	UFUNCTION(BlueprintCallable)
+	void ProcessDamageTaken(float IncomingTotalDamage);
 
 	UFUNCTION(BlueprintCallable)
 	virtual void HandleCharacterSlowedEffect(bool bIsSlowed);

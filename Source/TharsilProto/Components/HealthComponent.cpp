@@ -49,6 +49,8 @@ void UHealthComponent::TakeDamage(AActor* DamagedActor, float Damage, const clas
 
 void UHealthComponent::DecreaseCurrentHealth(float DamageValue) 
 {
+	UE_LOG(LogTemp, Warning, TEXT("Decreasing Damage by: %f"), DamageValue);
+	
 	if(CurrentHealth - DamageValue > 0) 				//Improve this!
 	{
 		CurrentHealth = CurrentHealth - DamageValue;

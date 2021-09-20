@@ -66,16 +66,29 @@ void ABaseCharacter::CalculateCarryWeight()
 	InventoryComponent->CarryWeightBaseCapacity = 1.0f;
 }	
 
+
+//----------------------------------------------------------------------HEALTH and DEATH----------------------------------------------------------
+
 void ABaseCharacter::HandleCharacterDeath() 
 {
     CharacterDeathDelegate.Broadcast(XPReward);
     bIsCharacterDead = true;
 }
 
-void ABaseCharacter::HandleIncomingDamage(float IncomingTotalDamage) 
+void ABaseCharacter::ProcessDamageTaken(float IncomingTotalDamage)
 {
-	
+	UE_LOG(LogTemp, Warning, TEXT("The Taken damage was: %f"), IncomingTotalDamage);
+
+	HealthComponent->DecreaseCurrentHealth(IncomingTotalDamage);
 }
+
+void ABaseCharacter::ForwardIncomingDamageToCalculator(ABaseCharacter* ThisCharacter, ABaseCharacter* Damager, FDamageTypeBreakdown Damage)
+{
+	DefenseComponent->ProcessIncomingDamage(ThisCharacter, Damager, Damage);
+	UE_LOG(LogTemp, Warning, TEXT("Dealing Damage: Slash: %f, Pierce: %f, Crush: %f, Armor Penetration: %i "), Damage.SlashDmg, Damage.PierceDmg, Damage.CrushDmg, Damage.ArmorPenetration);
+}
+
+//-------------------------------------------------------------------------------------STATUS EFFECTS---------------------------------------------------------
 
 void ABaseCharacter::SaveCharacterSpeedValues()
 {
