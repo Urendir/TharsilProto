@@ -21,16 +21,16 @@ void UOffensiveCalculatorComponent::BeginPlay()
 	Super::BeginPlay();
 
 	Owner = Cast<ABaseCharacter>(GetOwner());
-	
+	CalculateDamageRatings();
 }
 
 void UOffensiveCalculatorComponent::CalculateDamageRatings()
 {
-	DamageCollection.BleedDmg = 15.0f;
+	DamageCollection.BleedDmg = 150.0f;
 	DamageCollection.SlashDmg = 30.0f;
 	DamageCollection.PierceDmg = 10.0f;
 	DamageCollection.CrushDmg = 20.0f;
-	DamageCollection.ArmorPenetration = 20;
+	DamageCollection.ArmorPenetration = 50;
 }
 
 void UOffensiveCalculatorComponent::DamageEnemyCharacter(ABaseCharacter* DamageTarget, FDamageTypeBreakdown Damage)
@@ -41,10 +41,7 @@ void UOffensiveCalculatorComponent::DamageEnemyCharacter(ABaseCharacter* DamageT
 		return;
 	}
 
-	UE_LOG(LogTemp, Warning, TEXT("Dealing Damage: Slash: %f, Pierce: %f, Crush: %f, Armor Penetration: %i "), Damage.SlashDmg, Damage.PierceDmg, Damage.CrushDmg, Damage.ArmorPenetration);
-
-	DamageTarget->ForwardIncomingDamageToCalculator(DamageTarget, Owner, DamageCollection);
-	
+	DamageTarget->ForwardIncomingDamageToCalculator(DamageTarget, Owner, DamageCollection);	
 }
 
 

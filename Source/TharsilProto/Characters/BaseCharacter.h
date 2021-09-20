@@ -101,7 +101,7 @@ public:
 	virtual void ForwardIncomingDamageToCalculator(ABaseCharacter* ThisCharacter, ABaseCharacter* Damager, FDamageTypeBreakdown Damage);
 
 	UFUNCTION(BlueprintCallable)
-	void ProcessDamageTaken(float IncomingTotalDamage);
+	void ProcessDamageTakenFromCalculator(float IncomingTotalDamage);
 
 	UFUNCTION(BlueprintCallable)
 	virtual void HandleCharacterSlowedEffect(bool bIsSlowed);

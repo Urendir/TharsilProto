@@ -75,17 +75,16 @@ void ABaseCharacter::HandleCharacterDeath()
     bIsCharacterDead = true;
 }
 
-void ABaseCharacter::ProcessDamageTaken(float IncomingTotalDamage)
-{
-	UE_LOG(LogTemp, Warning, TEXT("The Taken damage was: %f"), IncomingTotalDamage);
-
-	HealthComponent->DecreaseCurrentHealth(IncomingTotalDamage);
-}
-
 void ABaseCharacter::ForwardIncomingDamageToCalculator(ABaseCharacter* ThisCharacter, ABaseCharacter* Damager, FDamageTypeBreakdown Damage)
 {
 	DefenseComponent->ProcessIncomingDamage(ThisCharacter, Damager, Damage);
-	UE_LOG(LogTemp, Warning, TEXT("Dealing Damage: Slash: %f, Pierce: %f, Crush: %f, Armor Penetration: %i "), Damage.SlashDmg, Damage.PierceDmg, Damage.CrushDmg, Damage.ArmorPenetration);
+}
+
+void ABaseCharacter::ProcessDamageTakenFromCalculator(float IncomingTotalDamage)
+{
+	UE_LOG(LogTemp, Warning, TEXT("Processing Taken damage as: %f. Sending to HP Component of %s."), IncomingTotalDamage, *GetName());
+
+	HealthComponent->DecreaseCurrentHealth(IncomingTotalDamage);
 }
 
 //-------------------------------------------------------------------------------------STATUS EFFECTS---------------------------------------------------------
@@ -103,12 +102,9 @@ void ABaseCharacter::SaveCharacterSpeedValues()
 
 void ABaseCharacter::HandleCharacterSlowedEffect(bool bIsSlowed)
 {
-	
-	UE_LOG(LogTemp, Error, TEXT("Character Is Slowed"));
-	
-
 	if (bIsSlowed && !bIsCharacterSlowed)
 	{
+		UE_LOG(LogTemp, Error, TEXT("Character Is Slowed"));
 		MovementComponent->MaxWalkSpeed /= SlowDebuffValue;
 		MovementComponent->MaxWalkSpeedCrouched /= SlowDebuffValue;
 		MovementComponent->MaxSwimSpeed /= SlowDebuffValue;

@@ -27,26 +27,24 @@ void UDefensiveCalculatorComponent::BeginPlay()
 
 void UDefensiveCalculatorComponent::CalculateCharacterResistances()
 {
-	DefensiveStats.SlashDefense = 5.0f;
-	DefensiveStats.PierceDefense = 6.0f;
-	DefensiveStats.CrushDefense = 7.0f;
+	//MAGIC NUMBERS TO BE REMOVED ONCE THE CALCULATIONS ARE DONE. -> NEED ITEMS, PASSIVES.
+	DefensiveStats.SlashDefense = 0.50f;
+	DefensiveStats.PierceDefense = 0.50f;
+	DefensiveStats.CrushDefense = 0.50f;
 
 	//Magical Secondary elements.
 	DefensiveStats.BleedResist = 0.053f;
-	DefensiveStats.ColdResist = 0.01f;
+	DefensiveStats.ColdResist = 0.0f;
 	DefensiveStats.CorrosionResist = 0.01f;
-	DefensiveStats.DarknessResist = 0.05f;;
-	DefensiveStats.AetherealResist = 0.01f;
-	DefensiveStats.FaeResist = 0.05f;
-	DefensiveStats.FireResist = 0.05f;
-	DefensiveStats.LightningResist = 0.01f;
-	DefensiveStats.LightResist = 0.1f;
-	DefensiveStats.NecroticResist = 0.03f;
-	DefensiveStats.ToxinResist = 0.02f;
-	DefensiveStats.WaterResist = 0.1f;
-
-	UE_LOG(LogTemp, Warning, TEXT("The Resistances for %s are Fae: %f, Fire: %f, Darkness: %f, Water: %f"), *GetOwner()->GetName(), DefensiveStats.FaeResist, DefensiveStats.FireResist, DefensiveStats.DarknessResist, DefensiveStats.WaterResist);
-
+	DefensiveStats.DarknessResist = 0.0f;;
+	DefensiveStats.AetherealResist = 0.0f;
+	DefensiveStats.FaeResist = 0.0f;
+	DefensiveStats.FireResist = 0.055f;
+	DefensiveStats.LightningResist = 0.00f;
+	DefensiveStats.LightResist = 0.0f;
+	DefensiveStats.NecroticResist = 0.0f;
+	DefensiveStats.ToxinResist = 0.0f;
+	DefensiveStats.WaterResist = 0.0f;
 
 }
 
@@ -56,16 +54,14 @@ void UDefensiveCalculatorComponent::ProcessIncomingDamage(ABaseCharacter* ThisCh
 
 	if (Owner)
 	{
-		Owner->ProcessDamageTaken(DamageToHealth);
+		Owner->ProcessDamageTakenFromCalculator(DamageToHealth);
 	}
 }
 
 int32 UDefensiveCalculatorComponent::CalculateIncomingDamage(FDamageTypeBreakdown Damage)
 {
 	float FlatPhysicalDamage = Damage.SlashDmg + Damage.PierceDmg + Damage.CrushDmg;
-
 	float ArmorPenetrationRating = (float)Damage.ArmorPenetration * ArmorPenetrationModifier;
-
 
 	float Slash = Damage.SlashDmg * (1.0f - (DefensiveStats.SlashDefense - ArmorPenetrationRating * 0.5));
 	int32 SlashDamage = (int32)Slash;
@@ -76,8 +72,6 @@ int32 UDefensiveCalculatorComponent::CalculateIncomingDamage(FDamageTypeBreakdow
 	float Crush = Damage.CrushDmg * 1 - (DefensiveStats.CrushDefense - ArmorPenetrationRating);
 	int32 CrushDamage = (int32)Crush;
 	CrushDamage = FMath::Clamp(CrushDamage, 0, (int32)Crush);
-
-
 
 	int32 FinalDamage = SlashDamage + PierceDamage + CrushDamage;
 
