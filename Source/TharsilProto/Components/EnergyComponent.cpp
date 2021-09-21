@@ -21,7 +21,7 @@ void UEnergyComponent::BeginPlay()
 
 	StaminaMaximum = StaminaBase;
 	StaminaCurrent = StaminaMaximum;
-	
+	RememberedLevel = 1;
 }
 
 
@@ -35,10 +35,22 @@ void UEnergyComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActo
 
 void UEnergyComponent::RecalculateEnergyStats(int32 Endurance, int32 CharacterLevel)
 {
+	RecalculateMaximumStamina(Endurance, CharacterLevel);
+	RecalculateMaximumMana(Endurance, CharacterLevel); // ADD Arcane Essence to Attributes and then add it into calculation here instead of Endurance. 
+	if (CharacterLevel != RememberedLevel || CharacterLevel == 1)
+	{
+		ManaCurrent = ManaMaximum;
+		StaminaCurrent = StaminaMaximum;
+		RememberedLevel = CharacterLevel;
+	}
 }
 
-void UEnergyComponent::RecalculateMaximumStamina()
+void UEnergyComponent::RecalculateMaximumStamina(int32 Endurance, int32 Level)
 {
+	UE_LOG(LogTemp, Warning, TEXT("Asked to update Stamina with the following: Endurance: %i; Current Level: %i"), Endurance, Level);
+	StaminaMaximum = Endurance * StaminaPerLevel + Level * StaminaPerLevel + StaminaBase;
+
+	UE_LOG(LogTemp, Warning, TEXT("Current Stamina is: %f, Maximum is %f, rememberedLevel: %i"), StaminaCurrent, StaminaMaximum, RememberedLevel);
 }
 
 void UEnergyComponent::DecreaseCurrentStamina()
@@ -46,8 +58,10 @@ void UEnergyComponent::DecreaseCurrentStamina()
 }
 
 
-void UEnergyComponent::RecalculateMaximumMana()
+void UEnergyComponent::RecalculateMaximumMana(int32 ArcaneEssence, int32 Level)
 {
+	ManaMaximum = ArcaneEssence * ManaPerEssence + Level * ManaPerLevel + ManaBase;
+
 }
 
 void UEnergyComponent::DecreaseCurrentMana()

@@ -5,6 +5,7 @@
 #include "TharsilProto/Components/ExperienceComponent.h"
 #include "TharsilProto/Components/AttributesComponent.h"
 #include "TharsilProto/Components/HealthComponent.h"
+#include "TharsilProto/Components/EnergyComponent.h"
 #include "TharsilProto/Components/InventoryComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
@@ -72,6 +73,10 @@ void ABaseCharacterPlayable::BeginPlay()
     {
         UE_LOG(LogTemp, Error, TEXT("HealthComponent is nullptr."));
     }   
+    if (!EnergyComponent)
+    {
+        UE_LOG(LogTemp, Error, TEXT("EnergyComponent is nullptr."));
+    }
 
     UpdateSecondaryAttributes();
 }
@@ -188,6 +193,16 @@ void ABaseCharacterPlayable::UpdateSecondaryAttributes()
     {
         UE_LOG(LogTemp, Error, TEXT("Healthcomponent is nullptr."));
     }
+    if (EnergyComponent != nullptr)
+    {
+        ABaseCharacter::EnergyComponent->RecalculateEnergyStats(AttributesComponent->AttributeEndurance, XPComponent->CurrentLevel);
+    }
+    else
+    {
+        UE_LOG(LogTemp, Error, TEXT("EnergyComponent is nullptr."));
+    }
+
+
     AttributesComponent->OnAttributesUpdated.Broadcast();
 }
 

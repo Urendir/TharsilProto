@@ -11,12 +11,14 @@
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FCharacterDeathDelegate, int32, XPToAssign);
 
 class UHealthComponent;
+class UEnergyComponent;
 class UInventoryComponent;
 class UInventoryItemBase;
 class UOffensiveCalculatorComponent;
 class UDefensiveCalculatorComponent;
 class UCharacterMovementComponent;
 struct FDamageTypeBreakdown;
+
 
 UCLASS()
 class THARSILPROTO_API ABaseCharacter : public ACharacter
@@ -51,6 +53,9 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components", meta = (AllowPrivateAccess = "true"))
 	UHealthComponent* HealthComponent;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components", meta = (AllowPrivateAccess = "true"))
+	UEnergyComponent* EnergyComponent;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components", meta = (AllowPrivateAccess = "true"))
 	UInventoryComponent* InventoryComponent;

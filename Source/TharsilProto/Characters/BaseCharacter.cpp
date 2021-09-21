@@ -4,6 +4,7 @@
 #include "BaseCharacter.h"
 #include "TharsilProto/Components/HealthComponent.h"
 #include "TharsilProto/Components/InventoryComponent.h"
+#include "TharsilProto/Components/EnergyComponent.h"
 #include "TharsilProto/Components/DefensiveCalculatorComponent.h"
 #include "TharsilProto/Components/OffensiveCalculatorComponent.h"
 #include "TharsilProto/InventoryItems/InventoryItemBase.h"
@@ -17,6 +18,7 @@ ABaseCharacter::ABaseCharacter()
 
 	HealthComponent = CreateDefaultSubobject<UHealthComponent>(TEXT("Health Component"));
 	InventoryComponent = CreateDefaultSubobject<UInventoryComponent>(TEXT("Inventory Component"));
+	EnergyComponent = CreateDefaultSubobject<UEnergyComponent>(TEXT("Energy Component"));
 	DefenseComponent = CreateDefaultSubobject<UDefensiveCalculatorComponent>(TEXT("Defense Component"));
 	OffenseComponent = CreateDefaultSubobject<UOffensiveCalculatorComponent>(TEXT("Offense Component"));
 	MovementComponent = GetCharacterMovement();
@@ -35,6 +37,10 @@ void ABaseCharacter::BeginPlay()
 	if(!InventoryComponent)
 	{
 		UE_LOG(LogTemp, Error, TEXT("InventoryComponent failed to be created on baseCharacter class "));
+	}
+	if (!EnergyComponent)
+	{
+		UE_LOG(LogTemp, Error, TEXT("EnergyComponent failed to be created on baseCharacter class "));
 	}
 
 	bIsCharacterDead = false;
