@@ -28,6 +28,8 @@ void UDefensiveCalculatorComponent::BeginPlay()
 void UDefensiveCalculatorComponent::CalculateCharacterResistances()
 {
 	//MAGIC NUMBERS TO BE REMOVED ONCE THE CALCULATIONS ARE DONE. -> NEED ITEMS, PASSIVES.
+
+	//Physica Primary elements
 	DefensiveStats.SlashDefense = 0.50f;
 	DefensiveStats.PierceDefense = 0.50f;
 	DefensiveStats.CrushDefense = 0.50f;
