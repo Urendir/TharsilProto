@@ -27,15 +27,24 @@ public:
 	UFUNCTION(BlueprintCallable)
 		void RecalculateEnergyStats(int32 Endurance, int32 CharacterLevel);
 
+	UFUNCTION(BlueprintCallable)
+	bool DecreaseCurrentStamina(float DecrementAmount);
+
+	UFUNCTION(BlueprintCallable)
+	bool StaminaDrainOnJump(float StaminaCostToJump);
+
+	float GetStaminaCostJump();
+	float SetStaminaCostJump(float NewCost);
+
 private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Character Stats", meta = (AllowPrivateAccess = "true"))
 	float StaminaBase = 100.0f;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Character Stats", meta = (AllowPrivateAccess = "true"))
-	float StaminaCurrent;
+	float StaminaCurrent = 1.0f;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Character Stats", meta = (AllowPrivateAccess = "true"))
-	float StaminaMaximum;
+	float StaminaMaximum = 1.0f;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Character Stats", meta = (AllowPrivateAccess = "true"))
-	float StaminaRegenerationRate; //Amount of Stamina regenerated every half a second.
+	float StaminaRegenerationAmount = 5.0f; //Amount of Stamina regenerated every half a second.
 
 	float StaminaPerLevel = 5.0f;
 	float StaminaPerEndurance = 10.0f;
@@ -47,25 +56,24 @@ private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Character Stats", meta = (AllowPrivateAccess = "true"))
 	float ManaBase = 100.0f;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Character Stats", meta = (AllowPrivateAccess = "true"))
-	float ManaCurrent;
+	float ManaCurrent = 1.0f;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Character Stats", meta = (AllowPrivateAccess = "true"))
-	float ManaMaximum;
+	float ManaMaximum = 1.0f;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Character Stats", meta = (AllowPrivateAccess = "true"))
-	float ManaRegenerationRate = 3.0f; // Amount of Mana regenerated per half a second.
+	float ManaRegenerationAmount = 3.0f; // Amount of Mana regenerated per half a second.
 
 	float ManaPerLevel = 5.0f;
 	float ManaPerEssence = 5.0f;
 
-
 	int32 RememberedLevel;
 
 	void RecalculateMaximumStamina(int32 Endurance, int32 Level);
-	void DecreaseCurrentStamina();
-	//void JumpStaminaUsage();
-	//void SprintStaminaUsage();
+	//void StaminaDrainOnSprint();
 
 	void RecalculateMaximumMana(int32 ArcaneEssence, int32 Level);
 	void DecreaseCurrentMana();
 
 	void EnableManaUsage();
+
+	void RestoreEnergyOverTime(float DeltaTime);
 };

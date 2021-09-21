@@ -39,8 +39,8 @@ void ABaseCharacterPlayable::SetupPlayerInputComponent(class UInputComponent* Pl
 	PlayerInputComponent->BindAxis(TEXT("LookUpDown"), this, &APawn::AddControllerPitchInput);
 	PlayerInputComponent->BindAxis(TEXT("LookLeftRight"), this, &APawn::AddControllerYawInput);
     PlayerInputComponent->BindAction(TEXT("InteractWithObject"), IE_Pressed, this, &ABaseCharacterPlayable::InteractWithItem);
-	PlayerInputComponent->BindAction(TEXT("PrimaryAttack"), IE_Pressed, this, &ABaseCharacterPlayable::BasicAttack);
-	PlayerInputComponent->BindAction(TEXT("Jump"), IE_Pressed, this, &ACharacter::Jump);
+	//PlayerInputComponent->BindAction(TEXT("PrimaryAttack"), IE_Pressed, this, &ABaseCharacterPlayable::BasicAttack); = NO LONGER VALID.
+	PlayerInputComponent->BindAction(TEXT("Jump"), IE_Pressed, this, &ABaseCharacterPlayable::SimpleJump);
 	//COMMENT THIS OUT AFTER TESTING:
 	PlayerInputComponent->BindAction(TEXT("XPDump"), IE_Pressed, this,&ABaseCharacterPlayable::DEBUG_XPRewarder); //DEBUG Item to add XP on button click
 }
@@ -158,14 +158,12 @@ void ABaseCharacterPlayable::CalculateCarryWeight()
     
     if(InventoryComponent && AttributesComponent && XPComponent)
     {
-        UE_LOG(LogTemp, Error, TEXT("Carryweightbase (%f) + CarryweightPerStr (%f) + Currentlvl (%i) * CarryWEightPerLvl(%f)"), InventoryComponent->CarryWeightBaseCapacity, AttributesComponent->CalculateCarryCapPerStrength(), XPComponent->CurrentLevel, InventoryComponent->CarryWeightPerLevel);
         CarryWeightTotal = InventoryComponent->CarryWeightBaseCapacity + AttributesComponent->CalculateCarryCapPerStrength() + (float)XPComponent->CurrentLevel * InventoryComponent->CarryWeightPerLevel;
     }
     else
     {
         CarryWeightTotal = 1.0f;
     }
-    UE_LOG(LogTemp, Error, TEXT("CarryweightTotal: %f"), CarryWeightTotal);
 
     InventoryComponent->UpdateCarryCapacity(CarryWeightTotal);
 }
@@ -223,11 +221,21 @@ void ABaseCharacterPlayable::MoveLeftRight(float AxisValue)
     }
 }
 
+void ABaseCharacterPlayable::SimpleJump()
+{
+    bool CanJump = EnergyComponent->StaminaDrainOnJump(EnergyComponent->GetStaminaCostJump());
+    if (CanJump)
+    {
+        ACharacter::Jump();
+    }
+}
+
 
 //---------------------------------------------------------------------------------COMBAT FUNCTIONS--------------------------------------------------------------------
-void ABaseCharacterPlayable::BasicAttack() //Damage Calculation to be created based on Weapon equipped, skill used, attribute points assigned to Strength. 
+bool ABaseCharacterPlayable::BasicAttack() //Damage Calculation to be created based on Weapon equipped, skill used, attribute points assigned to Strength. 
 {
 	UE_LOG(LogTemp, Warning, TEXT("I Attack!"));
+    return EnergyComponent->DecreaseCurrentStamina(45); //Magic number to be replaced by skill cost.
 }
 
 void ABaseCharacterPlayable::HandleCharacterDeath() 

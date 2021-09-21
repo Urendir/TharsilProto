@@ -49,8 +49,11 @@ public:
 	UFUNCTION(BlueprintCallable)
 	virtual void CalculateCarryWeight() override;
 
-	void RemoveFocusedActor();
+	UFUNCTION(BlueprintCallable)
+	bool BasicAttack();
 
+
+	void RemoveFocusedActor();
 
 private:
 
@@ -77,7 +80,7 @@ private:
 
 
 	//-------------------------------------------Interaction Functions----------------------------------------------
-	void BasicAttack();
+
 	void InteractWithItem();
 
 	void DEBUG_XPRewarder();
@@ -86,6 +89,7 @@ private:
 	void MoveForwardBack(float AxisValue);
 	void MoveLeftRight(float AxisValue);
 
+	void SimpleJump();
 
 };
 
