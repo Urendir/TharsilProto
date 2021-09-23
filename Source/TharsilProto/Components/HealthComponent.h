@@ -19,6 +19,11 @@ public:
 	// Sets default values for this component's properties
 	UHealthComponent();
 
+	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Character Stats")
+		float HealthRegenPerSecond = 2.0f;
+
 	UFUNCTION(BlueprintCallable)
 	void DecreaseCurrentHealth(float DamageValue);
 
@@ -60,5 +65,6 @@ private:
 	int32 PerConstitutionHealth = 15;
 	int32 PerLevelHealth = 5;
 
-		
+	void ApplyHealthRegenOverTime(float DeltaTime);
+
 };

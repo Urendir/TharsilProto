@@ -36,6 +36,8 @@ public:
 	float GetStaminaCostJump();
 	float SetStaminaCostJump(float NewCost);
 
+	float WhatsCurrentStamina(); // THis is a temporary function, until combat is reworked. 
+
 private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Character Stats", meta = (AllowPrivateAccess = "true"))
 	float StaminaBase = 100.0f;

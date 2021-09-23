@@ -11,7 +11,7 @@ UHealthComponent::UHealthComponent()
 {
 	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
 	// off to improve performance if you don't need them.
-	PrimaryComponentTick.bCanEverTick = false;
+	PrimaryComponentTick.bCanEverTick = true;
 
 	// ...
 }
@@ -30,6 +30,25 @@ void UHealthComponent::BeginPlay()
 	// Owner->OnTakeAnyDamage.AddDynamic(this, &UHealthComponent::TakeDamage);
 	// }
 }
+
+// Called every frame
+void UHealthComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
+{
+	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+
+	ApplyHealthRegenOverTime(DeltaTime);
+}
+
+void UHealthComponent::ApplyHealthRegenOverTime(float DeltaTime)
+{
+	if (CurrentHealth < CurrentMaxHealth)
+	{
+		float HealthValue = CurrentHealth + HealthRegenPerSecond * DeltaTime;
+
+		CurrentHealth = HealthValue;
+	}
+}
+
 
 void UHealthComponent::TakeDamage(AActor* DamagedActor, float Damage, const class UDamageType* DamageType, class AController* InstigatedBy, AActor* DamageCauser) 
 {

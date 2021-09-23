@@ -92,6 +92,11 @@ float UEnergyComponent::SetStaminaCostJump(float NewCost)
 	return StaminaToJump;
 }
 
+float UEnergyComponent::WhatsCurrentStamina()
+{
+	return StaminaCurrent;
+}
+
 
 void UEnergyComponent::RecalculateMaximumMana(int32 ArcaneEssence, int32 Level)
 {
@@ -112,15 +117,15 @@ void UEnergyComponent::RestoreEnergyOverTime(float DeltaTime)
 	if (StaminaCurrent < StaminaMaximum)
 	{
 		float NewStamina = StaminaCurrent + StaminaRegenerationAmount * DeltaTime;
-		StaminaCurrent = NewStamina;
-		/*if (NewStamina > StaminaMaximum)
+		//StaminaCurrent = NewStamina;
+		if (NewStamina > StaminaMaximum)
 		{
 			StaminaCurrent = StaminaMaximum;
 		}
 		else
 		{
 			StaminaCurrent = NewStamina;
-		}*/
+		}
 	}
 	
 	if (ManaCurrent < ManaMaximum)

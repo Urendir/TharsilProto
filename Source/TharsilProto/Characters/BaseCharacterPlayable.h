@@ -15,6 +15,7 @@ class UExperienceComponent;
 class UAttributesComponent;
 class USpringArmComponent;
 class UCameraComponent;
+class UPassiveSkillManagerComponent;
 
 UCLASS()
 class THARSILPROTO_API ABaseCharacterPlayable : public ABaseCharacter
@@ -52,6 +53,8 @@ public:
 	UFUNCTION(BlueprintCallable)
 	bool BasicAttack();
 
+	UFUNCTION(BlueprintCallable)
+	bool CanYouAffordBasicAttack();
 
 	void RemoveFocusedActor();
 
@@ -63,6 +66,9 @@ private:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components", meta = (AllowPrivateAccess = "true"))
 	UAttributesComponent* AttributesComponent;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components", meta = (AllowPrivateAccess = "true"))
+	UPassiveSkillManagerComponent* PassiveSkillTreeManager;
 
 	//-------------------------------------------Camera and SpringArm--------------------------------------------
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))

@@ -7,6 +7,7 @@
 #include "TharsilProto/Components/HealthComponent.h"
 #include "TharsilProto/Components/EnergyComponent.h"
 #include "TharsilProto/Components/InventoryComponent.h"
+#include "TharsilProto/Components/PassiveSkillManagerComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/Controller.h"
@@ -21,6 +22,7 @@ ABaseCharacterPlayable::ABaseCharacterPlayable()
 
     AttributesComponent = CreateDefaultSubobject<UAttributesComponent>(TEXT("Attributes"));
     XPComponent = CreateDefaultSubobject<UExperienceComponent>(TEXT("Leveling System"));
+    PassiveSkillTreeManager = CreateDefaultSubobject<UPassiveSkillManagerComponent>(TEXT("Passive Skill Manager"));
 
     SpringArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("Spring Arm"));
     SpringArm->SetupAttachment(RootComponent);
@@ -77,8 +79,13 @@ void ABaseCharacterPlayable::BeginPlay()
     {
         UE_LOG(LogTemp, Error, TEXT("EnergyComponent is nullptr."));
     }
+    if (!PassiveSkillTreeManager)
+    {
+        UE_LOG(LogTemp, Error, TEXT("PassiveSkillTreeManager is nullptr."));
+    }
 
     UpdateSecondaryAttributes();
+
 }
 
 
@@ -168,6 +175,7 @@ void ABaseCharacterPlayable::CalculateCarryWeight()
     InventoryComponent->UpdateCarryCapacity(CarryWeightTotal);
 }
 
+
 void ABaseCharacterPlayable::RemoveFocusedActor()
 {
     CurrentlyFocusedActor = nullptr;
@@ -236,6 +244,18 @@ bool ABaseCharacterPlayable::BasicAttack() //Damage Calculation to be created ba
 {
 	UE_LOG(LogTemp, Warning, TEXT("I Attack!"));
     return EnergyComponent->DecreaseCurrentStamina(45); //Magic number to be replaced by skill cost.
+}
+
+bool ABaseCharacterPlayable::CanYouAffordBasicAttack() //This is a temporary function to test combat. Once combat gets reworked, remove it. 
+{
+    if (EnergyComponent->WhatsCurrentStamina() < 45)
+    {
+        return false;
+    }
+    else
+    {
+        return true;
+    }
 }
 
 void ABaseCharacterPlayable::HandleCharacterDeath() 
