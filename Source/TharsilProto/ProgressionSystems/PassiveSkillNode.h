@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "UObject/NoExportTypes.h"
+#include "TharsilProto/ProgressionSystems/PassiveSkilltreeNodeTypes.h"
 #include "PassiveSkillNode.generated.h"
 
 
@@ -12,16 +13,16 @@ class UPassiveSkillManagerComponent;
 
 
 UCLASS(Blueprintable)
-class THARSILPROTO_API UPassiveSkillNode : public UObject
+class THARSILPROTO_API UPassiveSkillNodeObject : public UObject
 {
 	GENERATED_BODY()
 	
 public:
 
 	//---------------------------------------------------When a node becomes "purchased" (by purchasing an adjacent node), all directly connected nodes, i.e. the neighbours, get unlocked, i.e. "Reached".
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 	bool bIsSkillNodeReached;
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 	bool bIsSkillNodePurchased;
 
 	//---------------------------------------------------This is pulled from the Data Table to allow for position and the neighbour assignment. 
@@ -47,8 +48,10 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	UTexture2D* IconPurchased;
 
-	TArray<UPassiveSkillNode> NeighbourNodes;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	EPassiveSkillEffect ThisSkillsEffect;
 
-	//EPassiveSkillEffect ThisSkillsEffect;
+	TArray<UPassiveSkillNodeObject> NeighbourNodes;
+
 
 };

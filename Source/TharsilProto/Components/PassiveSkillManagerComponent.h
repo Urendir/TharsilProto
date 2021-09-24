@@ -4,21 +4,55 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
+#include "TharsilProto/ProgressionSystems/PassiveSkilltreeNodeTypes.h"
+#include "Engine/DataTable.h"
 #include "PassiveSkillManagerComponent.generated.h"
 
-UENUM(BlueprintType)
-enum class EPassiveSkillEffect : uint8
+USTRUCT(BlueprintType)
+struct FPassiveSkillNode : public FTableRowBase
 {
-	E_AddAttributeAgility UMETA(DisplayName = "Add Agility"),
-	E_AddAttributeStrength UMETA(DisplayName = "Add Strength"),
-	E_AddAttributeConstitution UMETA(DisplayName = "Add Constitution"),
-	E_AddAttributeEndurance UMETA(DisplayName = "Add Endurance"),
-	E_AddAttributeHealth UMETA(DisplayName = "Add Health"),
-	E_AddAttributeHealthRegen UMETA(DisplayName = "Add Health Regen"),
-	E_AddAttributeStamina UMETA(DisplayName = "Add Stamina"),
-	E_AddAttributeStaminaRegen UMETA(DisplayName = "Add Stamina Regen"),
-	E_AddAttributeCarryCapacity UMETA(DisplayName = "Add Carry Capacity"),
+	GENERATED_BODY()
+	
+
+	//---------------------------------------------------This is pulled from the Data Table to allow for position and the neighbour assignment. 
+		UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 UniqueNodeID;
+
+	//----------------------------------------------------Descriptions
+	
+	//the Name of the Node.
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FString NodeName;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FString NodeDescription;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float AssignmentValue;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	bool bIsValueInPercent;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	bool bIsSkillNodeReached;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	bool bIsSkillNodePurchased;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	EPassiveSkillEffect ThisSkillsEffect;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TArray<int32> NeighbourNodes;
+
+	//----------------------------------------------------Skill Node Icons. Can be set on Initialization to allow for player affordance in widget.
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UTexture2D* IconLocked;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UTexture2D* IconReached;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UTexture2D* IconPurchased;
 };
+
 
 
 class UPassiveSkillNode;
@@ -41,8 +75,10 @@ public:
 	//virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
-	TArray<UPassiveSkillNode*> SkillTree;
+	TArray<FPassiveSkillNode> SkillTree;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UDataTable* PassiveSkillNodesTable;
 
 	EPassiveSkillEffect PassiveEffects;
 
