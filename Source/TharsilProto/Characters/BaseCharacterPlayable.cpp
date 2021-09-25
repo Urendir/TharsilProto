@@ -155,10 +155,14 @@ void ABaseCharacterPlayable::LineTraceForwardForInteraction_Implementation()
             CurrentlyFocusedActor = nullptr;
         }
     }
-
 }
 
-//------------------------------------------------------------------ COMPONENT INTERACTION / RPG SYSTEMS------------------------------------------------------------------
+void ABaseCharacterPlayable::RemoveFocusedActor()
+{
+    CurrentlyFocusedActor = nullptr;
+}
+
+//------------------------------------------------------------------RPG SYSTEMS / PROGRESSION and COMPONENT INTERACTIONS------------------------------------------------------------------
 void ABaseCharacterPlayable::CalculateCarryWeight() 
 {
     float CarryWeightTotal;
@@ -176,15 +180,11 @@ void ABaseCharacterPlayable::CalculateCarryWeight()
 }
 
 
-void ABaseCharacterPlayable::RemoveFocusedActor()
-{
-    CurrentlyFocusedActor = nullptr;
-}
-
 void ABaseCharacterPlayable::HandleLevelUpProcess() 
 {
     UpdateSecondaryAttributes();
     AttributesComponent->IncreaseAttributePoints();
+    PassiveSkillTreeManager->IncreasePassiveSkillPoints();
 }
 
 

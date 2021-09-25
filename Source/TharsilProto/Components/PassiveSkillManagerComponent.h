@@ -15,7 +15,7 @@ struct FPassiveSkillNode : public FTableRowBase
 	
 
 	//---------------------------------------------------This is pulled from the Data Table to allow for position and the neighbour assignment. 
-		UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 UniqueNodeID;
 
 	//----------------------------------------------------Descriptions
@@ -32,6 +32,8 @@ struct FPassiveSkillNode : public FTableRowBase
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool bIsValueInPercent;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	bool bIsSkillNodeByDefaultReached;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool bIsSkillNodeReached;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
@@ -70,6 +72,9 @@ protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 
+private:
+	int32 AvailableSkillpoints = 10;
+
 public:	
 	// Called every frame
 	//virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
@@ -82,4 +87,24 @@ public:
 
 	EPassiveSkillEffect PassiveEffects;
 
+
+	//Called on LevelUp or Skilltree Reset.
+	UFUNCTION(BlueprintCallable)
+	void IncreasePassiveSkillPoints();
+
+	UFUNCTION(BlueprintCallable)
+	int32 GetCurrentPassiveSkillPoints();
+
+	UFUNCTION(BlueprintCallable)
+	void ReachSkillNode(FPassiveSkillNode SkillNode);
+
+	UFUNCTION(BlueprintCallable)
+	void PurchaseSkillNode(FPassiveSkillNode SkillNode);
+
+	UFUNCTION(BlueprintCallable)
+	TArray<int32> ReachNeighbourNodes(FPassiveSkillNode SkillNode);
+
+	UFUNCTION(BlueprintCallable)
+	void ResetSkillNodeState(FPassiveSkillNode SkillNode);
+	
 };

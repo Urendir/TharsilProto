@@ -29,24 +29,81 @@ void UPassiveSkillManagerComponent::BeginPlay()
 
 	//initialize Array of Nodes;
 
-	//int32 UniqueID = 2;
+	if (PassiveSkillNodesTable)
+	{
+		TArray<FName> TableRowNames = PassiveSkillNodesTable->GetRowNames();
+		int32 TableRowNameLength = TableRowNames.Num();
+		
 
-	//if (PassiveSkillNodesTable)
-	//{
-	//	TableRowNames = PassiveSkillNodesTable->GetRowNames();
+		for (size_t i = 0; i < TableRowNameLength; i++)
+		{
+			FName RowName = TableRowNames[i];
+			static const FString ContextString(TEXT("Skill Node Table Context."));
+			FPassiveSkillNode* SkillNode = PassiveSkillNodesTable->FindRow<FPassiveSkillNode>(RowName, ContextString, true);
 
-	//	for each (FName RowName in TableRowNames)
-	//	{
-	//		FPassiveSkillNode* SkillNode; 
-	//		SkillNode->NodeName = PassiveSkillNodesTable->byname;
-	//		
-	//	}
-	//	
-	//	static const FString ContextString(TEXT("Skill Node Table Context."));
-	//	FPassiveSkillNode* SkillNode =  PassiveSkillNodesTable->FindRow<FPassiveSkillNode>(FName(TEXT("%i"),UniqueID), ContextString, true);
+			if (SkillNode)
+			{
+				SkillTree.Add(*SkillNode);				
+			}
+		}
+	}
+	UE_LOG(LogTemp, Warning, TEXT("Skilltree has %i nodes."), SkillTree.Num());
+}
 
-	//}
 
+//----------------------------------------------------------------------------------Operate on Skillpoints
+
+void UPassiveSkillManagerComponent::IncreasePassiveSkillPoints()
+{
+	AvailableSkillpoints++;
+}
+
+int32 UPassiveSkillManagerComponent::GetCurrentPassiveSkillPoints()
+{
+	return AvailableSkillpoints;
+}
+
+
+//----------------------------------------------------------------------------------Node Modifications 
+
+void UPassiveSkillManagerComponent::ReachSkillNode(FPassiveSkillNode SkillNode)
+{
+	SkillTree[SkillNode.UniqueNodeID].bIsSkillNodeReached = true;
+}
+
+void UPassiveSkillManagerComponent::PurchaseSkillNode(FPassiveSkillNode SkillNode)
+{
+	if (AvailableSkillpoints > 0)
+	{
+		SkillTree[SkillNode.UniqueNodeID].bIsSkillNodePurchased = true;
+		AvailableSkillpoints--;
+	
+	//LAUNCH THE FUNCTION TO DETERMINE THE SKILLPOINT ACTION
+	//Run Through all neighbours of Node and set them to Reached.
+	}
+}
+
+TArray<int32> UPassiveSkillManagerComponent::ReachNeighbourNodes(FPassiveSkillNode SkillNode)
+{
+	for (size_t i = 0; i < SkillNode.NeighbourNodes.Num(); i++)
+	{
+		SkillTree[SkillNode.NeighbourNodes[i]].bIsSkillNodeReached = true;
+	}
+	
+	return SkillTree[SkillNode.UniqueNodeID].NeighbourNodes;
+}
+
+void UPassiveSkillManagerComponent::ResetSkillNodeState(FPassiveSkillNode SkillNode)
+{
+	if (SkillNode.UniqueNodeID > 0)
+	{
+		SkillTree[SkillNode.UniqueNodeID].bIsSkillNodePurchased = false;
+		IncreasePassiveSkillPoints();
+	}
+	if (SkillNode.bIsSkillNodeByDefaultReached == false)
+	{
+		SkillTree[SkillNode.UniqueNodeID].bIsSkillNodeReached = false;
+	}
 }
 
 
