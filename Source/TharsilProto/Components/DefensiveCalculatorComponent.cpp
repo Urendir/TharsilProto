@@ -22,10 +22,10 @@ void UDefensiveCalculatorComponent::BeginPlay()
 	Super::BeginPlay();
 
 	Owner = Cast<ABaseCharacter>(GetOwner());
-	CalculateCharacterResistances();
+	//CalculateCharacterResistances(); -> This should be called by player when starting, with the resistance modder from the passive skill tree. 
 }
 
-void UDefensiveCalculatorComponent::CalculateCharacterResistances()
+void UDefensiveCalculatorComponent::CalculateCharacterResistances(FDamageResistanceBreakdown ResistanceModifiers)
 {
 	//MAGIC NUMBERS TO BE REMOVED ONCE THE CALCULATIONS ARE DONE. -> NEED ITEMS, PASSIVES.
 
@@ -46,7 +46,6 @@ void UDefensiveCalculatorComponent::CalculateCharacterResistances()
 	DefensiveStats.LightResist = 0.0f;
 	DefensiveStats.NecroticResist = 0.0f;
 	DefensiveStats.ToxinResist = 0.0f;
-	DefensiveStats.WaterResist = 0.0f;
 
 }
 

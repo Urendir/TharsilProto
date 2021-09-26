@@ -24,13 +24,20 @@ protected:
 
 private:
 
-	//Default: 0.0002f. This impacts the % amount of Armor Penetration, calculated from the attacker's base point value. The % value is AP/5000, meaning that the desired hard cap for AP is 500, which results in 10% AP.
+
 	float ArmorPenetrationModifier = 0.0002f;
+	//Default: 0.0002f. This impacts the % amount of Armor Penetration, calculated from the attacker's base point value. 
+	//The % value is AP/5000, meaning that the desired hard cap for AP is 500, which results in 10% AP.
+
+	float ArmorPointsToResistanceDivider = 600.0f;
+	//Default: 600. Used to divide the armor points by, to get the % of damage resistance for slash, pierce, crush dmg. 
+	// example: if armor shows 150 slash resistance, 150/600 = 0.25. =25% actual slash resistance. 
+	//not public and only used internally in calculations.
 
 	ABaseCharacter* Owner;
 
 	UFUNCTION()
-	void CalculateCharacterResistances();
+	void CalculateCharacterResistances(FDamageResistanceBreakdown ResistanceModifiers);
 
 	UFUNCTION()
 	int32 CalculateIncomingDamage(FDamageTypeBreakdown Damage);

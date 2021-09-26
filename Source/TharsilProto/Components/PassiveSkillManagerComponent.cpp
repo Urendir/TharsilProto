@@ -27,8 +27,7 @@ void UPassiveSkillManagerComponent::BeginPlay()
 {
 	Super::BeginPlay();
 
-	//initialize Array of Nodes;
-
+	//initialize Array of Nodes here. These are called in the  tree and node widgets;
 	if (PassiveSkillNodesTable)
 	{
 		TArray<FName> TableRowNames = PassiveSkillNodesTable->GetRowNames();
@@ -73,25 +72,28 @@ void UPassiveSkillManagerComponent::ReachSkillNode(FPassiveSkillNode SkillNode)
 
 void UPassiveSkillManagerComponent::PurchaseSkillNode(FPassiveSkillNode SkillNode)
 {
-	if (AvailableSkillpoints > 0 && SkillTree[SkillNode.UniqueNodeID].bIsSkillNodeReached == true)
+	// for ease of reading: Checking 3 variables: you have points to spend, the node is reached and not yet purchased.
+	if (AvailableSkillpoints > 0 && SkillTree[SkillNode.UniqueNodeID].bIsSkillNodeReached == true && SkillTree[SkillNode.UniqueNodeID].bIsSkillNodePurchased == false)
 	{
 		SkillTree[SkillNode.UniqueNodeID].bIsSkillNodePurchased = true;
 		AvailableSkillpoints--;
 	
 	//LAUNCH THE FUNCTION TO DETERMINE THE SKILLPOINT ACTION
-	//Run Through all neighbours of Node and set them to Reached.
 	}
 }
 
-TArray<int32> UPassiveSkillManagerComponent::ReachNeighbourNodes(FPassiveSkillNode SkillNode)
+
+//Runs Through all neighbours of Node and sets them to reached. 
+//This is called in BP atm, to also update the Node Widgets for the neighbours, using the array this function returns. 
+TArray<int32> UPassiveSkillManagerComponent::ReachNeighbourNodes(FPassiveSkillNode SkillNode) 
 {
 	for (size_t i = 0; i < SkillNode.NeighbourNodes.Num(); i++)
 	{
 		SkillTree[SkillNode.NeighbourNodes[i]].bIsSkillNodeReached = true;
-		if (SkillTree[SkillNode.NeighbourNodes[i]].bIsSkillNodeReached == true)
-		{
-			UE_LOG(LogTemp, Warning, TEXT("Skill Node  %i set to reached."), SkillTree[SkillNode.NeighbourNodes[i]].UniqueNodeID);
-		}
+		//if (SkillTree[SkillNode.NeighbourNodes[i]].bIsSkillNodeReached == true)
+		//{
+		//	UE_LOG(LogTemp, Warning, TEXT("Skill Node  %i set to reached."), SkillTree[SkillNode.NeighbourNodes[i]].UniqueNodeID);
+		//}
 	}
 	
 	return SkillTree[SkillNode.UniqueNodeID].NeighbourNodes;

@@ -41,11 +41,21 @@ void UHealthComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActo
 
 void UHealthComponent::ApplyHealthRegenOverTime(float DeltaTime)
 {
-	if (CurrentHealth < CurrentMaxHealth)
+	if (CurrentHealth < CurrentMaxHealth && !bHasTakenDamageRecently)
 	{
 		float HealthValue = CurrentHealth + HealthRegenPerSecond * DeltaTime;
 
 		CurrentHealth = HealthValue;
+	}
+
+	if (bHasTakenDamageRecently && DamageDelayTicker < DamageDelay)
+	{
+		DamageDelayTicker = DamageDelayTicker + 1 * DeltaTime;
+	}
+	if (DamageDelayTicker >= DamageDelay)
+	{
+		bHasTakenDamageRecently = false;
+		DamageDelayTicker = 0.0f;
 	}
 }
 
@@ -70,6 +80,7 @@ void UHealthComponent::DecreaseCurrentHealth(float DamageValue)
 {
 	UE_LOG(LogTemp, Warning, TEXT("Decreasing Damage by: %f"), DamageValue);
 	
+	bHasTakenDamageRecently = true;
 	if(CurrentHealth - DamageValue > 0) 				//Improve this!
 	{
 		CurrentHealth = CurrentHealth - DamageValue;
@@ -93,6 +104,20 @@ float UHealthComponent::IncreaseCurrentHealth(float HealValue)
 		CurrentHealth += HealValue;
 		return CurrentHealth;
 	}	
+}
+
+float UHealthComponent::IncreaseCurrentHealthRegen(float HPRegenAddition, float HPRegenModifier)
+{
+	if (HPRegenModifier > 1.0f)
+	{
+		HealthRegenPerSecond = (HealthRegenPerSecondBase + HPRegenAddition) * HPRegenModifier;
+	}
+	else
+	{
+		HealthRegenPerSecond = HealthRegenPerSecondBase + HPRegenAddition;
+	}
+	
+	return HealthRegenPerSecond;
 }
 
 void UHealthComponent::UpdateMaxHealth(int32 ConstitutionPoints, int32 CurrentLevel)

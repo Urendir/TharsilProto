@@ -21,14 +21,14 @@ public:
 
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Character Stats")
-		float HealthRegenPerSecond = 2.0f;
-
 	UFUNCTION(BlueprintCallable)
 	void DecreaseCurrentHealth(float DamageValue);
 
 	UFUNCTION(BlueprintCallable)
 	float IncreaseCurrentHealth(float HealValue);
+
+	UFUNCTION(BlueprintCallable)
+	float IncreaseCurrentHealthRegen(float HPRegenAddition, float HPRegenModifier);
 
 	UFUNCTION(BlueprintCallable)
 	void UpdateMaxHealth(int32 ConstitutionPoints, int32 CurrentLevel);
@@ -39,7 +39,7 @@ public:
 	// UPROPERTY(BlueprintAssignable)
 	// FCharacterDeathDelegate CharacterDeathDelegate;
 
-	bool CheckifCharacterisDead();
+	//bool CheckifCharacterisDead();
 
 protected:
 	// Called when the game starts
@@ -57,14 +57,18 @@ private:
 	float BaseHealth = 120.f;	//used as initial buffer for starting health
 	int32 RememberedLevel;
 
-	// //THIS SHOULD BE MOVED TO THE XP COMPONENT!
-	// int32 XPReward = 500;
-
-
 	//------------------------PER ATTRIBUTEPOINT MODIFIERS---------------------------------------
 	int32 PerConstitutionHealth = 15;
 	int32 PerLevelHealth = 5;
 
+//----------------------------------------- HEALTH REGENERATION VARIABLES AND FUNCTION
+	float HealthRegenPerSecondBase = 1.0f;	//This is used to restore to default. 
+	float HealthRegenPerSecond = 1.0f;		//amount of health to be regenerated per second. this gets influenced by passives, food, etc.
+	bool bHasTakenDamageRecently;			//this is set to true when you get smacked. 
+	float DamageDelay = 5.0f;				//this is the time in seconds it takes for health regen to kick in again.
+	float DamageDelayTicker = 0.0f;			//this is incrementing while bHasTakenDamageRecently is true. 
+
 	void ApplyHealthRegenOverTime(float DeltaTime);
+	
 
 };

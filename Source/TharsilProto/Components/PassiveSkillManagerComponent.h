@@ -4,8 +4,9 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
-#include "TharsilProto/ProgressionSystems/PassiveSkilltreeNodeTypes.h"
 #include "Engine/DataTable.h"
+#include "TharsilProto/Interactions/DamageTypeStruct.h"
+#include "TharsilProto/ProgressionSystems/PassiveSkilltreeNodeTypes.h"
 #include "PassiveSkillManagerComponent.generated.h"
 
 USTRUCT(BlueprintType)
@@ -87,6 +88,9 @@ public:
 
 	EPassiveSkillEffect PassiveEffects;
 
+	FDamageTypeBreakdown OffensivePassiveStats;
+
+	FDamageResistanceBreakdown DefensivePassiveStats;
 
 	//Called on LevelUp or Skilltree Reset.
 	UFUNCTION(BlueprintCallable)
