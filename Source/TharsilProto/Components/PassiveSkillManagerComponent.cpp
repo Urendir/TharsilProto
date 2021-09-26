@@ -73,7 +73,7 @@ void UPassiveSkillManagerComponent::ReachSkillNode(FPassiveSkillNode SkillNode)
 
 void UPassiveSkillManagerComponent::PurchaseSkillNode(FPassiveSkillNode SkillNode)
 {
-	if (AvailableSkillpoints > 0)
+	if (AvailableSkillpoints > 0 && SkillTree[SkillNode.UniqueNodeID].bIsSkillNodeReached == true)
 	{
 		SkillTree[SkillNode.UniqueNodeID].bIsSkillNodePurchased = true;
 		AvailableSkillpoints--;
@@ -88,6 +88,10 @@ TArray<int32> UPassiveSkillManagerComponent::ReachNeighbourNodes(FPassiveSkillNo
 	for (size_t i = 0; i < SkillNode.NeighbourNodes.Num(); i++)
 	{
 		SkillTree[SkillNode.NeighbourNodes[i]].bIsSkillNodeReached = true;
+		if (SkillTree[SkillNode.NeighbourNodes[i]].bIsSkillNodeReached == true)
+		{
+			UE_LOG(LogTemp, Warning, TEXT("Skill Node  %i set to reached."), SkillTree[SkillNode.NeighbourNodes[i]].UniqueNodeID);
+		}
 	}
 	
 	return SkillTree[SkillNode.UniqueNodeID].NeighbourNodes;
