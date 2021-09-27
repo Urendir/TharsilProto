@@ -78,8 +78,6 @@ public:
 
 	//--------------------------------------Component Influencing Variables and Functions---------------------------------
 
-	virtual void CalculateCarryWeight();
-
 	UFUNCTION(BlueprintCallable) 
 	void SaveCharacterSpeedValues(); //This is used to restore Slow effects to health values. Should be calculated on each attribute point redistribution, to account for speed buffs from Agility.
 

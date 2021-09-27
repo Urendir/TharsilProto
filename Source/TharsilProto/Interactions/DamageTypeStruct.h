@@ -102,23 +102,23 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float ColdDmg = 0.0f;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float LightningDmg = 0.0f;
+	//UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	//float LightningDmg = 0.0f;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float FaeDmg = 0.0f;
+	//UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	//float FaeDmg = 0.0f;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float NecroticDmg = 0.0f;
+	//UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	//float NecroticDmg = 0.0f;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float AetherealDmg = 0.0f;
+	//UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	//float AetherealDmg = 0.0f;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float DarknessDmg = 0.0f;
+	//UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	//float DarknessDmg = 0.0f;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float LightDmg = 0.0f;
+	//UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	//float LightDmg = 0.0f;
 
 
 

@@ -14,10 +14,7 @@ UAttributesComponent::UAttributesComponent()
 
 	Owner = Cast<ABaseCharacterPlayable>(GetOwner());
 
-	AttributeStrength = AttributeStartMinimum; //Minimum Attribute Cap is 5, max is 120.
-	AttributeAgility = AttributeStartMinimum;
-	AttributeConstitution = AttributeStartMinimum;
-	AttributeEndurance = AttributeStartMinimum;
+	InitializeAttributePoints();
 }
 
 
@@ -39,13 +36,21 @@ void UAttributesComponent::ResetAttributePoints()
 {
 	TotalAttributePoints = UnspentAttributePoints + AttributeStrength + AttributeAgility + AttributeConstitution + AttributeEndurance;
 
+	InitializeAttributePoints();
+
+	UnspentAttributePoints = TotalAttributePoints - AttributeStartMinimum*6; //This is to account for the points that remain in the 6 attributes.
+	OnAttributesUpdated.Broadcast();
+}
+
+
+void UAttributesComponent::InitializeAttributePoints()
+{
 	AttributeStrength = AttributeStartMinimum; //Minimum Attribute Cap is 5, max is 120.
 	AttributeAgility = AttributeStartMinimum;
 	AttributeConstitution = AttributeStartMinimum;
 	AttributeEndurance = AttributeStartMinimum;
-
-	UnspentAttributePoints = TotalAttributePoints - AttributeStartMinimum*4; //This is to account for the points that remain in the 4 attributes.
-	OnAttributesUpdated.Broadcast();
+	AttributeSpirit = AttributeStartMinimum;
+	AttributeArcaneEssence = AttributeStartMinimum;
 }
 
 float UAttributesComponent::CalculateCarryCapPerStrength() 

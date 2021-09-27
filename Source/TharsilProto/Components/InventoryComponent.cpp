@@ -101,6 +101,13 @@ bool UInventoryComponent::RemoveFromInventory(TSubclassOf<UInventoryItemBase> It
 	return false;
 }
 
+void UInventoryComponent::CalculateCurrentCarryCapacity(int32 Strength, int32 Level)
+{
+	CarryWeightTotalCapacity = (float)Strength * PerStrengthCarryCapacity + Level * CarryWeightPerLevel + CarryWeightBaseCapacity;
+
+	UpdateCarryCapacity(CarryWeightTotalCapacity);
+}
+
 void UInventoryComponent::UpdateCarryCapacity(float NewValue) 
 {
 	CarryWeightTotalCapacity = NewValue;

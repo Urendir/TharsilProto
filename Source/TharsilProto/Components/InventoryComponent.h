@@ -34,6 +34,9 @@ public:
 	float CarryWeightBaseCapacity = 30.0f; 	//This One is used in the calculation for the Carry Cap as a basic unit. this is the minimum capacity. 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	float CarryWeightPerLevel = 0.5f;		//This is used to calculate the Carry Cap when linked with the Level of the Character.
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Attribute Modifiers", meta = (AllowPrivateAccess = "true"))
+	float PerStrengthCarryCapacity = 1.3f;
+
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	int32 InventorySlotsTotal;
@@ -52,6 +55,7 @@ public:
 //-----------------INVENTORY MANAGEMENT FUNCTIONS-------------------------
 	bool AddItemToInventory(TSubclassOf<UInventoryItemBase> Item);
 	bool RemoveFromInventory(TSubclassOf<UInventoryItemBase> Item);
+	void CalculateCurrentCarryCapacity(int32 Strength, int32 Level);
 
 	void UpdateCarryCapacity(float NewValue);
 

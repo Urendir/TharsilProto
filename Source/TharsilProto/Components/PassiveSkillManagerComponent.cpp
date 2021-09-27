@@ -3,6 +3,7 @@
 
 #include "PassiveSkillManagerComponent.h"
 #include "TharsilProto/ProgressionSystems/PassiveSkillNode.h"
+#include "TharsilProto/ProgressionSystems/PassiveSkilltreeNodeTypes.h"
 #include "TharsilProto/Characters/BaseCharacterPlayable.h"
 
 // Sets default values for this component's properties
@@ -113,6 +114,27 @@ void UPassiveSkillManagerComponent::ResetSkillNodeState(FPassiveSkillNode SkillN
 }
 
 
+void UPassiveSkillManagerComponent::ProvideSkillNodeBonus(FPassiveSkillNode SkillNode)
+{
+	//TEnumAsByte<EPassiveSkillEffect> SkillEffect = SkillNode.ThisSkillsEffect;
+	EPassiveSkillEffect SkillEffect = SkillNode.ThisSkillsEffect;
+	
+	switch (SkillEffect)
+	{
+	case EPassiveSkillEffect::E_AddAttributeAgility:
+	
+		AddAttributeAgility(SkillNode);
+		break;
+	case EPassiveSkillEffect::E_AddAttributeStrength:
+		AddAttributeStrength(SkillNode);
+
+	default:
+		UE_LOG(LogTemp, Warning, TEXT("No Matching function for Passive Node found."));
+		break;
+	}
+
+
+}
 
 
 
@@ -132,3 +154,43 @@ void UPassiveSkillManagerComponent::ResetSkillNodeState(FPassiveSkillNode SkillN
 //	// ...
 //}
 
+
+void UPassiveSkillManagerComponent::AddAttributeAgility(FPassiveSkillNode SkillNode)
+{
+}
+
+void UPassiveSkillManagerComponent::AddAttributeBreath(FPassiveSkillNode SkillNode)
+{
+}
+
+void UPassiveSkillManagerComponent::AddAttributeCarryCapacity(FPassiveSkillNode SkillNode)
+{
+}
+
+void UPassiveSkillManagerComponent::AddAttributeConstitution(FPassiveSkillNode SkillNode)
+{
+}
+
+void UPassiveSkillManagerComponent::AddAttributeEndurance(FPassiveSkillNode SkillNode)
+{
+}
+
+void UPassiveSkillManagerComponent::AddAttributeHealth(FPassiveSkillNode SkillNode)
+{
+}
+
+void UPassiveSkillManagerComponent::AddAttributeHealthRegen(FPassiveSkillNode SkillNode)
+{
+}
+
+void UPassiveSkillManagerComponent::AddAttributeStamina(FPassiveSkillNode SkillNode)
+{
+}
+
+void UPassiveSkillManagerComponent::AddAttributeStaminaRegen(FPassiveSkillNode SkillNode)
+{
+}
+
+void UPassiveSkillManagerComponent::AddAttributeStrength(FPassiveSkillNode SkillNode)
+{
+}

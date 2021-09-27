@@ -43,8 +43,14 @@ private:
 
 	ABaseCharacter* OwningCharacter;
 
+	/// <summary>
+	/// Stamina variables - used to calculate max, current and regen amount. 
+	/// impacted via the attributes component.
+	/// </summary>
+
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Character Stats", meta = (AllowPrivateAccess = "true"))
 	float StaminaBase = 100.0f;
+
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Character Stats", meta = (AllowPrivateAccess = "true"))
 	float StaminaCurrent = 1.0f;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Character Stats", meta = (AllowPrivateAccess = "true"))
@@ -72,13 +78,17 @@ private:
 	float ManaPerEssence = 5.0f;
 
 	int32 RememberedLevel;
-
-	void RecalculateMaximumStamina(int32 Endurance, int32 Level);
-
-	void RecalculateMaximumMana(int32 ArcaneEssence, int32 Level);
 	void DecreaseCurrentMana();
 
 	void EnableManaUsage();
 
 	void RestoreEnergyOverTime(float DeltaTime);
+
+	/// <summary>
+	/// These are both called in  void RecalculateEnergyStats(int32 Endurance, int32 CharacterLevel);
+	/// Called by owning player. 
+	/// </summary>
+
+	void RecalculateMaximumStamina(int32 Endurance, int32 Level);
+	void RecalculateMaximumMana(int32 ArcaneEssence, int32 Level);
 };

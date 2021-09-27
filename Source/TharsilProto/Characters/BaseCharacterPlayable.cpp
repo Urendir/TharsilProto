@@ -175,23 +175,6 @@ void ABaseCharacterPlayable::RemoveFocusedActor()
 }
 
 //------------------------------------------------------------------RPG SYSTEMS / PROGRESSION and COMPONENT INTERACTIONS------------------------------------------------------------------
-void ABaseCharacterPlayable::CalculateCarryWeight() 
-{
-    float CarryWeightTotal;
-    
-    if(InventoryComponent && AttributesComponent && XPComponent)
-    {
-        CarryWeightTotal = InventoryComponent->CarryWeightBaseCapacity + AttributesComponent->CalculateCarryCapPerStrength() + (float)XPComponent->CurrentLevel * InventoryComponent->CarryWeightPerLevel;
-    }
-    else
-    {
-        CarryWeightTotal = 1.0f;
-    }
-
-    InventoryComponent->UpdateCarryCapacity(CarryWeightTotal);
-}
-
-
 void ABaseCharacterPlayable::HandleLevelUpProcess() 
 {
     UpdateSecondaryAttributes();
@@ -202,7 +185,10 @@ void ABaseCharacterPlayable::HandleLevelUpProcess()
 
 void ABaseCharacterPlayable::UpdateSecondaryAttributes() 
 {
-    CalculateCarryWeight();
+    if (InventoryComponent)
+    {
+        InventoryComponent->CalculateCurrentCarryCapacity(AttributesComponent->AttributeStrength, XPComponent->CurrentLevel);
+    }
     if(HealthComponent !=nullptr)
     {
         ABaseCharacter::HealthComponent->UpdateMaxHealth(AttributesComponent->AttributeConstitution, XPComponent->CurrentLevel);

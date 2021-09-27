@@ -48,9 +48,6 @@ public:
 	void LineTraceForwardForInteraction_Implementation();
 
 	UFUNCTION(BlueprintCallable)
-	virtual void CalculateCarryWeight() override;
-
-	UFUNCTION(BlueprintCallable)
 	bool BasicAttack();
 
 	UFUNCTION(BlueprintCallable)

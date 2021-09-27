@@ -72,11 +72,6 @@ void ABaseCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 
 }
 
-void ABaseCharacter::CalculateCarryWeight() 
-{
-	InventoryComponent->CarryWeightBaseCapacity = 1.0f;
-}	
-
 //---------------------------------------------------------------------Movement--------------------------------------------------------------------
 
 void ABaseCharacter::SprintStart()

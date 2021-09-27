@@ -37,6 +37,12 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Stats", meta = (AllowPrivateAccess = "true"))
 	int32 AttributeEndurance;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Stats", meta = (AllowPrivateAccess = "true"))
+	int32 AttributeSpirit;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Stats", meta = (AllowPrivateAccess = "true"))
+	int32 AttributeArcaneEssence;
+
 	//-------------------GENERAL NR OF STATS and Skillpoints---------------------------------
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Stats", meta = (AllowPrivateAccess = "true"))
 	int32 UnspentAttributePoints = 0;  		//Unspent Main Attribute Points - can be added to str, agi, con, end.
@@ -56,6 +62,7 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void ResetAttributePoints();
+	void InitializeAttributePoints();
 
 	float CalculateCarryCapPerStrength();
 
