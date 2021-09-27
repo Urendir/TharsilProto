@@ -76,13 +76,13 @@ private:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
 	UCameraComponent* Camera;
-
+	//-------------------------------------------Interaction Variables----------------------------------------------
+	AActor* CurrentlyFocusedActor;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Targeting", meta = (AllowPrivateAccess = "true"))
 	float LineTraceLength = 1000.0f;	
 
-	//-------------------------------------------Interaction Variables----------------------------------------------
-	AActor* CurrentlyFocusedActor;
+	//--------------------------------------------Movement Variables---------------------------------------------------------
 
 
 	//-------------------------------------------Interaction Functions----------------------------------------------
@@ -94,8 +94,6 @@ private:
 	//-------------------------------------------Movement Functions--------------------------------------------
 	void MoveForwardBack(float AxisValue);
 	void MoveLeftRight(float AxisValue);
-
-	void SimpleJump();
 
 };
 

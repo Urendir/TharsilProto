@@ -23,6 +23,8 @@ void UEnergyComponent::BeginPlay()
 	StaminaMaximum = StaminaBase;
 	StaminaCurrent = StaminaMaximum;
 	RememberedLevel = 1;
+
+	OwningCharacter = Cast<ABaseCharacter>(GetOwner());
 }
 
 
@@ -31,7 +33,15 @@ void UEnergyComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActo
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
-	RestoreEnergyOverTime(DeltaTime);
+	if (OwningCharacter->bIsSprinting)
+	{
+		float StaminaDrain = StaminaToSprint * DeltaTime;
+		DecreaseCurrentStamina(StaminaDrain);
+	}
+	else 
+	{
+		RestoreEnergyOverTime(DeltaTime);
+	}
 }
 
 void UEnergyComponent::RecalculateEnergyStats(int32 Endurance, int32 CharacterLevel)
@@ -48,10 +58,7 @@ void UEnergyComponent::RecalculateEnergyStats(int32 Endurance, int32 CharacterLe
 
 void UEnergyComponent::RecalculateMaximumStamina(int32 Endurance, int32 Level)
 {
-	UE_LOG(LogTemp, Warning, TEXT("Asked to update Stamina with the following: Endurance: %i; Current Level: %i"), Endurance, Level);
 	StaminaMaximum = Endurance * StaminaPerLevel + Level * StaminaPerLevel + StaminaBase;
-
-	UE_LOG(LogTemp, Warning, TEXT("Current Stamina is: %f, Maximum is %f, rememberedLevel: %i"), StaminaCurrent, StaminaMaximum, RememberedLevel);
 }
 
 bool UEnergyComponent::DecreaseCurrentStamina(float DecrementAmount)
@@ -67,19 +74,10 @@ bool UEnergyComponent::DecreaseCurrentStamina(float DecrementAmount)
 	}
 }
 
-bool UEnergyComponent::StaminaDrainOnJump(float StaminaCostToJump)
-{
-	if (StaminaCurrent > StaminaCostToJump)
-	{
-		StaminaCurrent -= StaminaCostToJump;
-		return true;
-	}
-	else
-	{
-		return false;
-	}
-}
-
+/// <summary>
+/// Helper Functions to provide Stamina costs and information to the Owner Component. 
+/// </summary>
+/// <returns></returns>
 float UEnergyComponent::GetStaminaCostJump()
 {
 	return StaminaToJump;
@@ -90,6 +88,17 @@ float UEnergyComponent::SetStaminaCostJump(float NewCost)
 	StaminaToJump += NewCost;
 
 	return StaminaToJump;
+}
+
+float UEnergyComponent::GetStaminaCostToSprint()
+{
+	return StaminaToSprint;
+}
+
+float UEnergyComponent::SetStaminaCostToSprint(float NewCost)
+{
+	StaminaToSprint += NewCost;
+	return StaminaToSprint;
 }
 
 float UEnergyComponent::WhatsCurrentStamina()

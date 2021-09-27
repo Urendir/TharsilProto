@@ -33,6 +33,14 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+	//------------------------------------Variables for character state-------------------------------------
+private:
+
+	float SavedMaxWalkSpeed;
+	float SavedMaxWalkSpeedCrouched;
+	float SavedMaxSwimSpeed;
+	float SavedMaxFlySpeed;
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
@@ -77,11 +85,6 @@ public:
 
 	//------------------------------------Variables for character state-------------------------------------
 
-	float SavedMaxWalkSpeed;
-	float SavedMaxWalkSpeedCrouched;
-	float SavedMaxSwimSpeed;
-	float SavedMaxFlySpeed;
-
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Character Stats", meta = (AllowPrivateAccess = "true"))
 	bool bIsCharacterSlowed;
 
@@ -96,6 +99,15 @@ public:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Combat", meta = (AllowPrivateAccess = "true"))
 	float SlowDebuffValue = 3; //This influences how much a slowdebuff (like overencumberance) will reduce movement speed. Default is 3, so walk speed will be 600/3 = 200.
+
+	bool bIsSprinting = false;
+
+	//-------------------------------------------Movement Functions--------------------------------------------
+
+	void SimpleJump();
+	void SprintStart();
+	void SprintStop();
+
 
 	//-------------------------------------Character state change and Interaction Functions----------------------------------	
 

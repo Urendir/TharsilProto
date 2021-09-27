@@ -57,6 +57,11 @@ void ABaseCharacter::BeginPlay()
 void ABaseCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+
+	if (EnergyComponent->WhatsCurrentStamina() <= 5 && bIsSprinting)
+	{
+		SprintStop();
+	}
  
 }
 
@@ -71,6 +76,35 @@ void ABaseCharacter::CalculateCarryWeight()
 {
 	InventoryComponent->CarryWeightBaseCapacity = 1.0f;
 }	
+
+//---------------------------------------------------------------------Movement--------------------------------------------------------------------
+
+void ABaseCharacter::SprintStart()
+{
+	float SprintMinimumStamina = EnergyComponent->GetStaminaCostToSprint() * 2;
+	if (SprintMinimumStamina < EnergyComponent->WhatsCurrentStamina() && !bIsSprinting)
+	{
+		bIsSprinting = true;
+		MovementComponent->MaxWalkSpeed = 1500.0f;
+	}
+}
+
+void ABaseCharacter::SprintStop()
+{
+	bIsSprinting = false;
+	MovementComponent->MaxWalkSpeed = SavedMaxWalkSpeed;
+}
+
+void ABaseCharacter::SimpleJump()
+{
+	bool CanJump = EnergyComponent->DecreaseCurrentStamina(EnergyComponent->GetStaminaCostJump());
+	if (CanJump)
+	{
+		ACharacter::Jump();
+	}
+}
+
+
 
 
 //----------------------------------------------------------------------HEALTH and DEATH----------------------------------------------------------
@@ -135,5 +169,6 @@ void ABaseCharacter::UseItem(TSubclassOf<UInventoryItemBase> Item)
 	ThisInventoryItem = Cast<UInventoryItemBase>(Item);
 	ThisInventoryItem->UseItem(this);
 }
+
 
 

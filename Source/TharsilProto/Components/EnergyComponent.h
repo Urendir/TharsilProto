@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
+#include "TharsilProto/Characters/BaseCharacter.h"
 #include "EnergyComponent.generated.h"
 
 
@@ -25,20 +26,23 @@ public:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 	UFUNCTION(BlueprintCallable)
-		void RecalculateEnergyStats(int32 Endurance, int32 CharacterLevel);
+	void RecalculateEnergyStats(int32 Endurance, int32 CharacterLevel);
 
 	UFUNCTION(BlueprintCallable)
 	bool DecreaseCurrentStamina(float DecrementAmount);
 
-	UFUNCTION(BlueprintCallable)
-	bool StaminaDrainOnJump(float StaminaCostToJump);
-
 	float GetStaminaCostJump();
 	float SetStaminaCostJump(float NewCost);
+
+	float GetStaminaCostToSprint();
+	float SetStaminaCostToSprint(float NewCost);
 
 	float WhatsCurrentStamina(); // THis is a temporary function, until combat is reworked. 
 
 private:
+
+	ABaseCharacter* OwningCharacter;
+
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Character Stats", meta = (AllowPrivateAccess = "true"))
 	float StaminaBase = 100.0f;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Character Stats", meta = (AllowPrivateAccess = "true"))
@@ -51,7 +55,7 @@ private:
 	float StaminaPerLevel = 5.0f;
 	float StaminaPerEndurance = 10.0f;
 	float StaminaToJump = 25.0f;
-	float StaminaToSprint = 10.0f;
+	float StaminaToSprint = 15.0f;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Character Stats", meta = (AllowPrivateAccess = "true"))
 	bool isMagicUser;
@@ -70,7 +74,6 @@ private:
 	int32 RememberedLevel;
 
 	void RecalculateMaximumStamina(int32 Endurance, int32 Level);
-	//void StaminaDrainOnSprint();
 
 	void RecalculateMaximumMana(int32 ArcaneEssence, int32 Level);
 	void DecreaseCurrentMana();

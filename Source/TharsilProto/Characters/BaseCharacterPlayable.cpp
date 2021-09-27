@@ -2,17 +2,18 @@
 
 
 #include "BaseCharacterPlayable.h"
+#include "Camera/CameraComponent.h"
+#include "DrawDebugHelpers.h"
+#include "GameFramework/SpringArmComponent.h"
+#include "GameFramework/CharacterMovementComponent.h"
+#include "GameFramework/Controller.h"
+#include "Kismet/KismetSystemLibrary.h"
 #include "TharsilProto/Components/ExperienceComponent.h"
 #include "TharsilProto/Components/AttributesComponent.h"
 #include "TharsilProto/Components/HealthComponent.h"
 #include "TharsilProto/Components/EnergyComponent.h"
 #include "TharsilProto/Components/InventoryComponent.h"
 #include "TharsilProto/Components/PassiveSkillManagerComponent.h"
-#include "GameFramework/SpringArmComponent.h"
-#include "Camera/CameraComponent.h"
-#include "GameFramework/Controller.h"
-#include "DrawDebugHelpers.h"
-#include "Kismet/KismetSystemLibrary.h"
 #include "TharsilProto/Interactions/InteractionInterface.h"
 
 
@@ -42,7 +43,10 @@ void ABaseCharacterPlayable::SetupPlayerInputComponent(class UInputComponent* Pl
 	PlayerInputComponent->BindAxis(TEXT("LookLeftRight"), this, &APawn::AddControllerYawInput);
     PlayerInputComponent->BindAction(TEXT("InteractWithObject"), IE_Pressed, this, &ABaseCharacterPlayable::InteractWithItem);
 	//PlayerInputComponent->BindAction(TEXT("PrimaryAttack"), IE_Pressed, this, &ABaseCharacterPlayable::BasicAttack); = NO LONGER VALID.
-	PlayerInputComponent->BindAction(TEXT("Jump"), IE_Pressed, this, &ABaseCharacterPlayable::SimpleJump);
+	PlayerInputComponent->BindAction(TEXT("Jump"), IE_Pressed, this, &ABaseCharacter::SimpleJump);
+    PlayerInputComponent->BindAction(TEXT("Sprint"), IE_Pressed, this, &ABaseCharacter::SprintStart);
+    PlayerInputComponent->BindAction(TEXT("Sprint"), IE_Released, this, &ABaseCharacter::SprintStop);
+
 	//COMMENT THIS OUT AFTER TESTING:
 	PlayerInputComponent->BindAction(TEXT("XPDump"), IE_Pressed, this,&ABaseCharacterPlayable::DEBUG_XPRewarder); //DEBUG Item to add XP on button click
 }
@@ -88,6 +92,14 @@ void ABaseCharacterPlayable::BeginPlay()
 
 }
 
+
+
+
+
+/// <summary>
+/// Item Interaction Functions. Used to line trace for anything implementing interaction interface. 
+/// Used ingame to pick up items. 
+/// </summary>
 
 void ABaseCharacterPlayable::InteractWithItem() 
 {
@@ -229,14 +241,6 @@ void ABaseCharacterPlayable::MoveLeftRight(float AxisValue)
     }
 }
 
-void ABaseCharacterPlayable::SimpleJump()
-{
-    bool CanJump = EnergyComponent->StaminaDrainOnJump(EnergyComponent->GetStaminaCostJump());
-    if (CanJump)
-    {
-        ACharacter::Jump();
-    }
-}
 
 
 //---------------------------------------------------------------------------------COMBAT FUNCTIONS--------------------------------------------------------------------
