@@ -182,6 +182,18 @@ void ABaseCharacterPlayable::HandleLevelUpProcess()
     PassiveSkillTreeManager->IncreasePassiveSkillPoints();
 }
 
+void ABaseCharacterPlayable::AddPassiveBonusesToPrimaryAttributes(int32 AgilityPas, int32 ArcEssPas, int32 Constitutionpas, int32 EndurancePas, int32 SpiritPas, int32 StrengthPas)
+{
+    AttributesComponent->PassiveAdditionAgility = AgilityPas;
+    AttributesComponent->PassiveAdditionArcaneEssence = ArcEssPas;
+    AttributesComponent->PassiveAdditionConstitution = Constitutionpas;
+    AttributesComponent->PassiveAdditionEndurance = EndurancePas;
+    AttributesComponent->PassiveAdditionSpirit = SpiritPas;
+    AttributesComponent->PassiveAdditionStrength = StrengthPas;
+
+    AttributesComponent->CalculateTotalAttributePoints();
+}
+
 
 void ABaseCharacterPlayable::UpdateSecondaryAttributes() 
 {

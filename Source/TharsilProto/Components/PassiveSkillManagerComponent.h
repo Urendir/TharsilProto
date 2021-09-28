@@ -57,7 +57,7 @@ struct FPassiveSkillNode : public FTableRowBase
 };
 
 
-
+class ABaseCharacterPlayable;
 class UPassiveSkillNode;
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
@@ -79,6 +79,8 @@ private:
 public:	
 	// Called every frame
 	//virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+
+	ABaseCharacterPlayable* Owner;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 	TArray<FPassiveSkillNode> SkillTree;
@@ -162,9 +164,10 @@ public:
 	float FreezeChancePassive = 0.0f;
 	float FreezeDurationPassive = 0.0f;
 
-	//Corrision Modifiers
+	//Corrision Modifiers - Corrosion creates AP against the affected enemy
 	float CorrosiveDamage = 0.0f;
 	float CorrosionDuration = 0.0f;
+	float PerCorrosionAP = 0.0f;
 
 	//RESISTANCES AND DEFENSIVE MODIFICATIONS
 	//Physical
@@ -177,11 +180,14 @@ public:
 	float KnockdownResist = 0.0f;
 
 	float ToxinResist = 0.0f;
-	float FireResist = 0.0f;
-	float ColdResist = 0.0f;
+	float OverheatResist = 0.0f;
+	float FrostResist = 0.0f;
 	float CorrosionResist = 0.0f;
 
 	//Hard Damage Reduction
+	float ReduceIncomingSlashDamagePassive = 0.0f;
+	float ReduceIncomingPierceDamagePassive = 0.0f;
+	float ReduceIncomingCrushDamagePassive = 0.0f;
 	float DamageOnBlockReductionPassive = 0.0f;
 	float DamageToArmorReductionPassive = 0.0f;
 	float DamageToWeaponReductionPassive = 0.0f;
@@ -196,12 +202,12 @@ public:
 	float BloodMagicResist = 0.0f;
 
 	//DURATION REDUCTION
-	float ChillReductionPassive = 0.0f;
-	float BurnReductionPassive = 0.0f;
-	float BlindReductionPassive = 0.0f;
-	float CrippleReductionPassive = 0.0f;
-	float StunReductionPassive = 0.0f;
-	float BleedReductionPassive = 0.0f;
+	float ChillSelfDurationReductionPassive = 0.0f;
+	float BurnSelfDurationReductionPassive = 0.0f;
+	float BlindSelfDurationReductionPassive = 0.0f;
+	float CrippleSelfDurationReductionPassive = 0.0f;
+	float StunSelfDurationReductionPassive = 0.0f;
+	float BleedSelfDurationReductionPassive = 0.0f;
 
 	//UTILITY AND CHARACTER IMPROVEMENTS
 	//COST REDUCTION
@@ -248,19 +254,79 @@ public:
 	void ProvideSkillNodeBonus(FPassiveSkillNode SkillNode);
 
 
-
+private:
 	void AddAttributeAgility(FPassiveSkillNode SkillNode);
-	//void AddAttributeArmorPenetration();
+	void AddAttributeArcaneEssence(FPassiveSkillNode SkillNode);
+	void AddAttributeArmorPenetration(FPassiveSkillNode SkillNode);
 	void AddAttributeBreath(FPassiveSkillNode SkillNode);
 	void AddAttributeCarryCapacity(FPassiveSkillNode SkillNode); 
 	void AddAttributeConstitution(FPassiveSkillNode SkillNode);
 	void AddAttributeEndurance(FPassiveSkillNode SkillNode);
 	void AddAttributeHealth(FPassiveSkillNode SkillNode);
 	void AddAttributeHealthRegen(FPassiveSkillNode SkillNode);
+	void AddAttributeSpirit(FPassiveSkillNode SkillNode);
 	void AddAttributeStamina(FPassiveSkillNode SkillNode);
 	void AddAttributeStaminaRegen(FPassiveSkillNode SkillNode);
 	void AddAttributeStrength(FPassiveSkillNode SkillNode);
+	/*void AddDamage1hCrush(FPassiveSkillNode SkillNode);
+	void AddDamage1hPierce(FPassiveSkillNode SkillNode);
+	void AddDamage1hSlash(FPassiveSkillNode SkillNode);
+	void AddDamage2hCrush(FPassiveSkillNode SkillNode);
+	void AddDamage2hPierce(FPassiveSkillNode SkillNode);
+	void AddDamage2hSlash(FPassiveSkillNode SkillNode);
+	void AddDamageCritical(FPassiveSkillNode SkillNode);
+	void AddDamageRangedCrush(FPassiveSkillNode SkillNode);
+	void AddDamageRangedPierce(FPassiveSkillNode SkillNode);
+	void AddDamageRangedSlash(FPassiveSkillNode SkillNode);
+	void AddResistanceFrost(FPassiveSkillNode SkillNode);
+	void AddChanceCripple(FPassiveSkillNode SkillNode);
+	void AddResistanceOverheat(FPassiveSkillNode SkillNode);
+	void AddResistanceKnockback(FPassiveSkillNode SkillNode);
+	void AddResistancePoison(FPassiveSkillNode SkillNode);
+	void AddChanceBleed(FPassiveSkillNode SkillNode);
+	void AddDurationBleed(FPassiveSkillNode SkillNode);
+	void AddDamageBleed(FPassiveSkillNode SkillNode);
+	void AddDurationCripple(FPassiveSkillNode SkillNode);
+	void AddChanceCritical(FPassiveSkillNode SkillNode);
+	void ReduceDamageOnBlock(FPassiveSkillNode SkillNode);
+	void AddStrengthKnockback(FPassiveSkillNode SkillNode);
+	void AddChanceKnockdown(FPassiveSkillNode SkillNode);
+	void AddSpeedSprint(FPassiveSkillNode SkillNode);
+	void AddDurationStun(FPassiveSkillNode SkillNode);
+	void ReduceStaminaCostOnAttack(FPassiveSkillNode SkillNode);
+	void ReduceStaminaCostOnDodge(FPassiveSkillNode SkillNode);
+	void ReduceStaminaCostOnStance(FPassiveSkillNode SkillNode);
+	void ReduceStaminaCostOnShout(FPassiveSkillNode SkillNode);
+	void ReduceDurationStun(FPassiveSkillNode SkillNode);
+	void ReduceDurationBleed(FPassiveSkillNode SkillNode);
+	void ReduceDurationCripple(FPassiveSkillNode SkillNode);
+	void AddDamageFire(FPassiveSkillNode SkillNode);
+	void AddChanceBurn(FPassiveSkillNode SkillNode);
+	void AddDurationBurn(FPassiveSkillNode SkillNode);
+	void AddDamageToxic(FPassiveSkillNode SkillNode);
+	void AddChancePoison(FPassiveSkillNode SkillNode);
+	void AddDurationPoison(FPassiveSkillNode SkillNode);
+	void AddDurationBlindness(FPassiveSkillNode SkillNode);
+	void AddChanceStun(FPassiveSkillNode SkillNode); */
+	void AddDamageFrost(FPassiveSkillNode SkillNode);
+/*	void AddChanceChill(FPassiveSkillNode SkillNode);
+	void AddDurationChill(FPassiveSkillNode SkillNode);
+	void AddChanceFreeze(FPassiveSkillNode SkillNode);
+	void AddDurationFreeze(FPassiveSkillNode SkillNode);
+	void AddDamageCorrosive(FPassiveSkillNode SkillNode);
+	void AddDurationCorrosive(FPassiveSkillNode SkillNode);
+	void AddResistanceKnockdown(FPassiveSkillNode SkillNode);
+	void AddDefenseSlash(FPassiveSkillNode SkillNode);
+	void AddDefensePierce(FPassiveSkillNode SkillNode);
+	void AddDefenseCrush(FPassiveSkillNode SkillNode);
+	void AddArPePerCorrosion(FPassiveSkillNode SkillNode);
+	void AddResistanceCorrosive(FPassiveSkillNode SkillNode);
+	void ReduceDamageToArmor(FPassiveSkillNode SkillNode);
+	void ReduceDamageToWeapon(FPassiveSkillNode SkillNode);
+	void ReduceDurationChill(FPassiveSkillNode SkillNode);
+	void ReduceDurationBurn(FPassiveSkillNode SkillNode);
+	void ReduceDurationBlind(FPassiveSkillNode SkillNode);
 
-
+*/
 
 };

@@ -27,18 +27,29 @@ void UAttributesComponent::BeginPlay()
 	
 }
 
-void UAttributesComponent::IncreaseAttributePoints() 
+void UAttributesComponent::CalculateTotalAttributePoints()
+{
+	AttributeAgility = PassiveAdditionAgility + CommittedToAgility + AttributeStartMinimum;
+	AttributeArcaneEssence = PassiveAdditionArcaneEssence + CommittedToArcaneEssence + AttributeStartMinimum;
+	AttributeConstitution = PassiveAdditionConstitution + CommittedToConstitution + AttributeStartMinimum;
+	AttributeEndurance = PassiveAdditionEndurance + CommittedToEndurance + AttributeStartMinimum;
+	AttributeSpirit = PassiveAdditionSpirit + CommittedToSpirit + AttributeStartMinimum;
+	AttributeStrength = PassiveAdditionStrength + CommittedToStrength + AttributeStartMinimum;
+	
+	UE_LOG(LogTemp, Warning, TEXT("Recalculating Attributes. Strength: %i, Agility: %i."), AttributeStrength, AttributeAgility);
+
+	OnAttributesUpdated.Broadcast();
+}
+
+void UAttributesComponent::IncreaseAttributePoints()
 {
 	UnspentAttributePoints +=AttributePointsPerLevel;
 }
 
 void UAttributesComponent::ResetAttributePoints() 
 {
-	TotalAttributePoints = UnspentAttributePoints + AttributeStrength + AttributeAgility + AttributeConstitution + AttributeEndurance;
-
+	UnspentAttributePoints = CommittedToAgility + CommittedToArcaneEssence + CommittedToEndurance + CommittedToConstitution + CommittedToSpirit + CommittedToStrength;
 	InitializeAttributePoints();
-
-	UnspentAttributePoints = TotalAttributePoints - AttributeStartMinimum*6; //This is to account for the points that remain in the 6 attributes.
 	OnAttributesUpdated.Broadcast();
 }
 
@@ -51,6 +62,12 @@ void UAttributesComponent::InitializeAttributePoints()
 	AttributeEndurance = AttributeStartMinimum;
 	AttributeSpirit = AttributeStartMinimum;
 	AttributeArcaneEssence = AttributeStartMinimum;
+	CommittedToAgility = 0;
+	CommittedToArcaneEssence = 0;
+	CommittedToConstitution = 0;
+	CommittedToEndurance = 0;
+	CommittedToSpirit = 0;
+	CommittedToStrength = 0;
 }
 
 float UAttributesComponent::CalculateCarryCapPerStrength() 

@@ -25,23 +25,42 @@ protected:
 
 public:	
 	//------------------------MAIN PLAYER ATTRIBUTES-----------------------------------------------
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Stats", meta = (AllowPrivateAccess = "true"))
-	int32 AttributeStrength;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Stats", meta = (AllowPrivateAccess = "true"))
 	int32 AttributeAgility;
-	
+	int32 PassiveAdditionAgility = 0;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Stats", meta = (AllowPrivateAccess = "true"))
-	int32 AttributeConstitution;
-	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Stats", meta = (AllowPrivateAccess = "true"))
-	int32 AttributeEndurance;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Stats", meta = (AllowPrivateAccess = "true"))
-	int32 AttributeSpirit;
+	int32 CommittedToAgility = 0;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Stats", meta = (AllowPrivateAccess = "true"))
 	int32 AttributeArcaneEssence;
+	int32 PassiveAdditionArcaneEssence = 0;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Stats", meta = (AllowPrivateAccess = "true"))
+	int32 CommittedToArcaneEssence = 0;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Stats", meta = (AllowPrivateAccess = "true"))
+	int32 AttributeConstitution;
+	int32 PassiveAdditionConstitution = 0;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Stats", meta = (AllowPrivateAccess = "true"))
+	int32 CommittedToConstitution = 0;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Stats", meta = (AllowPrivateAccess = "true"))
+	int32 AttributeEndurance;
+	int32 PassiveAdditionEndurance = 0;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Stats", meta = (AllowPrivateAccess = "true"))
+	int32 CommittedToEndurance = 0;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Stats", meta = (AllowPrivateAccess = "true"))
+	int32 AttributeSpirit;
+	int32 PassiveAdditionSpirit = 0;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Stats", meta = (AllowPrivateAccess = "true"))
+	int32 CommittedToSpirit = 0;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Stats", meta = (AllowPrivateAccess = "true"))
+	int32 AttributeStrength;
+	int32 PassiveAdditionStrength = 0;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Stats", meta = (AllowPrivateAccess = "true"))
+	int32 CommittedToStrength = 0;
 
 	//-------------------GENERAL NR OF STATS and Skillpoints---------------------------------
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Stats", meta = (AllowPrivateAccess = "true"))
@@ -49,14 +68,14 @@ public:
 	
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Main Stats", meta = (AllowPrivateAccess = "true"))	
 	int32 AttributeStartMinimum = 5;
-
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Main Stats", meta = (AllowPrivateAccess = "true"))	
-	int32 TotalAttributePoints;			//Sum of all Attribute Points, spent and unspent, minus the minimum cap(5x4). Will be used for Resets.
 	
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Main Stats", meta = (AllowPrivateAccess = "true"))	
 	int32 AttributePointsPerLevel = 2;	
 
 	//-------------------Attribute calculation on Level Up---------------------------------		
+	UFUNCTION(BlueprintCallable)
+	void CalculateTotalAttributePoints();
+
 	UFUNCTION(BlueprintCallable)
 	void IncreaseAttributePoints();
 
