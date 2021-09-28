@@ -254,12 +254,14 @@ void UPassiveSkillManagerComponent::AddAttributeHealth(FPassiveSkillNode SkillNo
 {
 	HealthPointsPassive += SkillNode.AssignmentValue;
 	UE_LOG(LogTemp, Warning, TEXT("Passive HP increased to %f."), HealthPointsPassive);
+	Owner->UpdateSecondaryAttributes();
 }
 
 void UPassiveSkillManagerComponent::AddAttributeHealthRegen(FPassiveSkillNode SkillNode)
 {
 	HealthRegenPassive += SkillNode.AssignmentValue;
 	UE_LOG(LogTemp, Warning, TEXT("Passive Health Regen increased to %f."), HealthRegenPassive);
+	Owner->UpdateSecondaryAttributes();
 }
 
 void UPassiveSkillManagerComponent::AddAttributeSpirit(FPassiveSkillNode SkillNode)
@@ -272,12 +274,14 @@ void UPassiveSkillManagerComponent::AddAttributeStamina(FPassiveSkillNode SkillN
 {
 	StaminaPointsPassive += SkillNode.AssignmentValue;
 	UE_LOG(LogTemp, Warning, TEXT("Passive Stamina increased to %f."), StaminaPointsPassive);
+	Owner->UpdateSecondaryAttributes();
 }
 
 void UPassiveSkillManagerComponent::AddAttributeStaminaRegen(FPassiveSkillNode SkillNode)
 {
 	StaminaRegenPassive += SkillNode.AssignmentValue;
 	UE_LOG(LogTemp, Warning, TEXT("Passive Stamina Regen increased to %f."), StaminaRegenPassive);
+	Owner->UpdateSecondaryAttributes();
 }
 
 void UPassiveSkillManagerComponent::AddAttributeStrength(FPassiveSkillNode SkillNode)

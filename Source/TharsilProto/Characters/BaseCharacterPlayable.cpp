@@ -211,7 +211,8 @@ void ABaseCharacterPlayable::UpdateSecondaryAttributes()
     }
     if (EnergyComponent != nullptr)
     {
-        ABaseCharacter::EnergyComponent->RecalculateEnergyStats(AttributesComponent->AttributeEndurance, XPComponent->CurrentLevel);
+        ABaseCharacter::EnergyComponent->RecalculateManaAttributes(AttributesComponent->AttributeArcaneEssence, XPComponent->CurrentLevel, PassiveSkillTreeManager->ManaPointsPassive);
+        ABaseCharacter::EnergyComponent->RecalculateStaminaAttributes(AttributesComponent->AttributeEndurance, AttributesComponent->AttributeAgility, XPComponent->CurrentLevel, PassiveSkillTreeManager->StaminaPointsPassive, PassiveSkillTreeManager->StaminaRegenPassive);
     }
     else
     {
@@ -276,6 +277,6 @@ void ABaseCharacterPlayable::DEBUG_XPRewarder()
         UE_LOG(LogTemp, Error, TEXT("ERROR: Unable to access the XP Component.")); 
         return;
     }
-    XPComponent->IncreaseCurrentXP(XPReward);
+    XPComponent->IncreaseCurrentXP(XPReward * XPComponent->CurrentLevel);
 }
 

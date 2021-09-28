@@ -114,7 +114,7 @@ public:
 	float HealthRegenPassive = 0.0f;
 	float StaminaPointsPassive = 0.0f;
 	float StaminaRegenPassive = 0.0f;
-
+	float ManaPointsPassive = 0.0f;
 
 	//OFFENSIVE MODIFICATIONS
 	//Damage Modifiers
