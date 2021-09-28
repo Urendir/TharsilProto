@@ -33,6 +33,7 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+	float BaseSprintSpeed = 1100.0f;
 	//------------------------------------Variables for character state-------------------------------------
 private:
 
@@ -40,6 +41,7 @@ private:
 	float SavedMaxWalkSpeedCrouched;
 	float SavedMaxSwimSpeed;
 	float SavedMaxFlySpeed;
+
 
 public:	
 	// Called every frame
@@ -103,7 +105,7 @@ public:
 	//-------------------------------------------Movement Functions--------------------------------------------
 
 	void SimpleJump();
-	void SprintStart();
+	virtual void SprintStart();
 	void SprintStop();
 
 
@@ -124,5 +126,4 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Item Interaction")
 	void UseItem(TSubclassOf<UInventoryItemBase> Item);
 
-	
 };

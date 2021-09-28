@@ -66,6 +66,7 @@ bool UInventoryComponent::AddItemToInventory(TSubclassOf<UInventoryItemBase> Ite
 		ThisInventoryItem->World = GetWorld();
 		InventoryItems.Add(ThisInventoryItem);
 		InventorySlotsUsed++;
+
 		OnInventoryUpdated.Broadcast(); 		//This will update UI via delegate:
 
 		return true;
@@ -120,6 +121,14 @@ void UInventoryComponent::UpdateCarryCapacity(float NewValue)
 		Owner->HandleCharacterSlowedEffect(true);
 	}
 	OnInventoryUpdated.Broadcast();
+}
+
+
+//Called by owning player to determine sprint speed.
+//Called by UI to update progress bar for weight carried. 
+float UInventoryComponent::CalculateCurrentEncumberanceRate()
+{
+	return CarryWeightCurrent / CarryWeightTotalCapacity;
 }
 
 

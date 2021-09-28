@@ -29,6 +29,15 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Offensive Stats", meta = (AllowPrivateAccess = "true"))
 	FDamageTypeBreakdown DamageCollection;
 
+
+
+	/// <summary>
+	/// Critical Damage Functions
+	/// </summary>
+	UFUNCTION(BlueprintCallable)
+	void CalculateCriticalModifiers(int32 Agility);
+
+
 //----------------------------------------------- This is the basic Outgoing Damage Function----------------------------------------------
 	UFUNCTION(BlueprintCallable)
 	void DamageEnemyCharacter(ABaseCharacter* DamageTarget, FDamageTypeBreakdown Damage);
@@ -37,6 +46,21 @@ public:
 private:	
 	ABaseCharacter* Owner;
 
+	/// <summary>
+	/// Critical Damage Modifiers
+	/// </summary>
+
+	float CriticalDamageModifier = 1.75f;
+	float CriticalChance = 0.0f;
+
+	float CritPerAgilityUnder50 = 0.005f;
+	float CritPerAgilityUnder100 = 0.003f;
+	float CritPerAgilityUnder150 = 0.002f;
+	float CritPerAgilityAbove150 = 0.001f;
+
+	/// <summary>
+	/// Damage Functions
+	/// </summary>
 	UFUNCTION()
 	void CalculateDamageRatings();
 

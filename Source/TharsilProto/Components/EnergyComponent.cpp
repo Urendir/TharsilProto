@@ -83,8 +83,8 @@ void UEnergyComponent::RecalculateStaminaRegen(float PassiveStaminaRegen)
 
 void UEnergyComponent::RecalculateStaminaCosts(int32 Agility)
 {
-	StaminaToJump = BaseStaminaToJump + (StaminaMaximum * 0.3) - (Agility * 1.2f);			//Magic numbers TBD by playtesting
-	StaminaToSprint = BaseStaminaToSprint + (StaminaMaximum * 0.15) - (Agility * 1.2f);		//Magic numbers TBD by playtesting
+	StaminaToJump = BaseStaminaToJump + (StaminaMaximum * 0.3) - (Agility * 0.5f);			//Magic numbers TBD by playtesting
+	StaminaToSprint = BaseStaminaToSprint + (StaminaMaximum * 0.15) - (Agility * 0.5f);		//Magic numbers TBD by playtesting
 }
 
 void UEnergyComponent::RecalculateManaAttributes(int32 ArcaneEssence, int32 Level, float PassiveManaMod)

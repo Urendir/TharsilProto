@@ -35,11 +35,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 ArmorPenetration = 0.0f;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float CriticalDamageModifier = 0.0f;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float CriticalChance = 0.0f;
 
 //--------------------------------------- Status Effect Variables-----------------------------------
 

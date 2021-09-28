@@ -40,6 +40,8 @@ public:
 	UFUNCTION(BlueprintCallable)		
 	void UpdateSecondaryAttributes();
 
+	UFUNCTION(BlueprintCallable)
+	void CalculateSprintSpeed();
 	//------------------------------------------Combat Functions-------------------------------------------------
 	virtual void HandleCharacterDeath() override;
 
@@ -82,7 +84,7 @@ private:
 	float LineTraceLength = 1000.0f;	
 
 	//--------------------------------------------Movement Variables---------------------------------------------------------
-
+	float CurrentSprintSpeed = 1200.0f;
 
 	//-------------------------------------------Interaction Functions----------------------------------------------
 
@@ -93,6 +95,7 @@ private:
 	//-------------------------------------------Movement Functions--------------------------------------------
 	void MoveForwardBack(float AxisValue);
 	void MoveLeftRight(float AxisValue);
+
 
 };
 

@@ -33,6 +33,12 @@ void UOffensiveCalculatorComponent::CalculateDamageRatings()
 	DamageCollection.ArmorPenetration = 50;
 }
 
+void UOffensiveCalculatorComponent::CalculateCriticalModifiers(int32 Agility)
+{
+	CriticalChance = Agility * CritPerAgilityUnder50; //PLACEHOLDER
+
+}
+
 void UOffensiveCalculatorComponent::DamageEnemyCharacter(ABaseCharacter* DamageTarget, FDamageTypeBreakdown Damage)
 {
 	CalculateDamageRatings();

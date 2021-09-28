@@ -74,13 +74,15 @@ void ABaseCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 
 //---------------------------------------------------------------------Movement--------------------------------------------------------------------
 
+
+
 void ABaseCharacter::SprintStart()
 {
 	float SprintMinimumStamina = EnergyComponent->GetStaminaCostToSprint() * 2;
 	if (SprintMinimumStamina < EnergyComponent->WhatsCurrentStamina() && !bIsSprinting)
 	{
 		bIsSprinting = true;
-		MovementComponent->MaxWalkSpeed = 1500.0f;
+		MovementComponent->MaxWalkSpeed = BaseSprintSpeed;
 	}
 }
 

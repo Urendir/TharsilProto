@@ -59,6 +59,8 @@ public:
 
 	void UpdateCarryCapacity(float NewValue);
 
+	UFUNCTION(BlueprintCallable)
+	float CalculateCurrentEncumberanceRate();
 
 //------------------------DELEGATES---------------------------------		
 	UPROPERTY(BlueprintAssignable)

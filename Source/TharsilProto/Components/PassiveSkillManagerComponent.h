@@ -217,6 +217,9 @@ public:
 	float SprintCostReductionPassive = 0.0f;
 	float DodgeCostReductionPassive = 0.0f;
 
+	//Speed
+	float SprintSpeedPassive = 0.0f;
+
 	//More to follow on system implementations
 
 
@@ -273,9 +276,9 @@ private:
 	void AddDamage1hSlash(FPassiveSkillNode SkillNode);
 	void AddDamage2hCrush(FPassiveSkillNode SkillNode);
 	void AddDamage2hPierce(FPassiveSkillNode SkillNode);
-	void AddDamage2hSlash(FPassiveSkillNode SkillNode);
+	void AddDamage2hSlash(FPassiveSkillNode SkillNode);*/
 	void AddDamageCritical(FPassiveSkillNode SkillNode);
-	void AddDamageRangedCrush(FPassiveSkillNode SkillNode);
+/*	void AddDamageRangedCrush(FPassiveSkillNode SkillNode);
 	void AddDamageRangedPierce(FPassiveSkillNode SkillNode);
 	void AddDamageRangedSlash(FPassiveSkillNode SkillNode);
 	void AddResistanceFrost(FPassiveSkillNode SkillNode);
@@ -290,9 +293,9 @@ private:
 	void AddChanceCritical(FPassiveSkillNode SkillNode);
 	void ReduceDamageOnBlock(FPassiveSkillNode SkillNode);
 	void AddStrengthKnockback(FPassiveSkillNode SkillNode);
-	void AddChanceKnockdown(FPassiveSkillNode SkillNode);
+	void AddChanceKnockdown(FPassiveSkillNode SkillNode); */
 	void AddSpeedSprint(FPassiveSkillNode SkillNode);
-	void AddDurationStun(FPassiveSkillNode SkillNode);
+/*	void AddDurationStun(FPassiveSkillNode SkillNode);
 	void ReduceStaminaCostOnAttack(FPassiveSkillNode SkillNode);
 	void ReduceStaminaCostOnDodge(FPassiveSkillNode SkillNode);
 	void ReduceStaminaCostOnStance(FPassiveSkillNode SkillNode);
@@ -326,7 +329,7 @@ private:
 	void ReduceDurationChill(FPassiveSkillNode SkillNode);
 	void ReduceDurationBurn(FPassiveSkillNode SkillNode);
 	void ReduceDurationBlind(FPassiveSkillNode SkillNode);
-
+	void ReduceStaminaCostSprint(FPassiveSkillNode SkillNode);
 */
 
 };

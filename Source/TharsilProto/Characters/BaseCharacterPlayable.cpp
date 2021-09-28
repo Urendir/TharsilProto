@@ -174,7 +174,10 @@ void ABaseCharacterPlayable::RemoveFocusedActor()
     CurrentlyFocusedActor = nullptr;
 }
 
-//------------------------------------------------------------------RPG SYSTEMS / PROGRESSION and COMPONENT INTERACTIONS------------------------------------------------------------------
+//----------------------------------------------RPG SYSTEMS / PROGRESSION and COMPONENT INTERACTIONS-----------------------------------------------------
+/// <summary>
+/// 
+/// </summary>
 void ABaseCharacterPlayable::HandleLevelUpProcess() 
 {
     UpdateSecondaryAttributes();
@@ -218,7 +221,7 @@ void ABaseCharacterPlayable::UpdateSecondaryAttributes()
     {
         UE_LOG(LogTemp, Error, TEXT("EnergyComponent is nullptr."));
     }
-
+    CalculateSprintSpeed();
 
     AttributesComponent->OnAttributesUpdated.Broadcast();
 }
@@ -238,6 +241,11 @@ void ABaseCharacterPlayable::MoveLeftRight(float AxisValue)
     {
         AddMovementInput(GetActorRightVector() * AxisValue);
     }
+}
+
+void ABaseCharacterPlayable::CalculateSprintSpeed()
+{
+    CurrentSprintSpeed = BaseSprintSpeed * InventoryComponent->CalculateCurrentEncumberanceRate() * (1 + PassiveSkillTreeManager->SprintSpeedPassive);
 }
 
 

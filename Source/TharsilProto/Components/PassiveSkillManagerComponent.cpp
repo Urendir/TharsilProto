@@ -159,7 +159,7 @@ void UPassiveSkillManagerComponent::ProvideSkillNodeBonus(FPassiveSkillNode Skil
 		AddAttributeHealth(SkillNode);
 		break;
 
-	case EPassiveSkillEffect::E_AddAttributeHealthRegen:
+	case EPassiveSkillEffect::E_AddAttributeRegenHealth:
 		AddAttributeHealthRegen(SkillNode);
 		break;
 
@@ -167,7 +167,7 @@ void UPassiveSkillManagerComponent::ProvideSkillNodeBonus(FPassiveSkillNode Skil
 		AddAttributeStamina(SkillNode);
 		break;
 
-	case EPassiveSkillEffect::E_AddAttributeStaminaRegen:
+	case EPassiveSkillEffect::E_AddAttributeRegenStamina:
 		AddAttributeStaminaRegen(SkillNode);
 		break;
 
@@ -179,6 +179,32 @@ void UPassiveSkillManagerComponent::ProvideSkillNodeBonus(FPassiveSkillNode Skil
 		AddDamageFrost(SkillNode);
 		break;
 
+	case EPassiveSkillEffect::E_ReduceCostAttack:
+
+		break;
+
+	case EPassiveSkillEffect::E_AddChanceBurn:
+
+		break;
+
+	case EPassiveSkillEffect::E_AddChanceChill:
+
+		break;
+
+	case EPassiveSkillEffect::E_AddAttributeSpirit:
+
+		break;
+
+	case EPassiveSkillEffect::E_AddAttributeArcaneEssence:
+
+		break;
+
+	case EPassiveSkillEffect::E_ReduceCostSprint:
+
+
+		break;
+
+
 	default:
 		UE_LOG(LogTemp, Warning, TEXT("No Matching function for Passive Node found."));
 		break;
@@ -188,24 +214,11 @@ void UPassiveSkillManagerComponent::ProvideSkillNodeBonus(FPassiveSkillNode Skil
 }
 
 
-
-
-
-
-
-
-
-
-
-//// Called every frame
-//void UPassiveSkillManagerComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
-//{
-//	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-//
-//	// ...
-//}
-
-
+/// <summary>
+/// ========================================FUNCTIONS IN SWITCH STATEMENT=======================================
+/// These are called from within the switch statement, based on Node Type via Enum. 
+/// </summary>
+/// <param name="SkillNode"></param>
 void UPassiveSkillManagerComponent::AddAttributeAgility(FPassiveSkillNode SkillNode)
 {
 	PassiveSkillAgility += SkillNode.AssignmentValue;
@@ -291,7 +304,35 @@ void UPassiveSkillManagerComponent::AddAttributeStrength(FPassiveSkillNode Skill
 	Owner->AddPassiveBonusesToPrimaryAttributes(PassiveSkillAgility, PassiveSkillArcaneEssence, PassiveSkillConstitution, PassiveSkillEndurance, PassiveSkillSpirit, PassiveSkillStrength);
 }
 
+void UPassiveSkillManagerComponent::AddDamageCritical(FPassiveSkillNode SkillNode)
+{
+	CriticalDamagePassive += SkillNode.AssignmentValue;
+}
+
+void UPassiveSkillManagerComponent::AddSpeedSprint(FPassiveSkillNode SkillNode)
+{
+	SprintCostReductionPassive += SkillNode.AssignmentValue;
+	Owner->CalculateSprintSpeed(); // not part of the overall Secondary Attributes
+}
+
 void UPassiveSkillManagerComponent::AddDamageFrost(FPassiveSkillNode SkillNode)
 {
 
 }
+
+
+
+
+
+
+
+
+
+
+//// Called every frame
+//void UPassiveSkillManagerComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
+//{
+//	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+//
+//	// ...
+//}
