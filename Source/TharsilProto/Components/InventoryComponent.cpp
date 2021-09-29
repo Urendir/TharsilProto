@@ -28,6 +28,9 @@ void UInventoryComponent::BeginPlay()
 	InventorySlotsUsed = 0;
 	CarryWeightCurrent = 0;
 	CarryWeightTotalCapacity = CarryWeightBaseCapacity;
+
+
+	InventoryItems.SetNum(InventorySlotsTotal);
 }
 
 bool UInventoryComponent::AddItemToInventory(TSubclassOf<UInventoryItemBase> Item) 
@@ -79,6 +82,24 @@ bool UInventoryComponent::AddItemToInventory(TSubclassOf<UInventoryItemBase> Ite
 	}
 }
 
+bool UInventoryComponent::MoveItemInInventory(TSubclassOf<UInventoryItemBase> ItemToMove, int32 FromLocation, int32 ToLocation)
+{
+	if(!ItemToMove)
+	{
+		return false;
+	}
+	if (InventoryItems[FromLocation])
+	{
+		UInventoryItemBase* ThisItem = Cast<UInventoryItemBase>(ItemToMove);
+		InventoryItems.EmplaceAt(ToLocation, ThisItem);
+		InventoryItems.RemoveAtSwap(FromLocation, 1, false);
+
+		return true;
+	}
+
+	return false;
+}
+
 bool UInventoryComponent::RemoveFromInventory(TSubclassOf<UInventoryItemBase> Item) 
 {
 	if(Item)
@@ -109,10 +130,10 @@ void UInventoryComponent::CalculateCurrentCarryCapacity(int32 Strength, int32 Le
 {
 	CarryWeightTotalCapacity = (float)Strength * PerStrengthCarryCapacity + Level * CarryWeightPerLevel + CarryWeightBaseCapacity;
 
-	UpdateCarryCapacity(CarryWeightTotalCapacity);
+	UpdateCarryWeightTotalCapacity(CarryWeightTotalCapacity);
 }
 
-void UInventoryComponent::UpdateCarryCapacity(float NewValue) 
+void UInventoryComponent::UpdateCarryWeightTotalCapacity(float NewValue) 
 {
 	CarryWeightTotalCapacity = NewValue;
 	if (CarryWeightTotalCapacity > CarryWeightCurrent)

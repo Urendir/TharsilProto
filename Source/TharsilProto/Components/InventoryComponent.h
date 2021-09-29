@@ -52,18 +52,25 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	TArray<UInventoryItemBase*> InventoryItems;
 
-//-----------------INVENTORY MANAGEMENT FUNCTIONS-------------------------
-	bool AddItemToInventory(TSubclassOf<UInventoryItemBase> Item);
-	bool RemoveFromInventory(TSubclassOf<UInventoryItemBase> Item);
-	void CalculateCurrentCarryCapacity(int32 Strength, int32 Level);
-
-	void UpdateCarryCapacity(float NewValue);
-
-	UFUNCTION(BlueprintCallable)
-	float CalculateCurrentEncumberanceRate();
-
 //------------------------DELEGATES---------------------------------		
 	UPROPERTY(BlueprintAssignable)
 	FOnInventoryUpdated OnInventoryUpdated;	
+
+
+//-----------------INVENTORY MANAGEMENT FUNCTIONS-------------------------
+	UFUNCTION(BlueprintCallable)
+	bool AddItemToInventory(TSubclassOf<UInventoryItemBase> Item);
+	UFUNCTION(BlueprintCallable)
+	bool MoveItemInInventory(TSubclassOf<UInventoryItemBase> ItemToMove, int32 FromLocation, int32 ToLocation);
+	UFUNCTION(BlueprintCallable)
+	bool RemoveFromInventory(TSubclassOf<UInventoryItemBase> Item);
+
+//------------------ Weight Calculations--------------------------------------
+	UFUNCTION(BlueprintCallable)
+	float CalculateCurrentEncumberanceRate();
+	UFUNCTION(BlueprintCallable)
+	void CalculateCurrentCarryCapacity(int32 Strength, int32 Level);
+	UFUNCTION(BlueprintCallable)
+	void UpdateCarryWeightTotalCapacity(float NewValue);
 
 };
