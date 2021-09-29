@@ -26,9 +26,12 @@ public:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION()
 	void RecalculateStaminaAttributes(int32 Endurance, int32 Agility, int32 Level, float PassiveStaminaMod, float PassiveStaminaRegen);
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION()
+	void RecalculateStaminaCosts(int32 Agility, float EncumberanceRate, float PassiveSprintCostReduction);
+
+	UFUNCTION()
 	void RecalculateManaAttributes(int32 ArcaneEssence, int32 Level, float PassiveManaMod);
 
 	UFUNCTION(BlueprintCallable)
@@ -116,6 +119,6 @@ private:
 
 	void RecalculateMaximumStamina(int32 Endurance, int32 Level, float PassiveStaminaMod);
 	void RecalculateStaminaRegen(float PassiveStaminaRegen);
-	void RecalculateStaminaCosts(int32 Agility);
+
 
 };

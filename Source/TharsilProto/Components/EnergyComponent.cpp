@@ -44,12 +44,19 @@ void UEnergyComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActo
 	}
 }
 
-
+/// <summary>
+/// ========================================Stamina related functions=================
+/// </summary>
+/// <param name="Endurance"></param>
+/// <param name="Agility"></param>
+/// <param name="Level"></param>
+/// <param name="PassiveStaminaMod"></param>
+/// <param name="PassiveStaminaRegen"></param>
 void UEnergyComponent::RecalculateStaminaAttributes(int32 Endurance, int32 Agility, int32 Level, float PassiveStaminaMod, float PassiveStaminaRegen)
 {
 	RecalculateMaximumStamina(Endurance, Level, PassiveStaminaMod);
 	RecalculateStaminaRegen(PassiveStaminaRegen);
-	RecalculateStaminaCosts(Agility);
+
 
 	if (Level != RememberedLevel || Level == 1)
 	{
@@ -81,21 +88,14 @@ void UEnergyComponent::RecalculateStaminaRegen(float PassiveStaminaRegen)
 	StaminaRegenerationAmount = (StaminaMaximum*0.09) * (1 + PassiveStaminaRegen);
 }
 
-void UEnergyComponent::RecalculateStaminaCosts(int32 Agility)
+void UEnergyComponent::RecalculateStaminaCosts(int32 Agility, float EncumberanceRate, float PassiveSprintCostReduction)
 {
-	StaminaToJump = BaseStaminaToJump + (StaminaMaximum * 0.3) - (Agility * 0.5f);			//Magic numbers TBD by playtesting
-	StaminaToSprint = BaseStaminaToSprint + (StaminaMaximum * 0.15) - (Agility * 0.5f);		//Magic numbers TBD by playtesting
-}
+	
+	StaminaToJump = (BaseStaminaToJump + (StaminaMaximum * 0.25) - (Agility * 0.3)) * (EncumberanceRate + 0.75);			//Magic numbers TBD by playtesting
+	float SprintCostNoSkillReduction = (BaseStaminaToSprint + (StaminaMaximum * 0.1) - (Agility * 0.3)) * (EncumberanceRate + 0.5) ; //Magic numbers TBD by playtesting
+	StaminaToSprint = SprintCostNoSkillReduction * (1 - PassiveSprintCostReduction);		
 
-void UEnergyComponent::RecalculateManaAttributes(int32 ArcaneEssence, int32 Level, float PassiveManaMod)
-{
-	ManaMaximum = ArcaneEssence * ManaPerEssence + Level * ManaPerLevel + ManaBase + PassiveManaMod;
-
-	if (Level != RememberedLevel || Level == 1)
-	{
-		StaminaCurrent = StaminaMaximum;
-		RememberedLevel = Level;
-	}
+	UE_LOG(LogTemp, Warning, TEXT("Passive CarryCap increased to %i."), StaminaToSprint);
 }
 
 /// <summary>
@@ -118,6 +118,20 @@ float UEnergyComponent::WhatsCurrentStamina()
 }
 
 
+/// <summary>
+/// Mana Related functions are below
+/// </summary>
+
+void UEnergyComponent::RecalculateManaAttributes(int32 ArcaneEssence, int32 Level, float PassiveManaMod)
+{
+	ManaMaximum = ArcaneEssence * ManaPerEssence + Level * ManaPerLevel + ManaBase + PassiveManaMod;
+
+	if (Level != RememberedLevel || Level == 1)
+	{
+		StaminaCurrent = StaminaMaximum;
+		RememberedLevel = Level;
+	}
+}
 
 void UEnergyComponent::DecreaseCurrentMana()
 {
@@ -126,6 +140,7 @@ void UEnergyComponent::DecreaseCurrentMana()
 void UEnergyComponent::EnableManaUsage()
 {
 }
+
 
 void UEnergyComponent::RestoreEnergyOverTime(float DeltaTime)
 {

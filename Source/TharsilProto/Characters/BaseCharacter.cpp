@@ -3,11 +3,9 @@
 
 #include "BaseCharacter.h"
 #include "TharsilProto/Components/HealthComponent.h"
-#include "TharsilProto/Components/InventoryComponent.h"
 #include "TharsilProto/Components/EnergyComponent.h"
 #include "TharsilProto/Components/DefensiveCalculatorComponent.h"
 #include "TharsilProto/Components/OffensiveCalculatorComponent.h"
-#include "TharsilProto/InventoryItems/InventoryItemBase.h"
 #include "GameFramework/CharacterMovementComponent.h"
 
 // Sets default values
@@ -17,7 +15,6 @@ ABaseCharacter::ABaseCharacter()
 	PrimaryActorTick.bCanEverTick = true;
 
 	HealthComponent = CreateDefaultSubobject<UHealthComponent>(TEXT("Health Component"));
-	InventoryComponent = CreateDefaultSubobject<UInventoryComponent>(TEXT("Inventory Component"));
 	EnergyComponent = CreateDefaultSubobject<UEnergyComponent>(TEXT("Energy Component"));
 	DefenseComponent = CreateDefaultSubobject<UDefensiveCalculatorComponent>(TEXT("Defense Component"));
 	OffenseComponent = CreateDefaultSubobject<UOffensiveCalculatorComponent>(TEXT("Offense Component"));
@@ -33,10 +30,6 @@ void ABaseCharacter::BeginPlay()
 	if(!HealthComponent)
 	{
 		UE_LOG(LogTemp, Error, TEXT("HealthComponent failed to be created on baseCharacter class "));
-	}
-	if(!InventoryComponent)
-	{
-		UE_LOG(LogTemp, Error, TEXT("InventoryComponent failed to be created on baseCharacter class "));
 	}
 	if (!EnergyComponent)
 	{
@@ -78,6 +71,11 @@ void ABaseCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 
 void ABaseCharacter::SprintStart()
 {
+	if (bIsCharacterSlowed)
+	{
+		return;
+	}
+
 	float SprintMinimumStamina = EnergyComponent->GetStaminaCostToSprint() * 2;
 	if (SprintMinimumStamina < EnergyComponent->WhatsCurrentStamina() && !bIsSprinting)
 	{
@@ -88,12 +86,20 @@ void ABaseCharacter::SprintStart()
 
 void ABaseCharacter::SprintStop()
 {
+	if (bIsCharacterSlowed)
+	{
+		return;
+	}
 	bIsSprinting = false;
 	MovementComponent->MaxWalkSpeed = SavedMaxWalkSpeed;
 }
 
 void ABaseCharacter::SimpleJump()
 {
+	if (bIsCharacterSlowed)
+	{
+		return;
+	}
 	bool CanJump = EnergyComponent->DecreaseCurrentStamina(EnergyComponent->GetStaminaCostJump());
 	if (CanJump)
 	{
@@ -159,12 +165,6 @@ void ABaseCharacter::HandleCharacterSlowedEffect(bool bIsSlowed)
 		MovementComponent->SetJumpAllowed(true);
 		bIsCharacterSlowed = false;
 	}
-}
-
-void ABaseCharacter::UseItem(TSubclassOf<UInventoryItemBase> Item) 
-{
-	ThisInventoryItem = Cast<UInventoryItemBase>(Item);
-	ThisInventoryItem->UseItem(this);
 }
 
 

@@ -30,7 +30,7 @@ enum class EQualityRating : uint8
 class ABaseCharacter;
 class UInventoryComponent;
 class UWorld;
-class ABaseCharacter;
+class ABaseCharacterPlayable;
 class AInteractablePickupItem;
 class UDA_ItemBase;
 
@@ -113,7 +113,7 @@ public:
 	float CalculateTotalItemDurability();
 
 	UFUNCTION(BlueprintCallable)
-	virtual void UseItem(ABaseCharacter* Character);
+	virtual void UseItem(ABaseCharacterPlayable* Character);
 
 	
 };

@@ -12,8 +12,6 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FCharacterDeathDelegate, int32, XPTo
 
 class UHealthComponent;
 class UEnergyComponent;
-class UInventoryComponent;
-class UInventoryItemBase;
 class UOffensiveCalculatorComponent;
 class UDefensiveCalculatorComponent;
 class UCharacterMovementComponent;
@@ -52,8 +50,6 @@ public:
 
 	UPROPERTY(BlueprintAssignable)
 	FCharacterDeathDelegate CharacterDeathDelegate;
-
-	UInventoryItemBase* ThisInventoryItem;
 	
 	//TO DO : THIS SHOULD BE MOVED TO THE XP COMPONENT!
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components", meta = (AllowPrivateAccess = "true"))
@@ -66,9 +62,6 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components", meta = (AllowPrivateAccess = "true"))
 	UEnergyComponent* EnergyComponent;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components", meta = (AllowPrivateAccess = "true"))
-	UInventoryComponent* InventoryComponent;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components", meta = (AllowPrivateAccess = "true"))
 	UDefensiveCalculatorComponent* DefenseComponent;
@@ -98,7 +91,7 @@ public:
 	bool IsAttacking;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Combat", meta = (AllowPrivateAccess = "true"))
-	float SlowDebuffValue = 3; //This influences how much a slowdebuff (like overencumberance) will reduce movement speed. Default is 3, so walk speed will be 600/3 = 200.
+	float SlowDebuffValue = 2.5; //This influences how much a slowdebuff (like overencumberance) will reduce movement speed. Default is 3, so walk speed will be 600/3 = 200.
 
 	bool bIsSprinting = false;
 
@@ -123,7 +116,6 @@ public:
 	UFUNCTION(BlueprintCallable)
 	virtual void HandleCharacterSlowedEffect(bool bIsSlowed);
 
-	UFUNCTION(BlueprintCallable, Category = "Item Interaction")
-	void UseItem(TSubclassOf<UInventoryItemBase> Item);
+
 
 };

@@ -3,7 +3,7 @@
 
 #include "InventoryComponent.h"
 #include "TharsilProto/InventoryItems/InventoryItemBase.h"
-#include "TharsilProto/Characters/BaseCharacter.h"
+#include "TharsilProto/Characters/BaseCharacterPlayable.h"
 #include "Containers/Array.h"
 #include "GameFramework/Actor.h"
 
@@ -23,7 +23,7 @@ void UInventoryComponent::BeginPlay()
 {
 	Super::BeginPlay();
 
-	Owner = Cast<ABaseCharacter>(GetOwner());
+	Owner = Cast<ABaseCharacterPlayable>(GetOwner());
 	InventorySlotsTotal = 20;
 	InventorySlotsUsed = 0;
 	CarryWeightCurrent = 0;
@@ -46,10 +46,10 @@ bool UInventoryComponent::AddItemToInventory(TSubclassOf<UInventoryItemBase> Ite
 		return false;
 	}
 	
-	if(InventorySlotsUsed < InventorySlotsTotal)
+	if(InventorySlotsUsed < InventorySlotsTotal && CarryWeightCurrent <= CarryWeightTotalCapacity)
 	{
 		CarryWeightCurrent += ThisInventoryItem->ItemWeight;
-
+		
 		if (CarryWeightCurrent >= CarryWeightTotalCapacity)
 		{
 			if (Owner)
@@ -66,6 +66,7 @@ bool UInventoryComponent::AddItemToInventory(TSubclassOf<UInventoryItemBase> Ite
 		ThisInventoryItem->World = GetWorld();
 		InventoryItems.Add(ThisInventoryItem);
 		InventorySlotsUsed++;
+		Owner->RecheckStaminaCostsOnInventoryUpdate();
 
 		OnInventoryUpdated.Broadcast(); 		//This will update UI via delegate:
 
@@ -97,6 +98,8 @@ bool UInventoryComponent::RemoveFromInventory(TSubclassOf<UInventoryItemBase> It
 			Owner->HandleCharacterSlowedEffect(false);
 		}
 
+		Owner->RecheckStaminaCostsOnInventoryUpdate();
+
 		return true;
 	}
 	return false;
@@ -120,6 +123,7 @@ void UInventoryComponent::UpdateCarryCapacity(float NewValue)
 	{
 		Owner->HandleCharacterSlowedEffect(true);
 	}
+
 	OnInventoryUpdated.Broadcast();
 }
 

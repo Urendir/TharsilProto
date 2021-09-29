@@ -10,12 +10,13 @@
  * 
  */
 
-
-class UExperienceComponent;
 class UAttributesComponent;
-class USpringArmComponent;
 class UCameraComponent;
+class UExperienceComponent;
+class UInventoryComponent;
+class UInventoryItemBase;
 class UPassiveSkillManagerComponent;
+class USpringArmComponent;
 
 UCLASS()
 class THARSILPROTO_API ABaseCharacterPlayable : public ABaseCharacter
@@ -28,6 +29,11 @@ protected:
 public:
 	ABaseCharacterPlayable();
 
+	//------------------------------------------PUBLIC COMPONENTS----------------------------------------------
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components", meta = (AllowPrivateAccess = "true"))
+	UInventoryComponent* InventoryComponent;
+
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
@@ -39,6 +45,8 @@ public:
 
 	UFUNCTION(BlueprintCallable)		
 	void UpdateSecondaryAttributes();
+
+	void RecheckStaminaCostsOnInventoryUpdate();
 
 	UFUNCTION(BlueprintCallable)
 	void CalculateSprintSpeed();
@@ -61,9 +69,7 @@ public:
 
 private:
 
-	//-------------------------------------------Components --------------------------------------------
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components", meta = (AllowPrivateAccess = "true"))
-	UExperienceComponent* XPComponent;
+	//-------------------------------------------PRIVATE COMPONENTS --------------------------------------------
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components", meta = (AllowPrivateAccess = "true"))
 	UAttributesComponent* AttributesComponent;
@@ -71,14 +77,23 @@ private:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components", meta = (AllowPrivateAccess = "true"))
 	UPassiveSkillManagerComponent* PassiveSkillTreeManager;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components", meta = (AllowPrivateAccess = "true"))
+	UExperienceComponent* XPComponent;
+
 	//-------------------------------------------Camera and SpringArm--------------------------------------------
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
 	USpringArmComponent* SpringArm;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
 	UCameraComponent* Camera;
+
+	UFUNCTION()
+	void ZoomCamera(float Value);
+
 	//-------------------------------------------Interaction Variables----------------------------------------------
 	AActor* CurrentlyFocusedActor;
+
+	UInventoryItemBase* ThisInventoryItem;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Targeting", meta = (AllowPrivateAccess = "true"))
 	float LineTraceLength = 1000.0f;	
@@ -87,16 +102,22 @@ private:
 	float CurrentSprintSpeed = 1200.0f;
 
 	//-------------------------------------------Interaction Functions----------------------------------------------
-
+	UFUNCTION()
 	void InteractWithItem();
 
+	UFUNCTION()
 	void DEBUG_XPRewarder();
+	UFUNCTION()
+	void DEBUG_HighXPRewarder();
 
 	//-------------------------------------------Movement Functions--------------------------------------------
+	UFUNCTION()
 	void MoveForwardBack(float AxisValue);
+	UFUNCTION()
 	void MoveLeftRight(float AxisValue);
 
-
+	UFUNCTION(BlueprintCallable, Category = "Item Interaction")
+	void UseItem(TSubclassOf<UInventoryItemBase> Item);
 };
 
 

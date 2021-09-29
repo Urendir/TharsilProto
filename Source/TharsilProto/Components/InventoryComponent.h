@@ -9,7 +9,7 @@
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnInventoryUpdated);
 
 class UInventoryItemBase;
-class ABaseCharacter;
+class ABaseCharacterPlayable;
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class THARSILPROTO_API UInventoryComponent : public UActorComponent
@@ -43,7 +43,7 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	int32 InventorySlotsUsed;
 
-	ABaseCharacter* Owner;
+	ABaseCharacterPlayable* Owner;
 
 //--------------------INVENTORY ARRAY -----------------------
 

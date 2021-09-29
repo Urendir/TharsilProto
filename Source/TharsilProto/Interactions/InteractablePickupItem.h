@@ -9,11 +9,9 @@
 #include "InteractablePickupItem.generated.h"
 
 
-
-class ABaseCharacter;
 class UInventoryItemBase;
 class UWorld;
-class ABaseCharacter;
+class ABaseCharacterPlayable;
 class UDA_ItemBase;
 class UStaticMeshComponent;
 class UCapsuleComponent;

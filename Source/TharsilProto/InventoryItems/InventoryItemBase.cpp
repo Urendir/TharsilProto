@@ -2,7 +2,7 @@
 
 
 #include "InventoryItemBase.h"
-#include "TharsilProto/Characters/BaseCharacter.h"
+#include "TharsilProto/Characters/BaseCharacterPlayable.h"
 #include "TharsilProto/Interactions/InteractablePickupItem.h"
 #include "TharsilProto/Components/InventoryComponent.h"
 
@@ -161,7 +161,7 @@ float UInventoryItemBase::CalculateTotalItemValue()
 
 //--------------------------------------------------Item Interaction and Usage----------------------------------
 
-void UInventoryItemBase::UseItem(ABaseCharacter* Character) 
+void UInventoryItemBase::UseItem(ABaseCharacterPlayable* Character)
 {
     UE_LOG(LogTemp, Warning, TEXT("The Item was successfully used"));
 }

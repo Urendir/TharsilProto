@@ -8,6 +8,7 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/Controller.h"
 #include "Kismet/KismetSystemLibrary.h"
+#include "Math/UnrealMathUtility.h"
 #include "TharsilProto/Components/ExperienceComponent.h"
 #include "TharsilProto/Components/AttributesComponent.h"
 #include "TharsilProto/Components/HealthComponent.h"
@@ -15,6 +16,8 @@
 #include "TharsilProto/Components/InventoryComponent.h"
 #include "TharsilProto/Components/PassiveSkillManagerComponent.h"
 #include "TharsilProto/Interactions/InteractionInterface.h"
+#include "TharsilProto/InventoryItems/InventoryItemBase.h"
+
 
 
 ABaseCharacterPlayable::ABaseCharacterPlayable() 
@@ -22,8 +25,9 @@ ABaseCharacterPlayable::ABaseCharacterPlayable()
     PrimaryActorTick.bCanEverTick = true;
 
     AttributesComponent = CreateDefaultSubobject<UAttributesComponent>(TEXT("Attributes"));
-    XPComponent = CreateDefaultSubobject<UExperienceComponent>(TEXT("Leveling System"));
+    InventoryComponent = CreateDefaultSubobject<UInventoryComponent>(TEXT("Inventory Component"));
     PassiveSkillTreeManager = CreateDefaultSubobject<UPassiveSkillManagerComponent>(TEXT("Passive Skill Manager"));
+    XPComponent = CreateDefaultSubobject<UExperienceComponent>(TEXT("Leveling System"));
 
     SpringArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("Spring Arm"));
     SpringArm->SetupAttachment(RootComponent);
@@ -41,6 +45,7 @@ void ABaseCharacterPlayable::SetupPlayerInputComponent(class UInputComponent* Pl
 	PlayerInputComponent->BindAxis(TEXT("MoveLeftRight"), this, &ABaseCharacterPlayable::MoveLeftRight);
 	PlayerInputComponent->BindAxis(TEXT("LookUpDown"), this, &APawn::AddControllerPitchInput);
 	PlayerInputComponent->BindAxis(TEXT("LookLeftRight"), this, &APawn::AddControllerYawInput);
+    PlayerInputComponent->BindAxis(TEXT("CameraZoom"), this, &ABaseCharacterPlayable::ZoomCamera);
     PlayerInputComponent->BindAction(TEXT("InteractWithObject"), IE_Pressed, this, &ABaseCharacterPlayable::InteractWithItem);
 	//PlayerInputComponent->BindAction(TEXT("PrimaryAttack"), IE_Pressed, this, &ABaseCharacterPlayable::BasicAttack); = NO LONGER VALID.
 	PlayerInputComponent->BindAction(TEXT("Jump"), IE_Pressed, this, &ABaseCharacter::SimpleJump);
@@ -49,6 +54,7 @@ void ABaseCharacterPlayable::SetupPlayerInputComponent(class UInputComponent* Pl
 
 	//COMMENT THIS OUT AFTER TESTING:
 	PlayerInputComponent->BindAction(TEXT("XPDump"), IE_Pressed, this,&ABaseCharacterPlayable::DEBUG_XPRewarder); //DEBUG Item to add XP on button click
+    PlayerInputComponent->BindAction(TEXT("HighXPDump"), IE_Pressed, this, &ABaseCharacterPlayable::DEBUG_HighXPRewarder);
 }
 
 
@@ -89,19 +95,30 @@ void ABaseCharacterPlayable::BeginPlay()
     }
 
     UpdateSecondaryAttributes();
-
 }
 
 
 
 
+/// <summary>
+/// This function only impacts the distance between camera and character.
+/// </summary>
+/// <param name="value"></param>
+void ABaseCharacterPlayable::ZoomCamera(float Value)
+{
+    float TempLength = FMath::Clamp(SpringArm->TargetArmLength + (Value * -10), 200.0f, 700.0f);
+
+    SpringArm->TargetArmLength = TempLength;
+}
+
 
 /// <summary>
-/// Item Interaction Functions. Used to line trace for anything implementing interaction interface. 
+/// ==========================================Item Interaction Functions. =============================================================
+/// Used to line trace for anything implementing interaction interface. 
 /// Used ingame to pick up items. 
 /// </summary>
 
-void ABaseCharacterPlayable::InteractWithItem() 
+void ABaseCharacterPlayable::InteractWithItem()
 {
     LineTraceForwardForInteraction(); 
     if(CurrentlyFocusedActor)
@@ -169,6 +186,14 @@ void ABaseCharacterPlayable::LineTraceForwardForInteraction_Implementation()
     }
 }
 
+
+void ABaseCharacterPlayable::UseItem(TSubclassOf<UInventoryItemBase> Item)
+{
+    ThisInventoryItem = Cast<UInventoryItemBase>(Item);
+    ThisInventoryItem->UseItem(this);
+}
+
+
 void ABaseCharacterPlayable::RemoveFocusedActor()
 {
     CurrentlyFocusedActor = nullptr;
@@ -214,8 +239,9 @@ void ABaseCharacterPlayable::UpdateSecondaryAttributes()
     }
     if (EnergyComponent != nullptr)
     {
-        ABaseCharacter::EnergyComponent->RecalculateManaAttributes(AttributesComponent->AttributeArcaneEssence, XPComponent->CurrentLevel, PassiveSkillTreeManager->ManaPointsPassive);
-        ABaseCharacter::EnergyComponent->RecalculateStaminaAttributes(AttributesComponent->AttributeEndurance, AttributesComponent->AttributeAgility, XPComponent->CurrentLevel, PassiveSkillTreeManager->StaminaPointsPassive, PassiveSkillTreeManager->StaminaRegenPassive);
+        EnergyComponent->RecalculateManaAttributes(AttributesComponent->AttributeArcaneEssence, XPComponent->CurrentLevel, PassiveSkillTreeManager->ManaPointsPassive);
+        EnergyComponent->RecalculateStaminaAttributes(AttributesComponent->AttributeEndurance, AttributesComponent->AttributeAgility, XPComponent->CurrentLevel, PassiveSkillTreeManager->StaminaPointsPassive, PassiveSkillTreeManager->StaminaRegenPassive);
+        EnergyComponent->RecalculateStaminaCosts(AttributesComponent->AttributeAgility, InventoryComponent->CalculateCurrentEncumberanceRate(), PassiveSkillTreeManager->SprintCostReductionPassive);
     }
     else
     {
@@ -224,6 +250,12 @@ void ABaseCharacterPlayable::UpdateSecondaryAttributes()
     CalculateSprintSpeed();
 
     AttributesComponent->OnAttributesUpdated.Broadcast();
+}
+
+
+void ABaseCharacterPlayable::RecheckStaminaCostsOnInventoryUpdate()
+{
+    EnergyComponent->RecalculateStaminaCosts(AttributesComponent->AttributeAgility, InventoryComponent->CalculateCurrentEncumberanceRate(), PassiveSkillTreeManager->SprintCostReductionPassive);
 }
 
 //---------------------------------------------------------------------------LOCOMOTION--------------------------------------------------------------------------
@@ -286,5 +318,16 @@ void ABaseCharacterPlayable::DEBUG_XPRewarder()
         return;
     }
     XPComponent->IncreaseCurrentXP(XPReward * XPComponent->CurrentLevel);
+}
+
+void ABaseCharacterPlayable::DEBUG_HighXPRewarder()
+{
+    //DEBUG code/ Should Be Dynamic. FUNCTION is here for testing purposes
+    if (XPComponent == nullptr)
+    {
+        UE_LOG(LogTemp, Error, TEXT("ERROR: Unable to access the XP Component."));
+        return;
+    }
+    XPComponent->IncreaseCurrentXP(XPReward * XPComponent->CurrentLevel * 10);
 }
 

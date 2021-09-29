@@ -2,7 +2,6 @@
 
 
 #include "InteractablePickupItem.h"
-#include "TharsilProto/Characters/BaseCharacter.h"
 #include "TharsilProto/Characters/BaseCharacterPlayable.h"
 #include "TharsilProto/DataAssets/Items/DA_ItemBase.h"
 #include "TharsilProto/InventoryItems/InventoryItemBase.h"
@@ -68,6 +67,11 @@ void AInteractablePickupItem::OnInteract_Implementation(AActor* Caller)
 	
 	if(InteractingCharacter)
 	{
+		if(InteractingCharacter->InventoryComponent->CalculateCurrentEncumberanceRate() >= 1)
+		{
+			return;
+		}
+		
 		InteractingCharacter->InventoryComponent->AddItemToInventory(InventoryItem);
 		InteractingCharacter->RemoveFocusedActor();
 		StaticMeshItem->SetStaticMesh(nullptr);   
