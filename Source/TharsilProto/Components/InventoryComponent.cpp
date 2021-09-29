@@ -24,7 +24,7 @@ void UInventoryComponent::BeginPlay()
 	Super::BeginPlay();
 
 	Owner = Cast<ABaseCharacterPlayable>(GetOwner());
-	InventorySlotsTotal = 20;
+	InventorySlotsTotal = 35;
 	InventorySlotsUsed = 0;
 	CarryWeightCurrent = 0;
 	CarryWeightTotalCapacity = CarryWeightBaseCapacity;
