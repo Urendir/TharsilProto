@@ -91,11 +91,13 @@ void UEnergyComponent::RecalculateStaminaRegen(float PassiveStaminaRegen)
 void UEnergyComponent::RecalculateStaminaCosts(int32 Agility, float EncumberanceRate, float PassiveSprintCostReduction)
 {
 	
-	StaminaToJump = (BaseStaminaToJump + (StaminaMaximum * 0.25) - (Agility * 0.3)) * (EncumberanceRate + 0.75);			//Magic numbers TBD by playtesting
-	float SprintCostNoSkillReduction = (BaseStaminaToSprint + (StaminaMaximum * 0.1) - (Agility * 0.3)) * (EncumberanceRate + 0.5) ; //Magic numbers TBD by playtesting
+	StaminaToJump = (BaseStaminaToJump + (StaminaMaximum * 0.25) - ((float)Agility * 0.3)) * (EncumberanceRate + 0.75);			//Magic numbers TBD by playtesting
+	float SprintCostNoSkillReduction = (BaseStaminaToSprint + (StaminaMaximum * 0.1) - ((float)Agility * 0.3)) * (EncumberanceRate + 0.5) ; //Magic numbers TBD by playtesting
 	StaminaToSprint = SprintCostNoSkillReduction * (1 - PassiveSprintCostReduction);		
 
-	UE_LOG(LogTemp, Warning, TEXT("Passive CarryCap increased to %i."), StaminaToSprint);
+	UE_LOG(LogTemp, Warning, TEXT("StaminaToSprintbefore passive: calcualted: %f = (BaseStaminaToSprint + (StaminaMaximum * 0.1) - (Agility * 0.3)) * (EncumberanceRate + 0.5)"), SprintCostNoSkillReduction);
+	UE_LOG(LogTemp, Warning, TEXT("StaminaToSprint calcualted: (%f + (%f * 0.1) - (%i * 0.3)) * (%f + 0.5)"), BaseStaminaToSprint, StaminaMaximum, Agility, EncumberanceRate);
+	UE_LOG(LogTemp, Warning, TEXT("StaminaToSprint calcualted: %f = StaminaToSprint * ( 1 - %f )"), StaminaToSprint, PassiveSprintCostReduction);
 }
 
 /// <summary>

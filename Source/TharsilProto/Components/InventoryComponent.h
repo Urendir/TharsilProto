@@ -43,10 +43,11 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	int32 InventorySlotsUsed;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	ABaseCharacterPlayable* Owner;
 
 //--------------------INVENTORY ARRAY -----------------------
-
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	UInventoryItemBase* ThisInventoryItem; //This is used to ensure the proper usage of "Item" in the Add and Remove functions.
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
@@ -61,9 +62,11 @@ public:
 	UFUNCTION(BlueprintCallable)
 	bool AddItemToInventory(TSubclassOf<UInventoryItemBase> Item);
 	UFUNCTION(BlueprintCallable)
-	bool MoveItemInInventory(TSubclassOf<UInventoryItemBase> ItemToMove, int32 FromLocation, int32 ToLocation);
+	bool MoveItemInInventory(UInventoryItemBase* ItemToMove, int32 FromLocation, int32 ToLocation);
 	UFUNCTION(BlueprintCallable)
 	bool RemoveFromInventory(TSubclassOf<UInventoryItemBase> Item);
+	UFUNCTION(BlueprintCallable)
+	int32 FindEmptyInventorySlot();
 
 //------------------ Weight Calculations--------------------------------------
 	UFUNCTION(BlueprintCallable)

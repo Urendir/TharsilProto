@@ -102,6 +102,9 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Item Descriptors")
 	UInventoryComponent* OwningInventory;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Item Descriptors")
+	int32 InventorySlotNumber;
+
 	float QualityModifierWeight;
 	float QualityModifierValue;
 	float QualityModifierDurability;

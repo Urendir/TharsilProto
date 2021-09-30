@@ -45,9 +45,6 @@ void UInventoryItemBase::InitializeItemValues()
     {
         ItemDisplayName = QualityPrefix + BaseItem->ItemDisplayName;
     }
-
-    UE_LOG(LogTemp, Warning, TEXT("The Inventory Item name is %s"), *ItemDisplayName);
-
     bValuesAreInitialized = true;
 }
 
@@ -145,7 +142,6 @@ float UInventoryItemBase::CalculateTotalItemWeight()
     }
     ItemWeight = BaseItem->CalculateBaseItemWeight() * QualityModifierWeight;
 
-    UE_LOG(LogTemp, Error, TEXT("Weight is: %f"), ItemWeight);
     return ItemWeight;
 }
 

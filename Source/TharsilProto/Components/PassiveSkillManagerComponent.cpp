@@ -245,8 +245,8 @@ void UPassiveSkillManagerComponent::AddAttributeBreath(FPassiveSkillNode SkillNo
 
 void UPassiveSkillManagerComponent::AddAttributeCarryCapacity(FPassiveSkillNode SkillNode)
 {
-	CarryCapacityPassive += SkillNode.AssignmentValue;
-	UE_LOG(LogTemp, Warning, TEXT("Passive CarryCap increased to %f."), CarryCapacityPassive);
+	CarryCapacityPassive += 5; //SkillNode.AssignmentValue;
+	UE_LOG(LogTemp, Warning, TEXT("Passive CarryCapacity increased to %f."), CarryCapacityPassive);
 }
 
 void UPassiveSkillManagerComponent::AddAttributeConstitution(FPassiveSkillNode SkillNode)
