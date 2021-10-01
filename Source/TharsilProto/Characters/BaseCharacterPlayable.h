@@ -65,7 +65,12 @@ public:
 	UFUNCTION(BlueprintCallable)
 	bool CanYouAffordBasicAttack();
 
+	UFUNCTION()
 	void RemoveFocusedActor();
+
+	UFUNCTION(BlueprintCallable, Category = "Item Interaction")
+	void UseItem(UInventoryItemBase* Item);
+	//void UseItem(TSubclassOf<UInventoryItemBase> Item);
 
 private:
 
@@ -116,8 +121,6 @@ private:
 	UFUNCTION()
 	void MoveLeftRight(float AxisValue);
 
-	UFUNCTION(BlueprintCallable, Category = "Item Interaction")
-	void UseItem(TSubclassOf<UInventoryItemBase> Item);
 };
 
 

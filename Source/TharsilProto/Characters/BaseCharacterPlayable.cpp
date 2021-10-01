@@ -187,10 +187,17 @@ void ABaseCharacterPlayable::LineTraceForwardForInteraction_Implementation()
 }
 
 
-void ABaseCharacterPlayable::UseItem(TSubclassOf<UInventoryItemBase> Item)
+void ABaseCharacterPlayable::UseItem(UInventoryItemBase* Item)
 {
-    ThisInventoryItem = Cast<UInventoryItemBase>(Item);
-    ThisInventoryItem->UseItem(this);
+    if (Item)
+    {
+    //ThisInventoryItem = Cast<UInventoryItemBase>(Item);
+    Item->UseItem(this);
+    }
+    else
+    {
+        UE_LOG(LogTemp, Error, TEXT("Issue with Item. Cannot Run Use."));
+    }
 }
 
 

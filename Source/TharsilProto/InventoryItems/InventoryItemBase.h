@@ -109,10 +109,15 @@ public:
 	float QualityModifierValue;
 	float QualityModifierDurability;
 
+	UFUNCTION()
 	void InitializeItemValues();
+	UFUNCTION()
 	void CalculateQualityModifiers();
+	UFUNCTION()
 	float CalculateTotalItemValue();
+	UFUNCTION()
 	float CalculateTotalItemWeight();
+	UFUNCTION()
 	float CalculateTotalItemDurability();
 
 	UFUNCTION(BlueprintCallable)
