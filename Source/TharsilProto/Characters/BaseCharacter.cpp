@@ -16,8 +16,6 @@ ABaseCharacter::ABaseCharacter()
 
 	HealthComponent = CreateDefaultSubobject<UHealthComponent>(TEXT("Health Component"));
 	EnergyComponent = CreateDefaultSubobject<UEnergyComponent>(TEXT("Energy Component"));
-	DefenseComponent = CreateDefaultSubobject<UDefensiveCalculatorComponent>(TEXT("Defense Component"));
-	OffenseComponent = CreateDefaultSubobject<UOffensiveCalculatorComponent>(TEXT("Offense Component"));
 	MovementComponent = GetCharacterMovement();
 
 }
@@ -120,7 +118,7 @@ void ABaseCharacter::HandleCharacterDeath()
 
 void ABaseCharacter::ForwardIncomingDamageToCalculator(ABaseCharacter* ThisCharacter, ABaseCharacter* Damager, FDamageTypeBreakdown Damage)
 {
-	DefenseComponent->ProcessIncomingDamage(ThisCharacter, Damager, Damage);
+	//DefenseComponent->ProcessIncomingDamage(ThisCharacter, Damager, Damage);
 }
 
 void ABaseCharacter::ProcessDamageTakenFromCalculator(float IncomingTotalDamage)
