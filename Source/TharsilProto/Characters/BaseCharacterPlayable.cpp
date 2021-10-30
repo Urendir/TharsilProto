@@ -9,10 +9,13 @@
 #include "GameFramework/Controller.h"
 #include "Kismet/KismetSystemLibrary.h"
 #include "Math/UnrealMathUtility.h"
-#include "TharsilProto/Components/ExperienceComponent.h"
+#include "TharsilProto/CombatEffects/ActiveAbilityObjectBase.h"
+#include "TharsilProto/Components/ActiveAbilityComponent.h"
 #include "TharsilProto/Components/AttributesComponent.h"
-#include "TharsilProto/Components/HealthComponent.h"
+#include "TharsilProto/Components/CombatCalculatorComponent.h"
 #include "TharsilProto/Components/EnergyComponent.h"
+#include "TharsilProto/Components/ExperienceComponent.h"
+#include "TharsilProto/Components/HealthComponent.h"
 #include "TharsilProto/Components/InventoryComponent.h"
 #include "TharsilProto/Components/PassiveSkillManagerComponent.h"
 #include "TharsilProto/Interactions/InteractionInterface.h"
@@ -24,6 +27,7 @@ ABaseCharacterPlayable::ABaseCharacterPlayable()
 {
     PrimaryActorTick.bCanEverTick = true;
 
+    AbilityComponent = CreateDefaultSubobject<UActiveAbilityComponent>(TEXT("Active Abilities"));
     AttributesComponent = CreateDefaultSubobject<UAttributesComponent>(TEXT("Attributes"));
     InventoryComponent = CreateDefaultSubobject<UInventoryComponent>(TEXT("Inventory Component"));
     PassiveSkillTreeManager = CreateDefaultSubobject<UPassiveSkillManagerComponent>(TEXT("Passive Skill Manager"));
@@ -51,6 +55,10 @@ void ABaseCharacterPlayable::SetupPlayerInputComponent(class UInputComponent* Pl
 	PlayerInputComponent->BindAction(TEXT("Jump"), IE_Pressed, this, &ABaseCharacter::SimpleJump);
     PlayerInputComponent->BindAction(TEXT("Sprint"), IE_Pressed, this, &ABaseCharacter::SprintStart);
     PlayerInputComponent->BindAction(TEXT("Sprint"), IE_Released, this, &ABaseCharacter::SprintStop);
+    PlayerInputComponent->BindAction(TEXT("PrimaryAbility"), IE_Pressed, this, &ABaseCharacterPlayable::CallPrimaryAbility);
+    PlayerInputComponent->BindAction(TEXT("SecondaryAbility"), IE_Pressed, this, &ABaseCharacterPlayable::CallSecondaryAbility);
+    PlayerInputComponent->BindAction(TEXT("QuickAbility2"), IE_Pressed, this, &ABaseCharacterPlayable::CallQuickAbility2);
+
 
 	//COMMENT THIS OUT AFTER TESTING:
 	PlayerInputComponent->BindAction(TEXT("XPDump"), IE_Pressed, this,&ABaseCharacterPlayable::DEBUG_XPRewarder); //DEBUG Item to add XP on button click
@@ -131,7 +139,8 @@ void ABaseCharacterPlayable::InteractWithItem()
     }
 }
 
-void ABaseCharacterPlayable::LineTraceForwardForInteraction_Implementation() 
+
+void ABaseCharacterPlayable::LineTraceForwardForInteraction_Implementation()
 {
     FVector Location;
     FRotator Rotation;
@@ -288,25 +297,147 @@ void ABaseCharacterPlayable::CalculateSprintSpeed()
 }
 
 
+//-------------------------------------------------------------------COMBAT FUNCTIONS-------------------------------------------------
+//Combat Interaction Interface Implementation
 
-//---------------------------------------------------------------------------------COMBAT FUNCTIONS--------------------------------------------------------------------
-bool ABaseCharacterPlayable::BasicAttack() //Damage Calculation to be created based on Weapon equipped, skill used, attribute points assigned to Strength. 
-{
-	UE_LOG(LogTemp, Warning, TEXT("I Attack!"));
-    return EnergyComponent->DecreaseCurrentStamina(45); //Magic number to be replaced by skill cost.
-}
 
-bool ABaseCharacterPlayable::CanYouAffordBasicAttack() //This is a temporary function to test combat. Once combat gets reworked, remove it. 
+
+void ABaseCharacterPlayable::OnActiveAbilityTriggered(ABaseCharacter* Target)
 {
-    if (EnergyComponent->WhatsCurrentStamina() < 45)
+    ICombatInteractionInterface* TargetCombatInterface = Cast<ICombatInteractionInterface>(Target);
+    if (TargetCombatInterface != nullptr)
     {
-        return false;
-    }
-    else
-    {
-        return true;
+        AttemptToDamageTarget(Target);
     }
 }
+
+/*This is triggered when the character is activating an offensive ability and attempting to damage the target character, one the target is deemed attackable (via interface check)*/
+void ABaseCharacterPlayable::AttemptToDamageTarget_Implementation(ABaseCharacter* Target)
+{
+    if (CombatCalculatorComponent && PassiveSkillTreeManager && AbilityComponent && AttributesComponent)
+    {
+        bool IsCrit = CombatCalculatorComponent->OutCheckForCritical(PassiveSkillTreeManager->CriticalChancePassive, AbilityComponent->CritPlaceholder, AttributesComponent->AttributeAgility );
+        //Update Combat Attributes - TO DO HERE!
+        Target->CombatCalculatorComponent->InProcessDamage(CombatCalculatorComponent->CombatAttributes, this, IsCrit);
+    }
+}
+
+void ABaseCharacterPlayable::OnAttacked_Implementation(ABaseCharacter* Attacker)
+{
+    
+}
+
+void ABaseCharacterPlayable::OnDeathFromAttack_Implementation(ABaseCharacterPlayable* AttackingPlayer)
+{
+    //This is used in the NPC Enemies to grant XP to player Character.
+}
+
+/// =============================================ACTIVE ABILITY SYSTEM FUNCTIONS============================
+/// These are created to be part of the keybinding allocation for Unreal. 
+/// They are supposed to then all call a specific function in the Ability Component, that also controls the cooldown of each ability slot. 
+/// 
+
+void ABaseCharacterPlayable::CallPrimaryAbility()
+{
+    AbilityComponent->AttemptTriggerAbility(AbilityComponent->PrimaryAbility);
+}
+
+void ABaseCharacterPlayable::CallSecondaryAbility()
+{
+    AbilityComponent->AttemptTriggerAbility(AbilityComponent->SecondaryAbility);
+}
+
+void ABaseCharacterPlayable::CallQuickAbility1()
+{
+    AbilityComponent->AttemptTriggerAbility(AbilityComponent->QuickAbility1);
+}
+
+void ABaseCharacterPlayable::CallQuickAbility2()
+{
+    AbilityComponent->AttemptTriggerAbility(AbilityComponent->QuickAbility2);
+}
+
+void ABaseCharacterPlayable::CallQuickAbility3()
+{
+    AbilityComponent->AttemptTriggerAbility(AbilityComponent->QuickAbility3);
+}
+
+void ABaseCharacterPlayable::CallQuickAbility4()
+{
+    AbilityComponent->AttemptTriggerAbility(AbilityComponent->QuickAbility4);
+}
+
+void ABaseCharacterPlayable::CallQuickAbility5()
+{
+    AbilityComponent->AttemptTriggerAbility(AbilityComponent->QuickAbility5);
+}
+
+void ABaseCharacterPlayable::CallQuickAbility6()
+{
+    AbilityComponent->AttemptTriggerAbility(AbilityComponent->QuickAbility6);
+}
+
+
+
+float ABaseCharacterPlayable::GetCurrentAvailableStamina()
+{
+    return EnergyComponent->GetCurrentStamina();   
+}
+
+float ABaseCharacterPlayable::GetCurrentAvailableHealth()
+{
+    return HealthComponent->GetCurrentHealth();
+}
+
+float ABaseCharacterPlayable::GetCurrentAvailableMana()
+{
+    return EnergyComponent->GetCurrentMana();
+}
+
+void ABaseCharacterPlayable::ApplyAbilityStaminaCost(float StaminaCost)
+{
+    EnergyComponent->DecreaseCurrentStamina(StaminaCost);
+}
+
+void ABaseCharacterPlayable::ApplyAbilityHealthCost(float HealthCost)
+{
+    //HealthComponent-> Update Current health.
+}
+
+void ABaseCharacterPlayable::ApplyAbilityManaCost(float ManaCost)
+{
+    EnergyComponent->DecreaseCurrentMana(ManaCost);
+}
+
+
+//===================================================COMBAT DATA CALCULATION===============================
+//Used for damage calculations within Combat component
+
+void ABaseCharacterPlayable::CalculateCharacterDamageNumbers()
+{
+    if (CombatCalculatorComponent != nullptr)
+    {
+        if (PassiveSkillTreeManager != nullptr)
+        {
+            //GetPassive values and align with combat struct.
+        }
+
+    }
+}
+
+float ABaseCharacterPlayable::CalculateLatestCritChance()
+{
+    Super::CalculateLatestCritChance();
+    
+    return 0.0f;
+}
+
+void ABaseCharacterPlayable::GivePassiveAttributesToCombatComponent()
+{
+
+
+}
+
 
 void ABaseCharacterPlayable::HandleCharacterDeath() 
 {
@@ -315,7 +446,11 @@ void ABaseCharacterPlayable::HandleCharacterDeath()
 }
 
 
+//=======================================================TEST / DEVELOPMENT FUNCTIONS==================================
 
+/// <summary>
+/// DEBUG FUNCTION. REMOVE THIS AFTER TESTING
+/// </summary>
 void ABaseCharacterPlayable::DEBUG_XPRewarder() 
 {
 	 //DEBUG code/ Should Be Dynamic. FUNCTION is here for testing purposes

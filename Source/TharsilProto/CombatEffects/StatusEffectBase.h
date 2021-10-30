@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "UObject/NoExportTypes.h"
+#include "Engine/DataTable.h"
 #include "StatusEffectBase.generated.h"
 
 /**
@@ -18,7 +19,7 @@
  */
 
 USTRUCT(BlueprintType)
-struct FStatusEffectBase
+struct THARSILPROTO_API FStatusEffectBase : public FTableRowBase
 {
 	GENERATED_BODY()
 
@@ -102,7 +103,7 @@ public:
 	void CalcChanceOnSelf();
 
 
-
+	//The Enemy's DurationOnTarget gets reduced by this DurationOnSelf, when the owning character is the target.
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float DurationOnSelf = 0.0f;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
@@ -114,7 +115,7 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	float DurationOnSelfFromEquipment = 0.0f;
 	
-	void CalcDurationOnSelf();
+	void CalcDurationOnSelf(float IncomingDurationOnTarget);
 
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
@@ -144,7 +145,6 @@ public:
 	float MaxStacks = 25.0f;
 
 
-	virtual void ApplyPassiveToOnSelf(float PassiveValue);
 
 	//virtual void ApplyPassiveToOnTarget(float PassiveValue);
 	

@@ -14,4 +14,5 @@ class THARSILPROTO_API ABaseCharacterNPC : public ABaseCharacter
 {
 	GENERATED_BODY()
 	
+
 };

@@ -42,16 +42,11 @@ void FStatusEffectBase::CalcChanceOnSelf()
 	}
 }
 
-void FStatusEffectBase::CalcDurationOnSelf()
+void FStatusEffectBase::CalcDurationOnSelf(float IncomingDurationOnTarget)
 {
-	DurationOnSelf = DurationOnSelfBase + DurationOnSelfFromAbility + DurationOnSelfFromEquipment + DurationOnSelfFromPassive;
+	float DurationModifier = DurationOnSelfBase + DurationOnSelfFromAbility + DurationOnSelfFromEquipment + DurationOnSelfFromPassive;
+	DurationOnSelf = IncomingDurationOnTarget * FMath::Min(1.0f, DurationModifier);
 
 }
 
 
-
-void FStatusEffectBase::ApplyPassiveToOnSelf(float PassiveValue)
-{
-
-
-}

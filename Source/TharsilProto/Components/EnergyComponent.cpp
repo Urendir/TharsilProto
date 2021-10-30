@@ -74,7 +74,7 @@ bool UEnergyComponent::DecreaseCurrentStamina(float DecrementAmount)
 {
 	if (StaminaCurrent > DecrementAmount)
 	{
-		StaminaCurrent -= DecrementAmount;
+		StaminaCurrent = FMath::Max(0.0f, StaminaCurrent - DecrementAmount);
 		return true;
 	}
 	else
@@ -114,10 +114,23 @@ float UEnergyComponent::GetStaminaCostToSprint()
 	return StaminaToSprint;
 }
 
-float UEnergyComponent::WhatsCurrentStamina()
+float UEnergyComponent::GetCurrentStamina()
 {
 	return StaminaCurrent;
 }
+
+float UEnergyComponent::GetCurrentMana()
+{
+	if (isMagicUser)
+	{
+		return ManaCurrent;
+	}
+	else 
+	{
+		return 0.0f;
+	}
+}
+
 
 
 /// <summary>
@@ -135,8 +148,9 @@ void UEnergyComponent::RecalculateManaAttributes(int32 ArcaneEssence, int32 Leve
 	}
 }
 
-void UEnergyComponent::DecreaseCurrentMana()
+void UEnergyComponent::DecreaseCurrentMana(float DecrementAmount)
 {
+	ManaCurrent = FMath::Max(0.0f, ManaCurrent - DecrementAmount);
 }
 
 void UEnergyComponent::EnableManaUsage()

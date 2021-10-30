@@ -39,6 +39,11 @@ void UHealthComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActo
 	ApplyHealthRegenOverTime(DeltaTime);
 }
 
+float UHealthComponent::GetCurrentHealth()
+{
+	return CurrentHealth;
+}
+
 void UHealthComponent::ApplyHealthRegenOverTime(float DeltaTime)
 {
 	if (CurrentHealth < CurrentMaxHealth && !bHasTakenDamageRecently)

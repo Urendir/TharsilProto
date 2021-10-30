@@ -14,6 +14,8 @@ class UHealthComponent;
 class UEnergyComponent;
 class UCharacterMovementComponent;
 struct FDamageTypeBreakdown;
+class UCombatCalculatorComponent;
+struct FCombatNumbers;
 
 
 UCLASS()
@@ -61,6 +63,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components", meta = (AllowPrivateAccess = "true"))
 	UEnergyComponent* EnergyComponent;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components", meta = (AllowPrivateAccess = "true"))
+	UCombatCalculatorComponent* CombatCalculatorComponent;
+
 	UCharacterMovementComponent* MovementComponent;
 
 	//--------------------------------------Component Influencing Variables and Functions---------------------------------
@@ -100,14 +105,18 @@ public:
 	virtual void HandleCharacterDeath();
 
 	UFUNCTION(BlueprintCallable)
-	virtual void ForwardIncomingDamageToCalculator(ABaseCharacter* ThisCharacter, ABaseCharacter* Damager, FDamageTypeBreakdown Damage);
+	virtual void HandleIncomingDamage(ABaseCharacter* ThisCharacter, ABaseCharacter* Damager, FDamageTypeBreakdown Damage);
 
 	UFUNCTION(BlueprintCallable)
-	void ProcessDamageTakenFromCalculator(float IncomingTotalDamage);
+	void ProcessCalculatedDamageTaken(float IncomingTotalDamage);
 
 	UFUNCTION(BlueprintCallable)
 	virtual void HandleCharacterSlowedEffect(bool bIsSlowed);
 
+	UFUNCTION(BlueprintCallable)
+	virtual void CalculateCharacterDamageNumbers();
 
+	UFUNCTION(BlueprintCallable)
+	virtual float CalculateLatestCritChance();
 
 };

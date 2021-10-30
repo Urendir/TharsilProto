@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
 #include "Engine/DataTable.h"
-#include "TharsilProto/Interactions/DamageTypeStruct.h"
+#include "TharsilProto/CombatEffects/CombatAttributesSet.h"
 #include "TharsilProto/ProgressionSystems/PassiveSkilltreeNodeTypes.h"
 #include "PassiveSkillManagerComponent.generated.h"
 
@@ -98,6 +98,9 @@ public:
 	/// <summary>
 	/// These are increased when the respective skill nodes are unlocked. e.g. unlocking a strength node will ++ the passiveSkillStrength variable. That gets called when calculating total strength.
 	/// </summary>
+	/// 
+	
+
 
 	// Main Attributes
 	int32 PassiveSkillStrength = 0;
@@ -115,6 +118,13 @@ public:
 	float StaminaPointsPassive = 0.0f;
 	float StaminaRegenPassive = 0.0f;
 	float ManaPointsPassive = 0.0f;
+	
+	
+	//Direct Damage and status effect Attributes
+	
+	UCombatAttributesSet* PassiveCombatAttributes;
+
+	//=========================OLD
 
 	//OFFENSIVE MODIFICATIONS
 	//Damage Modifiers

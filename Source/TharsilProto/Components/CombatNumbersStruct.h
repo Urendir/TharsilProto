@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "UObject/NoExportTypes.h"
 #include "TharsilProto/CombatEffects/StatusEffectBase.h"
+#include "Engine/DataTable.h"
 #include "CombatNumbersStruct.generated.h"
 
 
@@ -18,31 +19,13 @@
 //-------These will be obtained from the Weapon/Armor that is equipped, as well as from any passives, skills and abilities that grant bonuses to the various attack types-----
 
 USTRUCT(BlueprintType)
-struct FCombatNumbers
+struct THARSILPROTO_API FCombatNumbers : public FTableRowBase
 {
 	GENERATED_BODY()
 
 public:
 
-	// -------------Fixed Number-------------------- Physical Damage Variables---------------------
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float SlashDmg = 0.0f;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float SlashDefense = 0.0f;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float CrushDmg = 0.0f;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float CrushDefense = 0.0f;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float PierceDmg = 0.0f;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float PierceDefense = 0.0f;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 ArmorPenetration = 0.0f;
 
 
 	//--------------------------------------- Status Effect Variables-----------------------------------
@@ -75,15 +58,15 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FStatusEffectBase PoisonedStatus;
 
+	//Fire can cause Burning. burning deals high DOT. 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FStatusEffectBase BurningStatus;
+
 	// -------------------------------------------------- Magical Damage Variables---------------------
 
 	// Corrosion deals DOT to health and DOT to equipped armor / Increases AP against target.
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FStatusEffectBase CorrodingStatus;
-
-	//Fire can cause Burning. burning deals high DOT. 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FStatusEffectBase BurningStatus;
 
 	//Cold Damage causes Freeze Chance to trigger. Freeze deals slow and reduces Stamina Regen.
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
@@ -114,6 +97,7 @@ public:
 
 	FCombatNumbers()
 	{
+
 	};
 
 };

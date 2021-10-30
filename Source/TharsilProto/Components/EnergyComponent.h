@@ -36,12 +36,19 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	bool DecreaseCurrentStamina(float DecrementAmount);
+	UFUNCTION(BlueprintCallable)
+	void DecreaseCurrentMana(float DecrementAmount);
 
+	UFUNCTION()
 	float GetStaminaCostJump();
-
+	UFUNCTION()
 	float GetStaminaCostToSprint();
 
-	float WhatsCurrentStamina(); // THis is a temporary function, until combat is reworked. 
+	//These Functions are used by the player character to check whether abilities can be activated.
+	UFUNCTION()
+	float GetCurrentStamina(); 
+	UFUNCTION()
+	float GetCurrentMana();
 
 private:
 
@@ -108,8 +115,10 @@ private:
 	float ManaPerLevel = 5.0f;
 	float ManaPerEssence = 5.0f;
 
-	void DecreaseCurrentMana();
+
+	UFUNCTION()
 	void RestoreEnergyOverTime(float DeltaTime);
+	UFUNCTION()
 	void EnableManaUsage();
 
 	/// <summary>

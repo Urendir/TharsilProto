@@ -4,8 +4,7 @@
 #include "BaseCharacter.h"
 #include "TharsilProto/Components/HealthComponent.h"
 #include "TharsilProto/Components/EnergyComponent.h"
-#include "TharsilProto/Components/DefensiveCalculatorComponent.h"
-#include "TharsilProto/Components/OffensiveCalculatorComponent.h"
+#include "TharsilProto/Components/CombatCalculatorComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 
 // Sets default values
@@ -16,6 +15,7 @@ ABaseCharacter::ABaseCharacter()
 
 	HealthComponent = CreateDefaultSubobject<UHealthComponent>(TEXT("Health Component"));
 	EnergyComponent = CreateDefaultSubobject<UEnergyComponent>(TEXT("Energy Component"));
+	CombatCalculatorComponent = CreateDefaultSubobject<UCombatCalculatorComponent>("Combat Calculator Component");
 	MovementComponent = GetCharacterMovement();
 
 }
@@ -49,7 +49,7 @@ void ABaseCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	if (EnergyComponent->WhatsCurrentStamina() <= 5 && bIsSprinting)
+	if (EnergyComponent->GetCurrentStamina() <= 5 && bIsSprinting)
 	{
 		SprintStop();
 	}
@@ -65,8 +65,6 @@ void ABaseCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 
 //---------------------------------------------------------------------Movement--------------------------------------------------------------------
 
-
-
 void ABaseCharacter::SprintStart()
 {
 	if (bIsCharacterSlowed)
@@ -75,7 +73,7 @@ void ABaseCharacter::SprintStart()
 	}
 
 	float SprintMinimumStamina = EnergyComponent->GetStaminaCostToSprint() * 2;
-	if (SprintMinimumStamina < EnergyComponent->WhatsCurrentStamina() && !bIsSprinting)
+	if (SprintMinimumStamina < EnergyComponent->GetCurrentStamina() && !bIsSprinting)
 	{
 		bIsSprinting = true;
 		MovementComponent->MaxWalkSpeed = BaseSprintSpeed;
@@ -105,6 +103,20 @@ void ABaseCharacter::SimpleJump()
 	}
 }
 
+//----------------------------------------------------------------COMBAT Calculations----------------------------------------------------------
+
+void ABaseCharacter::CalculateCharacterDamageNumbers()
+{
+	//Get Weapon&Armor Data and Add up the damage to the CombatCalculator's DamageNumbers struct. 
+	
+}
+
+float ABaseCharacter::CalculateLatestCritChance()
+{
+	return 0.0f;
+}
+
+
 
 
 
@@ -116,12 +128,12 @@ void ABaseCharacter::HandleCharacterDeath()
     bIsCharacterDead = true;
 }
 
-void ABaseCharacter::ForwardIncomingDamageToCalculator(ABaseCharacter* ThisCharacter, ABaseCharacter* Damager, FDamageTypeBreakdown Damage)
+void ABaseCharacter::HandleIncomingDamage(ABaseCharacter* ThisCharacter, ABaseCharacter* Damager, FDamageTypeBreakdown Damage)
 {
 	//DefenseComponent->ProcessIncomingDamage(ThisCharacter, Damager, Damage);
 }
 
-void ABaseCharacter::ProcessDamageTakenFromCalculator(float IncomingTotalDamage)
+void ABaseCharacter::ProcessCalculatedDamageTaken(float IncomingTotalDamage)
 {
 	UE_LOG(LogTemp, Warning, TEXT("Processing Taken damage as: %f. Sending to HP Component of %s."), IncomingTotalDamage, *GetName());
 
