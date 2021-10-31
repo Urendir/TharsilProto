@@ -415,21 +415,32 @@ void ABaseCharacterPlayable::ApplyAbilityManaCost(float ManaCost)
 
 void ABaseCharacterPlayable::CalculateCharacterDamageNumbers()
 {
-    if (CombatCalculatorComponent != nullptr)
+    if (CombatCalculatorComponent && PassiveSkillTreeManager && InventoryComponent && AbilityComponent )
     {
-        if (PassiveSkillTreeManager != nullptr)
-        {
-            //GetPassive values and align with combat struct.
-        }
+        // get equipped weapon type. 
+        CombatCalculatorComponent->CombatAttributes->PhysicalDamage.DamageCrush = PassiveSkillTreeManager->Damage1hCrushPassive;
+        // add AP from Weapon!
+        CombatCalculatorComponent->CombatAttributes->PhysicalDamage.ArmorPenetration = PassiveSkillTreeManager->ArmorPenetrationPassive;
 
     }
 }
 
 float ABaseCharacterPlayable::CalculateLatestCritChance()
 {
-    Super::CalculateLatestCritChance();
+    PassiveSkillTreeManager->CriticalChancePassive;
     
+    //passive crit chance
+    //ability crit chance
+    //equipment crit chance
+    //attribute based modifiers.
     return 0.0f;
+}
+
+float ABaseCharacterPlayable::CalculateLatestCritDamage()
+{
+    float CritDmg = CombatCalculatorComponent->ObtainLatestCritDamage(PassiveSkillTreeManager->CriticalDamagePassive, AttributesComponent->AttributeStrength, 0, 0);
+    
+    return CritDmg;
 }
 
 void ABaseCharacterPlayable::GivePassiveAttributesToCombatComponent()

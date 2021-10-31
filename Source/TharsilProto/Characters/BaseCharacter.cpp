@@ -116,7 +116,10 @@ float ABaseCharacter::CalculateLatestCritChance()
 	return 0.0f;
 }
 
-
+float ABaseCharacter::CalculateLatestCritDamage()
+{
+	return 0.0f;
+}
 
 
 

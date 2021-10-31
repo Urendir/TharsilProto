@@ -34,6 +34,21 @@ void UCombatCalculatorComponent::TickComponent(float DeltaTime, ELevelTick TickT
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
 	// ...
+
+	//ProcessStackingStatusEffectTick(bIsBleeding, BleedStacks, DeltaTime);
+	//ProcessStackingStatusEffectTick(bIsOverheating, OverheatStacks, DeltaTime);
+	//ProcessStackingStatusEffectTick(bIsBurning, BurnStacks, DeltaTime);
+	//ProcessStackingStatusEffectTick(bIsChilled, ChillStacks, DeltaTime);
+	//ProcessStackingStatusEffectTick(bIsPoisoned, PoisonStacks, DeltaTime);
+	//ProcessStackingStatusEffectTick(bIsCorroding, CorrosionStacks, DeltaTime);
+
+	//
+
+}
+
+void UCombatCalculatorComponent::RecalculateAllOutgoingDamage()
+{
+
 }
 
 
@@ -52,10 +67,10 @@ bool UCombatCalculatorComponent::OutCheckForCritical(float Passive, float Active
 }
 
 
-float UCombatCalculatorComponent::OutObtainLatestCritDamage()
+float UCombatCalculatorComponent::ObtainLatestCritDamage(float PassiveCritDmg, int32 Strength, float EquipmentCritDmg, float AbilityCritDmg)
 {
-	//TBD!
-	return 0.0f;
+	float CritDamage = PassiveCritDmg + EquipmentCritDmg + AbilityCritDmg + ((float)Strength * CombatAttributes->CritDamagePerStr) + CombatAttributes->CritDamageBase;
+	return CritDamage;
 }
 
 
@@ -83,8 +98,6 @@ void UCombatCalculatorComponent::InProcessDamage(UCombatAttributesSet* DamagingC
 	if (DamagingCombatAttributes->FireDamage.bIsActive)
 	{
 		FireDmg = DamagingCombatAttributes->FireDamage.DamageOnTarget * (1 - CombatAttributes->FireDamage.DamageReductionOnSelf);
-		
-		float ChanceToOverheat = DamagingCombatAttributes->FireDamage.PrimaryEffect.ChanceOnTarget;
 	}
 
 	if (DamagingCombatAttributes->ColdDamage.bIsActive)
@@ -101,62 +114,121 @@ void UCombatCalculatorComponent::InProcessDamage(UCombatAttributesSet* DamagingC
 	
 	if (bIsCriticalHit)
 	{
-		TotalDamage = TotalDamage * DamageCauser->CombatCalculatorComponent->OutObtainLatestCritDamage();
+		TotalDamage = TotalDamage * DamageCauser->CalculateLatestCritDamage();
 	}
 
 	InDetermineStatusEffects(DamagingCombatAttributes);
 }
 
+
 void UCombatCalculatorComponent::InDetermineStatusEffects(UCombatAttributesSet* DamagingCombatAttributes)
 {
-	InProcessStatusElementDamage(DamagingCombatAttributes->BleedDamage, CombatAttributes->BleedDamage, bIsBleeding);
-	InProcessStatusElementDamage(DamagingCombatAttributes->FireDamage, CombatAttributes->FireDamage, bIsOverheating, bIsBurning);
-	InProcessStatusElementDamage(DamagingCombatAttributes->ColdDamage, CombatAttributes->ColdDamage, bIsChilled, bIsFrozen);
-	InProcessStatusElementDamage(DamagingCombatAttributes->ToxicDamage, CombatAttributes->ToxicDamage, bIsPoisoned, bIsNecrosis);
-
-	InProcessStatusEffect(DamagingCombatAttributes->Stun, CombatAttributes->Stun, bIsStunned);
-	InProcessStatusEffect(DamagingCombatAttributes->KnockDown, CombatAttributes->KnockDown, bIsKnockedDown);
-	InProcessStatusEffect(DamagingCombatAttributes->Cripple, CombatAttributes->Cripple, bIsCrippled);
-	InProcessStatusEffect(DamagingCombatAttributes->Blind, CombatAttributes->Blind, bIsBlinded);
+	if (DamagingCombatAttributes->BleedDamage.bIsActive)
+	{
+		AttemptApplyStatusEffects(DamagingCombatAttributes->BleedDamage.PrimaryEffect, CombatAttributes->BleedDamage.PrimaryEffect, bIsBleeding, BleedStacks);
+	}
+	if (DamagingCombatAttributes->FireDamage.bIsActive)
+	{
+		AttemptApplyStatusEffects(DamagingCombatAttributes->FireDamage.PrimaryEffect, CombatAttributes->FireDamage.PrimaryEffect, bIsOverheating, OverheatStacks);
+		AttemptApplyStatusEffects(DamagingCombatAttributes->FireDamage.SecondaryEffect, CombatAttributes->FireDamage.SecondaryEffect, bIsBurning, BurnStacks);
+	}
+	if (DamagingCombatAttributes->ColdDamage.bIsActive)
+	{
+		AttemptApplyStatusEffects(DamagingCombatAttributes->ColdDamage.PrimaryEffect, CombatAttributes->ColdDamage.PrimaryEffect, bIsChilled, ChillStacks);
+		AttemptApplyStatusEffects(DamagingCombatAttributes->ColdDamage.SecondaryEffect, CombatAttributes->ColdDamage.SecondaryEffect, bIsFrozen);
+	}
+	if (DamagingCombatAttributes->ToxicDamage.bIsActive)
+	{
+		AttemptApplyStatusEffects(DamagingCombatAttributes->ToxicDamage.PrimaryEffect, CombatAttributes->ToxicDamage.PrimaryEffect, bIsPoisoned, PoisonStacks);
+		AttemptApplyStatusEffects(DamagingCombatAttributes->ToxicDamage.SecondaryEffect, CombatAttributes->ToxicDamage.SecondaryEffect, bIsNecrosis);
+	}
+	if (DamagingCombatAttributes->CorrosionDamage.bIsActive)
+	{
+		AttemptApplyStatusEffects(DamagingCombatAttributes->CorrosionDamage.PrimaryEffect, CombatAttributes->CorrosionDamage.PrimaryEffect, bIsCorroding, CorrosionStacks);
+	}
+	AttemptApplyStatusEffects(DamagingCombatAttributes->Stun, CombatAttributes->Stun, bIsStunned);
+	AttemptApplyStatusEffects(DamagingCombatAttributes->KnockDown, CombatAttributes->KnockDown, bIsKnockedDown);
+	AttemptApplyStatusEffects(DamagingCombatAttributes->Cripple, CombatAttributes->Cripple, bIsCrippled);
+	AttemptApplyStatusEffects(DamagingCombatAttributes->Blind, CombatAttributes->Blind, bIsBlinded);
 }
 
-void UCombatCalculatorComponent::InProcessStatusElementDamage(FElementalDamage Offensive, FElementalDamage Defensive, bool PrimaryStatusBool, bool SecondaryStatusBool)
+
+void UCombatCalculatorComponent::AttemptApplyStatusEffects(FStatusEffect IncomingEffectData, FStatusEffect OwnEffectData, bool StatusBool)
 {
-	if (Offensive.bIsActive)
+	if (FMath::Rand() <= IncomingEffectData.ChanceOnTarget - OwnEffectData.EffectChanceMitigation)
 	{
-		InProcessStatusEffect(Offensive.PrimaryEffect, Defensive.PrimaryEffect, PrimaryStatusBool);
-		if (Offensive.bHasSecondaryState)
-		{
-			if (Offensive.PrimaryEffect.CurrentStacks == 5 && Defensive.SecondaryEffect.CurrentStacks < Defensive.SecondaryEffect.MaximumStacks)
-			{
-				Defensive.SecondaryEffect.CurrentStacks++;
-			}
-			InProcessStatusEffect(Offensive.SecondaryEffect, Defensive.SecondaryEffect, SecondaryStatusBool);
-		}
+		float EffectDuration = IncomingEffectData.DurationOnTarget;
+		OwnEffectData.DurationRemaining = EffectDuration - (EffectDuration * OwnEffectData.EffectDurationMitigation);
+
+		OwnEffectData.DamageOnSelfTick = IncomingEffectData.DamageOnTargetTick;
+
+		StatusBool = true;
 	}
 }
 
-void UCombatCalculatorComponent::InProcessStatusElementDamage(FElementalDamage Offensive, FElementalDamage Defensive, bool PrimaryStatusBool)
+void UCombatCalculatorComponent::AttemptApplyStatusEffects(FStatusEffect IncomingEffectData, FStatusEffect OwnEffectData, bool StatusBool, TArray<FStatusEffect> StatusEffectArray)
 {
-	if (Offensive.bIsActive)
+	if (FMath::Rand() <= IncomingEffectData.ChanceOnTarget - OwnEffectData.EffectChanceMitigation)
 	{
-		InProcessStatusEffect(Offensive.PrimaryEffect, Defensive.PrimaryEffect, PrimaryStatusBool);
+		float EffectDuration = IncomingEffectData.DurationOnTarget;
+		OwnEffectData.DurationRemaining = EffectDuration - (EffectDuration * OwnEffectData.EffectDurationMitigation);
+		OwnEffectData.DamageOnSelfTick = IncomingEffectData.DamageOnTargetTick;
+
+		ApplyStackingStatusEffect(StatusEffectArray, OwnEffectData);
+		StatusBool = true;
 	}
 }
 
 
-void UCombatCalculatorComponent::InProcessStatusEffect(FStatusEffect OffensiveEffect, FStatusEffect DefensiveEffect, bool StatusBool)
+void UCombatCalculatorComponent::ApplyStackingStatusEffect(TArray<FStatusEffect> StatusEffectArray, FStatusEffect StatusEffect)
 {
-	if (DefensiveEffect.CurrentStacks < DefensiveEffect.MaximumStacks)
+	if (StatusEffect.MaximumStacks > StatusEffectArray.Num())
 	{
-		if (FMath::Rand() <= OffensiveEffect.ChanceOnTarget - DefensiveEffect.EffectChanceMitigation)
-		{
-			DefensiveEffect.CurrentStacks++;
-			float EffectDuration = OffensiveEffect.DurationOnTarget;
-			EffectDuration = EffectDuration - (EffectDuration * DefensiveEffect.EffectDurationMitigation);
+		StatusEffectArray.Push(StatusEffect);
+	}
+}
 
-			StatusBool = true;
+void UCombatCalculatorComponent::ProcessStackingStatusEffectTick(bool StatusBool, TArray<FStatusEffect> StatusEffectArray, float DeltaTime)
+{
+	if (!StatusBool)
+	{
+		return;
+	}
+
+	if (StatusEffectArray.Num() < 1)
+	{
+		StatusBool = false;
+	}
+
+	for (size_t i = 0; i < StatusEffectArray.Num(); i++)
+	{	
+		if (StatusEffectArray[i].DurationRemaining > 0)
+		{
+			//process Damage with Effect.DamageOnTargetTick
+			StatusEffectArray[i].DurationRemaining -= 1 * DeltaTime;
 		}
+		else
+		{
+			StatusEffectArray.RemoveAt(i, 1, true);
+		}
+	}
+
+}
+
+void UCombatCalculatorComponent::ProcessNonStackingStatusEffectTick(bool StatusBool, FStatusEffect StatusEffect, float DeltaTime)
+{
+	if (!StatusBool)
+	{
+		return;
+	}
+
+	if (StatusEffect.DurationRemaining <= 0.0f)
+	{
+		StatusBool = false;
+	}
+	else
+	{
+		StatusEffect.DurationRemaining -= 1 * DeltaTime;
 	}
 }
 

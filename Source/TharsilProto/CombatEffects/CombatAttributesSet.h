@@ -5,7 +5,6 @@
 #include "CoreMinimal.h"
 #include "Engine/DataTable.h"
 #include "TharsilProto/Characters/BaseCharacter.h"
-#include "TharsilProto/CombatEffects/StatusEffectBase.h"
 #include "Misc/App.h"
 #include "UObject/NoExportTypes.h"
 #include "CombatAttributesSet.generated.h"
@@ -97,6 +96,19 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool bIsStacking = false;
 
+	//-----------------------------
+	/*Damage done to the target on Tick*/
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float DamageOnTargetTick = 0.0f;
+	//-----------------------------
+	/*Damage done to this character on Tick*/
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float DamageOnSelfTick = 0.0f;
+
+	/*The Duration this effect should still continue to tick.*/
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	float DurationRemaining = 0.0f;
+
 	/*This is to be determined in the constructor of the UCombatAttributesSet and should be based on the type of effect. A non-stackable effect defaults to 1 max stack. */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	int32 MaximumStacks = 1;
@@ -133,10 +145,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool bIsActive = true;
 
-	//-----------------------------
-	/*Damage done to the target on Tick*/
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		float DamageOnTargetTick = 0.0f;
+
 	/*Damage done to the target on Activation as one-off*/
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		float DamageOnTarget = 0.0f;
@@ -188,40 +197,64 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Damage Values")
 	FElementalDamage ToxicDamage;
 
-	//Status effect elements
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Damage Values")
+	FElementalDamage CorrosionDamage;
+
+	//Status effect elements of Damage Types.
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Status Effects")
 	FStatusEffect Overheating;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Damage Values")
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Status Effects")
 	FStatusEffect Burning;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Damage Values")
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Status Effects")
 	FStatusEffect Chilled;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Damage Values")
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Status Effects")
 	FStatusEffect Freezing;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Damage Values")
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Status Effects")
 	FStatusEffect Poison;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Damage Values")
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Status Effects")
 	FStatusEffect Necrosis;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Status Effect Values")
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Status Effects")
 	FStatusEffect Bleeding;
 
-	//Pure statuseffects, no damage but cause other effects.
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Status Effect Values")
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Status Effects")
+	FStatusEffect Corrosion;
+
+	//Special Status Effects that only apply on certain attacks.
+	//these can be seen as hybrids - not pure status effect, not damage type.
+
+	/*Can be triggered by certain attack types only*/
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Special Status Effects")
+	FElementalDamage BlindingDamage;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Special Status Effects")
+	FStatusEffect Blind;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Special Status Effects")
+	FElementalDamage WeakeningDamage;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Special Status Effects")
+	FStatusEffect Weakened;
+
+
+
+
+
+	//Pure Chance Effects, no damage but cause other effects. Can always be triggered by regular attacks with a low chance.
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Pure Status Effects")
 	FStatusEffect Stun;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Status Effect Values")
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Pure Status Effects")
 	FStatusEffect KnockDown;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Status Effect Values")
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Pure Status Effects")
 	FStatusEffect Cripple;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Status Effect Values")
-	FStatusEffect Blind;
+
+
 
 	//-------------------------------Critical Modifiers-----------------------------------------------
 

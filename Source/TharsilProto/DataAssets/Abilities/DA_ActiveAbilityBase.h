@@ -45,7 +45,7 @@ public:
 	/// The amount of time that the ability is blocking other abilities from triggering. 
 	/// </summary>
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Ability Stats")
-	float bHardAnimTime;
+	float TimeToBlockAbilities;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Ability Stats")
 		float StaminaCost;

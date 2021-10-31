@@ -42,8 +42,16 @@ void UActiveAbilityComponent::TickComponent(float DeltaTime, ELevelTick TickType
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
 	// ...
-
-
+	TickGlobalAbilityBlock(DeltaTime);
+	
+	TickAbilityCooldown(PrimaryAbility, DeltaTime);
+	TickAbilityCooldown(SecondaryAbility, DeltaTime);
+	TickAbilityCooldown(QuickAbility1, DeltaTime);
+	TickAbilityCooldown(QuickAbility2, DeltaTime);
+	TickAbilityCooldown(QuickAbility3, DeltaTime);
+	TickAbilityCooldown(QuickAbility4, DeltaTime);
+	TickAbilityCooldown(QuickAbility5, DeltaTime);
+	TickAbilityCooldown(QuickAbility6, DeltaTime);
 }
 
 void UActiveAbilityComponent::ApplyAbilityToSlot(TSubclassOf<UDA_ActiveAbilityBase> AbilityToSlot, UActiveAbilityObjectBase* AbilitySlot)
@@ -115,12 +123,50 @@ void UActiveAbilityComponent::CommitAbilityResourceCost(UDA_ActiveAbilityBase* A
 	}
 }
 
+void UActiveAbilityComponent::TriggerGlobalAbilityBlock(UDA_ActiveAbilityBase* AbilityDataAsset)
+{
+	GlobalAbilityBlockTimer = AbilityDataAsset->TimeToBlockAbilities;
+	if (GlobalAbilityBlockTimer > 0.0f)
+	{
+		bIsGlobalAbilityBlock = true;
+	}
+}
 
-void UActiveAbilityComponent::ProcessAbilityCooldown(UActiveAbilityObjectBase* CalledAbility)
+void UActiveAbilityComponent::TickGlobalAbilityBlock(float DeltaTime)
+{
+	if (bIsGlobalAbilityBlock)
+	{
+		if (GlobalAbilityBlockTimer <= 0)
+		{
+			bIsGlobalAbilityBlock = false;
+		}
+		GlobalAbilityBlockTimer -= (1 * DeltaTime);
+	}
+
+}
+
+
+void UActiveAbilityComponent::StartAbilityCooldown(UActiveAbilityObjectBase* CalledAbility)
 {
 	if (!CalledAbility->bIsOnCooldown && !bIsGlobalAbilityBlock)
 	{
-		//CalledAbility goes on Cooldown
+		CalledAbility->bIsOnCooldown = true;
+		CalledAbility->CooldownCounter = CalledAbility->TimeToCoolDown;
+	}
+}
+
+void UActiveAbilityComponent::TickAbilityCooldown(UActiveAbilityObjectBase* AbilityToTick, float DeltaTime)
+{
+	if (AbilityToTick->bIsOnCooldown)
+	{
+		if (AbilityToTick->CooldownCounter <= 0)
+		{
+			AbilityToTick->bIsOnCooldown = false;
+		}
+		else
+		{
+			AbilityToTick->CooldownCounter -= 1 * DeltaTime;
+		}
 	}
 }
 

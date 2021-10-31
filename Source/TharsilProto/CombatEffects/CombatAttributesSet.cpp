@@ -9,22 +9,23 @@ UCombatAttributesSet::UCombatAttributesSet()
 	//Set up Bleed Damage and status effects
 	BleedDamage.bHasSecondaryState = false; //there is no higher effect that bleeding
 	BleedDamage.DamageOnTarget = 15.0f;
-	BleedDamage.DamageOnTargetTick = 15.0f;
 	BleedDamage.PrimaryEffect = Bleeding;
 	Bleeding.bIsStacking = true;
 	Bleeding.MaximumStacks = 25;
 	Bleeding.ChanceOnTarget = PhysicalDamage.BleedChanceOnpierceBase;
 	Bleeding.DurationOnTarget = 5.0f;
+	Bleeding.DamageOnTargetTick = 15.0f;
 
 	//Set up all Fire Damage and Status effects.
 	FireDamage.bHasSecondaryState = true; // 'overheat' has higher effect 'burn'
 	FireDamage.DamageOnTarget = 20.0f;
-	FireDamage.DamageOnTargetTick = 20.0f;
 	FireDamage.PrimaryEffect = Overheating;
 	FireDamage.SecondaryEffect = Burning;
+	Overheating.DamageOnTargetTick = 5.0f;
 	Overheating.bIsStacking = true; // Five Stacks of overheating get consumed to cause one stack of burning. 
 	Overheating.ChanceOnTarget = 0.05f;
 	Overheating.DurationOnTarget = 7.5f;
+	Burning.DamageOnTargetTick = 20.0f;
 	Burning.bIsStacking = true;
 	Burning.MaximumStacks = 10;
 	Burning.ChanceOnTarget = 0.025f;
@@ -32,29 +33,40 @@ UCombatAttributesSet::UCombatAttributesSet()
 
 	ColdDamage.bHasSecondaryState = true;
 	ColdDamage.DamageOnTarget = 10.0f;
-	ColdDamage.DamageOnTargetTick = 5.0f;
 	ColdDamage.PrimaryEffect = Chilled;
 	ColdDamage.PrimaryEffect = Freezing;
+	Chilled.DamageOnTargetTick = 5.0f;
 	Chilled.bIsStacking = true;	// Five Stacks of chilled would cause the Frozen Condition. 
 	Chilled.ChanceOnTarget = 0.015f;
 	Chilled.DurationOnTarget = 5.0f;
 	Chilled.MaximumStacks = 10;
+	Freezing.DamageOnTargetTick = 25.0f;
 	Freezing.bIsStacking = false;
 	Freezing.ChanceOnTarget = 0.005f;
 	Freezing.DurationOnTarget = 6.0f;
 
 	ToxicDamage.bHasSecondaryState = true;
 	ToxicDamage.DamageOnTarget = 10.0f;
-	ToxicDamage.DamageOnTargetTick = 10.0f;
 	ToxicDamage.PrimaryEffect = Poison;
 	ToxicDamage.SecondaryEffect = Necrosis;
+	Poison.DamageOnTargetTick = 10.0f;
 	Poison.bIsStacking = true; //Five stacks of poison will cause necrosis.
 	Poison.ChanceOnTarget = 0.075f;
 	Poison.DurationOnTarget = 10.0f;
 	Poison.MaximumStacks = 25;
+	Necrosis.DamageOnTargetTick = 20.0f;
 	Necrosis.bIsStacking = false;
 	Necrosis.ChanceOnTarget = 0.005f;
 	Necrosis.DurationOnTarget = 8.0f;
+
+	CorrosionDamage.bHasSecondaryState = false;
+	CorrosionDamage.DamageOnTarget = 15.0f;
+	CorrosionDamage.PrimaryEffect = Corrosion;
+	Corrosion.DamageOnTargetTick = 10.0f;
+	Corrosion.bIsStacking = true;
+	Corrosion.ChanceOnTarget = 0.075f;
+	Corrosion.DurationOnTarget = 3.0f;
+	Corrosion.MaximumStacks = 10;
 
 	//Set up Pure status effects.	
 	Stun.bIsStacking = false;

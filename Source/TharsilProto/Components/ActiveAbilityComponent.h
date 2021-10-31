@@ -77,11 +77,18 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void AttemptTriggerAbility(UActiveAbilityObjectBase* CalledAbility);
+
+private:
 	UFUNCTION(BlueprintCallable)
 	bool CheckAbilityResourceCost(UDA_ActiveAbilityBase* AbilityDataAsset);
 	UFUNCTION(BlueprintCallable)
 	void CommitAbilityResourceCost(UDA_ActiveAbilityBase* AbilityDataAsset);
-
-	UFUNCTION(BlueprintCallable)
-	void ProcessAbilityCooldown(UActiveAbilityObjectBase* CalledAbility);
+	UFUNCTION()
+	void TriggerGlobalAbilityBlock(UDA_ActiveAbilityBase* AbilityDataAsset);
+	UFUNCTION()
+	void TickGlobalAbilityBlock(float DeltaTime);
+	UFUNCTION()
+	void StartAbilityCooldown(UActiveAbilityObjectBase* CalledAbility);
+	UFUNCTION()
+	void TickAbilityCooldown(UActiveAbilityObjectBase* AbilityToTick, float DeltaTime);
 };

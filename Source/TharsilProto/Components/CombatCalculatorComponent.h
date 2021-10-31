@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
-#include "TharsilProto/CombatEffects/StatusEffectBase.h"
+#include "Containers/Array.h"
 #include "TharsilProto/CombatEffects/CombatAttributesSet.h"
 #include "CombatCalculatorComponent.generated.h"
 
@@ -25,6 +25,23 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	UCombatAttributesSet* CombatAttributes;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+	TArray<FStatusEffect> BleedStacks;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+	TArray<FStatusEffect> OverheatStacks;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+	TArray<FStatusEffect> BurnStacks;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+	TArray<FStatusEffect> ChillStacks;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+	TArray<FStatusEffect> PoisonStacks;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+	TArray<FStatusEffect> CorrosionStacks;
 
 
 
@@ -33,68 +50,42 @@ public:
 /// </summary>
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool bIsBleeding;
-	UPROPERTY()
-	float BleedTimer;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool bIsStunned;
-	UPROPERTY()
-	float StunTimer;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool bIsKnockedDown;
-	UPROPERTY()
-		float KnockDownTimer;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool bIsBlinded;
-	UPROPERTY()
-		float BlindTimer;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool bIsCrippled;
-	UPROPERTY()
-		float CrippledTimer;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool bIsWeakened;
-	UPROPERTY()
-		float WeakenedTimer;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool bIsOverheating;
-	UPROPERTY()
-		float OverheatTimer;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool bIsBurning;
-	UPROPERTY()
-		float BurnTimer;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool bIsChilled;
-	UPROPERTY()
-		float ChillTimer;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool bIsFrozen;
-	UPROPERTY()
-		float FreezeTimer;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool bIsPoisoned;
-	UPROPERTY()
-		float PoisonTimer;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool bIsNecrosis;
-	UPROPERTY()
-		float NecrosisTimer;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool bIsCorroding;
-	UPROPERTY()
-		float CorrosionTimer;
 
 
 /// <summary>
@@ -120,7 +111,7 @@ public:
 	bool bIsSolidified;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-		bool bIsAttackCritical;
+	bool bIsAttackCritical;
 
 
 
@@ -133,12 +124,16 @@ public:
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
+	/*Gets all relevant numbers from other components via owner.*/
+	UFUNCTION()
+	void RecalculateAllOutgoingDamage();
+
 	/*Called from Character*/
 	UFUNCTION()
 	bool OutCheckForCritical(float Passive, float ActiveAbility, float Agility);
 	/*Called from Character*/
 	UFUNCTION()
-	float OutObtainLatestCritDamage();
+	float ObtainLatestCritDamage(float PassiveCritDmg, int32 Strength, float EquipmentCritDmg, float AbilityCritDmg);
 
 	
 	UFUNCTION()
@@ -146,11 +141,18 @@ public:
 	UFUNCTION()
 	void InDetermineStatusEffects(UCombatAttributesSet* DamagingCombatAttributes);
 
-	void InProcessStatusElementDamage(FElementalDamage Offensive, FElementalDamage Defensive, bool PrimaryStatusBool, bool SecondaryStatusBool);
-	void InProcessStatusElementDamage(FElementalDamage Offensive, FElementalDamage Defensive, bool PrimaryStatusBool);
 
+	/*This checks chance for status effect vs defenses and applies effects as needed. Calls the Apply Functions.*/
+	void AttemptApplyStatusEffects(FStatusEffect IncomingEffectData, FStatusEffect OwnEffectData, bool StatusBool);
+	void AttemptApplyStatusEffects(FStatusEffect IncomingEffectData, FStatusEffect OwnEffectData, bool StatusBool, TArray<FStatusEffect> StatusEffectArray);
+
+	/*If the applied status effect is stacking, this effect gets applied*/
 	UFUNCTION()
-	void InProcessStatusEffect(FStatusEffect OffensiveEffect, FStatusEffect DefensiveEffect, bool StatusBool);
-
+	void ApplyStackingStatusEffect(TArray<FStatusEffect> StatusEffectArray, FStatusEffect StatusEffect);
 		
+private:
+	UFUNCTION()
+	void ProcessStackingStatusEffectTick(bool StatusBool, TArray<FStatusEffect> StatusEffectArray, float DeltaTime);
+	UFUNCTION()
+	void ProcessNonStackingStatusEffectTick(bool StatusBool, FStatusEffect StatusEffect, float DeltaTime);
 };

@@ -90,6 +90,8 @@ public:
 	
 	virtual float CalculateLatestCritChance() override;
 
+	virtual float CalculateLatestCritDamage() override;
+
 	UFUNCTION(BlueprintCallable)
 	void GivePassiveAttributesToCombatComponent();
 

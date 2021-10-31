@@ -119,4 +119,7 @@ public:
 	UFUNCTION(BlueprintCallable)
 	virtual float CalculateLatestCritChance();
 
+	UFUNCTION(BlueprintCallable)
+	virtual float CalculateLatestCritDamage();
+
 };

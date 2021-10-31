@@ -12,7 +12,7 @@
 
 class UDA_ActiveAbilityBase;
 
-UCLASS()
+UCLASS(BlueprintType)
 class THARSILPROTO_API UActiveAbilityObjectBase : public UObject
 {
 	GENERATED_BODY()
@@ -21,10 +21,10 @@ public:
 	
 	UActiveAbilityObjectBase();
 	
-	UPROPERTY()
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TSubclassOf<UDA_ActiveAbilityBase> ActiveAbilityData;
 
-	UPROPERTY()
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool bIsOnCooldown = false;
 
 	UPROPERTY()
