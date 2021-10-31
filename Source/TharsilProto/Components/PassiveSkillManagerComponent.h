@@ -268,6 +268,17 @@ public:
 
 
 private:
+	// ==============================================Note for refactoring:
+	// Main Attribute: Hard Value
+	// Energy Attribute: Cost on Skill, Cost on Sprint, Hard Value, Regen Rate.
+	// Physical Dmg: Damage, Resistance
+	// SkillType: Reduce cost, Damage
+	// Elemental Dmg: Damage, Resistance
+	// Status Effect: Damage, Resistance, Chance, Duration
+
+	//void IncreaseStatusChance(FStatusEffect StatusEffect, FPassiveSkillNode SkillNode);
+
+
 	void AddAttributeAgility(FPassiveSkillNode SkillNode);
 	void AddAttributeArcaneEssence(FPassiveSkillNode SkillNode);
 	void AddAttributeArmorPenetration(FPassiveSkillNode SkillNode);

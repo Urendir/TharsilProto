@@ -11,6 +11,7 @@
  */
 
 class UDA_ActiveAbilityBase;
+class UCombatAttributesSet;
 
 UCLASS(BlueprintType)
 class THARSILPROTO_API UActiveAbilityObjectBase : public UObject
@@ -21,10 +22,13 @@ public:
 	
 	UActiveAbilityObjectBase();
 	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Ability Data")
 	TSubclassOf<UDA_ActiveAbilityBase> ActiveAbilityData;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Ability Data")
+	UCombatAttributesSet* AbilityAttributes;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Ability Data")
 	bool bIsOnCooldown = false;
 
 	UPROPERTY()

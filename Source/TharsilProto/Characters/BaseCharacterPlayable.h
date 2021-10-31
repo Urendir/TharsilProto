@@ -86,7 +86,7 @@ public:
 
 	//CalculateCharacterDamageNumbers: Override of UFUNCTION in parent class (BaseCharacter) cannot have a UFUNCTION() declaration above it; 
 	//it will use the same parameters as the original declaration.
-	virtual void CalculateCharacterDamageNumbers() override;
+	virtual UCombatAttributesSet* CalculateCharacterDamageNumbers(UActiveAbilityObjectBase* TriggeredAbility) override;
 	
 	virtual float CalculateLatestCritChance() override;
 

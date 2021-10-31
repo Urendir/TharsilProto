@@ -4,6 +4,8 @@
 #include "BaseCharacter.h"
 #include "TharsilProto/Components/HealthComponent.h"
 #include "TharsilProto/Components/EnergyComponent.h"
+#include "TharsilProto/CombatEffects/CombatAttributesSet.h"
+#include "TharsilProto/CombatEffects/ActiveAbilityObjectBase.h"
 #include "TharsilProto/Components/CombatCalculatorComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 
@@ -105,10 +107,10 @@ void ABaseCharacter::SimpleJump()
 
 //----------------------------------------------------------------COMBAT Calculations----------------------------------------------------------
 
-void ABaseCharacter::CalculateCharacterDamageNumbers()
+UCombatAttributesSet* ABaseCharacter::CalculateCharacterDamageNumbers(UActiveAbilityObjectBase* TriggeredAbility)
 {
 	//Get Weapon&Armor Data and Add up the damage to the CombatCalculator's DamageNumbers struct. 
-	
+	return TriggeredAbility->AbilityAttributes;
 }
 
 float ABaseCharacter::CalculateLatestCritChance()

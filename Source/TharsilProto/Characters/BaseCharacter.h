@@ -16,6 +16,8 @@ class UCharacterMovementComponent;
 struct FDamageTypeBreakdown;
 class UCombatCalculatorComponent;
 struct FCombatNumbers;
+class UCombatAttributesSet;
+class UActiveAbilityObjectBase;
 
 
 UCLASS()
@@ -114,7 +116,7 @@ public:
 	virtual void HandleCharacterSlowedEffect(bool bIsSlowed);
 
 	UFUNCTION(BlueprintCallable)
-	virtual void CalculateCharacterDamageNumbers();
+	virtual UCombatAttributesSet* CalculateCharacterDamageNumbers(UActiveAbilityObjectBase* TriggeredAbility);
 
 	UFUNCTION(BlueprintCallable)
 	virtual float CalculateLatestCritChance();

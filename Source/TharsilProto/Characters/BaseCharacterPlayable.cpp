@@ -413,16 +413,13 @@ void ABaseCharacterPlayable::ApplyAbilityManaCost(float ManaCost)
 //===================================================COMBAT DATA CALCULATION===============================
 //Used for damage calculations within Combat component
 
-void ABaseCharacterPlayable::CalculateCharacterDamageNumbers()
+UCombatAttributesSet* ABaseCharacterPlayable::CalculateCharacterDamageNumbers(UActiveAbilityObjectBase* TriggeredAbility)
 {
-    if (CombatCalculatorComponent && PassiveSkillTreeManager && InventoryComponent && AbilityComponent )
+    if (CombatCalculatorComponent && PassiveSkillTreeManager && InventoryComponent)
     {
-        // get equipped weapon type. 
-        CombatCalculatorComponent->CombatAttributes->PhysicalDamage.DamageCrush = PassiveSkillTreeManager->Damage1hCrushPassive;
-        // add AP from Weapon!
-        CombatCalculatorComponent->CombatAttributes->PhysicalDamage.ArmorPenetration = PassiveSkillTreeManager->ArmorPenetrationPassive;
-
+        CombatCalculatorComponent->CombatAttributes->AddEntireCombatValueSet(TriggeredAbility->AbilityAttributes);
     }
+    return CombatCalculatorComponent->CombatAttributes;
 }
 
 float ABaseCharacterPlayable::CalculateLatestCritChance()

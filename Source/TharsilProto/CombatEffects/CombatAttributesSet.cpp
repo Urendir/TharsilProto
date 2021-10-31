@@ -87,6 +87,54 @@ UCombatAttributesSet::UCombatAttributesSet()
 
 }
 
+void UCombatAttributesSet::AddEntireCombatValueSet(UCombatAttributesSet* ValuesToAdd)
+{
+	AddPhysicalDamageSetValues(ValuesToAdd->PhysicalDamage, PhysicalDamage);
+	AddElementalDamageSetValues(ValuesToAdd->BleedDamage, BleedDamage);
+	AddElementalDamageSetValues(ValuesToAdd->FireDamage, FireDamage);
+	AddElementalDamageSetValues(ValuesToAdd->ColdDamage, ColdDamage);
+	AddElementalDamageSetValues(ValuesToAdd->ToxicDamage, ToxicDamage);
+	AddElementalDamageSetValues(ValuesToAdd->CorrosionDamage, CorrosionDamage);
+	AddElementalDamageSetValues(ValuesToAdd->BlindingDamage, BlindingDamage);
+	AddElementalDamageSetValues(ValuesToAdd->WeakeningDamage, WeakeningDamage);
+	AddStatusEffectValues(ValuesToAdd->Stun, Stun);
+	AddStatusEffectValues(ValuesToAdd->KnockDown, KnockDown);
+	AddStatusEffectValues(ValuesToAdd->Cripple, Cripple);
+
+}
+
+void UCombatAttributesSet::AddPhysicalDamageSetValues(FPhysicalDamage ValuesToAdd, FPhysicalDamage ParentValue)
+{
+	ParentValue.ArmorPenetration += ValuesToAdd.ArmorPenetration;
+	ParentValue.DamageCrush += ValuesToAdd.DamageCrush;
+	ParentValue.DamagePierce += ValuesToAdd.DamagePierce;
+	ParentValue.DamageSlash += ValuesToAdd.DamageSlash;
+	ParentValue.DefenseCrush += ValuesToAdd.DefenseCrush;
+	ParentValue.DefensePierce += ValuesToAdd.DefensePierce;
+	ParentValue.DefenseSlash += ValuesToAdd.DefenseSlash;
+}
+
+void UCombatAttributesSet::AddElementalDamageSetValues(FElementalDamage ValuesToAdd, FElementalDamage ParentValue)
+{
+	ParentValue.DamageOnTarget += ValuesToAdd.DamageOnTarget;
+	ParentValue.DamageReductionOnSelf += ValuesToAdd.DamageReductionOnSelf;
+	AddStatusEffectValues(ValuesToAdd.PrimaryEffect, ParentValue.PrimaryEffect);
+	if (ParentValue.bHasSecondaryState)
+	{
+		AddStatusEffectValues(ValuesToAdd.SecondaryEffect, ParentValue.SecondaryEffect);
+	}
+}
+
+void UCombatAttributesSet::AddStatusEffectValues(FStatusEffect ValuesToAdd, FStatusEffect ParentValue)
+{
+	ParentValue.ChanceOnTarget				+= ValuesToAdd.ChanceOnTarget;
+	ParentValue.DamageOnSelfTick			+= ValuesToAdd.DamageOnSelfTick;
+	ParentValue.DamageOnTargetTick			+= ValuesToAdd.DamageOnTargetTick;
+	ParentValue.DurationOnTarget			+= ValuesToAdd.DurationOnTarget;
+	ParentValue.EffectChanceMitigation		+= ValuesToAdd.EffectChanceMitigation;
+	ParentValue.EffectDurationMitigation	+= ValuesToAdd.EffectDurationMitigation;
+}
+
 float UCombatAttributesSet::GetArmorPenetrationOnPierce()
 {
 	return PhysicalDamage.DamagePierce * (PhysicalDamage.ArmorPenetration * 0.0002f);

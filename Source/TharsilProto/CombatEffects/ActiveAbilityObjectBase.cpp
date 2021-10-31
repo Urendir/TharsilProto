@@ -3,6 +3,7 @@
 
 #include "ActiveAbilityObjectBase.h"
 #include "TharsilProto/Characters/BaseCharacterPlayable.h"
+#include "TharsilProto/CombatEffects/CombatAttributesSet.h"
 #include "TharsilProto/DataAssets/Abilities/DA_ActiveAbilityBase.h"
 
 

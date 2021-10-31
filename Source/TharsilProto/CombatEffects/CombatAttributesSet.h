@@ -275,7 +275,14 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	float AbsoluteMaxCriticalChanceBeforeAbility = 0.85f;
 
-
+	UFUNCTION()
+	void AddEntireCombatValueSet(UCombatAttributesSet* ValuesToAdd);
+	UFUNCTION()
+	void AddPhysicalDamageSetValues(FPhysicalDamage ValuesToAdd, FPhysicalDamage ParentValue);
+	UFUNCTION()
+	void AddElementalDamageSetValues(FElementalDamage ValuesToAdd, FElementalDamage ParentValue);
+	UFUNCTION()
+	void AddStatusEffectValues(FStatusEffect ValuesToAdd, FStatusEffect ParentValue);
 
 	UFUNCTION()
 	float GetArmorPenetrationOnPierce();
