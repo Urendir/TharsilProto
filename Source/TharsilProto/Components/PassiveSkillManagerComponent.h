@@ -6,8 +6,126 @@
 #include "Components/ActorComponent.h"
 #include "Engine/DataTable.h"
 #include "TharsilProto/CombatEffects/CombatAttributesSet.h"
+#include "TharsilProto/ProgressionSystems/GeneralAttributeSet.h"
 #include "TharsilProto/ProgressionSystems/PassiveSkilltreeNodeTypes.h"
 #include "PassiveSkillManagerComponent.generated.h"
+
+
+
+UENUM(BlueprintType, Category="SkillNode Description")
+enum class EAffectedAttributeType : uint8
+{
+	E_NoAffectedAttribute	UMETA(DisplayName = "No Attribute Affected"),
+	E_EnergyAttribute		UMETA(DisplayName = "Energy Attribute"),
+	E_MainAttribute			UMETA(DisplayName = "Main Attribute"),
+	E_GeneralAttribute		UMETA(DisplayName = "General Attribute"),
+	E_PhysicalDamage		UMETA(DisplayName = "Physical Damage"),
+	E_ElementalDamage		UMETA(DisplayName = "Elemental Damage"),
+	E_StatusEffect			UMETA(DisplayName = "Status Effect"),
+};
+
+UENUM(BlueprintType, Category = "SkillNode Description")
+enum class EEnergyAttributeType : uint8
+{
+	NotEnergy 		UMETA(DisplayName = "Not Energy"),
+	Health			UMETA(DisplayName = "Health"),
+	Stamina			UMETA(DisplayName = "Stamina"),
+	Mana			UMETA(DisplayName = "Mana"),
+	Breath			UMETA(DisplayName = "Breath"),
+};
+
+UENUM(BlueprintType, Category = "SkillNode Description")
+enum class EEnergyAttributeDescriptor : uint8
+{
+	NotEnergy 		UMETA(DisplayName = "Not Energy"),
+	MaxValue		UMETA(DisplayName = "Maximum Value"),
+	RegenRate		UMETA(DisplayName = "Regeneration Rate"),
+};
+
+UENUM(BlueprintType, Category = "SkillNode Description")
+enum class EMainAttributeType : uint8
+{
+	NotMain 		UMETA(DisplayName = "Not Main Attribute"),
+	Strength		UMETA(DisplayName = "Strength"),
+	Agility			UMETA(DisplayName = "Agility"),
+	Endurance		UMETA(DisplayName = "Endurance"),
+	Constitution	UMETA(DisplayName = "Constitution"),
+	ArcaneEssence	UMETA(DisplayName = "Arcane Essence"),
+	Spirit			UMETA(DisplayName = "Spirit"),
+};
+
+UENUM(BlueprintType, Category = "SkillNode Description")
+enum class EGeneralAttributeType : uint8
+{
+	NotGeneral 		UMETA(DisplayName = "Not General Attribute"),
+	CriticalChance		UMETA(DisplayName = "Crit Chance"),
+	CritDamage			UMETA(DisplayName = "Crit Damage"),
+	OneHandAttackCost		UMETA(DisplayName = "1h Attack Cost"),
+	TwoHandAttackCost	UMETA(DisplayName = "2H Attack Cost"),
+};
+
+UENUM(BlueprintType, Category = "SkillNode Description")
+enum class EPhysicalDamageType : uint8
+{
+	NotPhysical 	UMETA(DisplayName = "Not Physical"),
+	Crush			UMETA(DisplayName = "Crush Damage"),
+	Pierce			UMETA(DisplayName = "Pierce Damage"),
+	Slash			UMETA(DisplayName = "Slash Damage"),
+	ArmorPen		UMETA(DisplayName = "Armor Penetration"),
+};
+
+UENUM(BlueprintType, Category = "SkillNode Description")
+enum class EPhysicalDamageSpecific : uint8
+{
+	NotPhysical 	UMETA(DisplayName = "Not Physical"),
+	OneHand			UMETA(DisplayName = "One-Hand Damage"),
+	TwoHand			UMETA(DisplayName = "Two-Hand Damage"),
+	Ranged			UMETA(DisplayName = "Ranged Damage"),
+};
+
+UENUM(BlueprintType, Category = "SkillNode Description")
+enum class EElementalDamageType : uint8
+{
+	E_NotElemental		UMETA(DisplayName = "Not Elemental"),
+	E_Bleed			UMETA(DisplayName = "Bleed"),
+	E_Fire			UMETA(DisplayName = "Fire"),
+	E_Cold			UMETA(DisplayName = "Cold"),
+	E_Toxic			UMETA(DisplayName = "Toxic"),
+	E_Corrosive		UMETA(DisplayName = "Corrosive"),
+};
+
+UENUM(BlueprintType, Category = "SkillNode Description")
+enum class EStatusEffectType : uint8
+{
+	E_NotStatus		UMETA(DisplayName = "Not Status"),
+	E_Bleeding		UMETA(DisplayName = "Bleeding"),
+	E_Overheating	UMETA(DisplayName = "Overheating"),
+	E_Burning		UMETA(DisplayName = "Burning"),
+	E_Chilled		UMETA(DisplayName = "Chilled"),
+	E_Freezing		UMETA(DisplayName = "Freezing"),
+	E_Poison		UMETA(DisplayName = "Poison"),
+	E_Necrosis		UMETA(DisplayName = "Necrosis"),
+	E_Corrosion		UMETA(DisplayName = "Corrosion"),
+};
+
+UENUM(BlueprintType, Category = "SkillNode Description")
+enum class EAffectedTarget : uint8
+{
+	E_Self				UMETA(DisplayName = "Self"),
+	E_Target			UMETA(DisplayName = "Target"),
+};
+
+UENUM(BlueprintType, Category = "SkillNode Description")
+enum class EAffectedDescriptor : uint8
+{
+	E_NoDescriptor		UMETA(DisplayName = "Not Status Type"),
+	E_DamageOnTick		UMETA(DisplayName = "Damage on Tick"),
+	E_Duration			UMETA(DisplayName = "Duration"),
+	E_Chance			UMETA(DisplayName = "Chance"),
+};
+
+
+
 
 USTRUCT(BlueprintType)
 struct FPassiveSkillNode : public FTableRowBase
@@ -40,8 +158,40 @@ struct FPassiveSkillNode : public FTableRowBase
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool bIsSkillNodePurchased;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	EPassiveSkillEffect ThisSkillsEffect;
+	/*Select this to determine the attribute type*/
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	EAffectedAttributeType AttributeType;
+	/*What Energy Attribute is changed? Relevant if Attribute Type is Energy. Otherwise, ignored.*/
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	EEnergyAttributeType EnergyAttribute;
+	/*What is changed on the Energy Attribute? Relevant if Attribute Type is Energy. Otherwise, ignored.*/
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	EEnergyAttributeDescriptor EnergyAttributeElement;
+	/*Relevant if Attribute Type is Main. Otherwise, ignored.*/
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	EMainAttributeType MainAttribute;
+	/*Which general attribute is being changed? Relevant if Attribute Type is General. Otherwise, ignored.*/
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	EGeneralAttributeType GeneralAttribute;
+	/*What type of Physical damage is being affected? Only relevant if the Attribute Type is Physical. Otherwise, ignored.*/
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	EPhysicalDamageType PhysicalDamageType;
+	/*Allows to select between specific weapontypes for damage calculation. Only relevant if the Attribute Type is Physical. Otherwise, ignored. */
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	EPhysicalDamageSpecific SpecificPhysicalDamage;
+	/*What type of Elemental damage is being affected? Only relevant if the Attribute Type is Elemental. Otherwise, ignored.*/
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	EElementalDamageType ElementalDamageType;
+	/*Which Status Effect is being affected? Only relevant if the Attribute Type is Status Effect. Otherwise, ignored.*/
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	EStatusEffectType StatusEffectType;
+	/*Which element of the status effect is changed? Relevant for StatusEffects only. Otherwise, ignored.*/
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	EAffectedDescriptor AffectedSatusEffectDescriptor;
+	/*Relevant for Type Physical, Elemental, Status. Otherwise, ignored.*/
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	EAffectedTarget	AffectedTarget;
+
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TArray<int32> NeighbourNodes;
@@ -90,9 +240,9 @@ public:
 
 	EPassiveSkillEffect PassiveEffects;
 
-	FDamageTypeBreakdown OffensivePassiveStats;
+	//FDamageTypeBreakdown OffensivePassiveStats;
 
-	FDamageResistanceBreakdown DefensivePassiveStats;
+	//FDamageResistanceBreakdown DefensivePassiveStats;
 
 	//---------------------------------------------------------------------Variables that result from Skill Node Unlocks. 
 	/// <summary>
@@ -100,7 +250,18 @@ public:
 	/// </summary>
 	/// 
 	
+	
+	//Direct Damage and status effect Attributes
+	
+	UGeneralAttributeSet* PassiveAttributes;
 
+
+
+	///
+	///============================================OLD VALUES==============================================
+	/// 
+	/// 
+	/// 
 
 	// Main Attributes
 	int32 PassiveSkillStrength = 0;
@@ -119,10 +280,6 @@ public:
 	float StaminaRegenPassive = 0.0f;
 	float ManaPointsPassive = 0.0f;
 	
-	
-	//Direct Damage and status effect Attributes
-	
-	UCombatAttributesSet* PassiveCombatAttributes;
 
 	//=========================OLD
 
@@ -276,29 +433,43 @@ private:
 	// Elemental Dmg: Damage, Resistance
 	// Status Effect: Damage, Resistance, Chance, Duration
 
-	//void IncreaseStatusChance(FStatusEffect StatusEffect, FPassiveSkillNode SkillNode);
+	//New functions related to Skillnote attributes
+
+	void IncrementAttributeValue(FPassiveSkillNode SkillNode, FGeneralAttribute AttributeToUpdate);
+	void IncrementPhysicalDamage(FPassiveSkillNode SkillNode, FPhysicalDamage AttributeToUpdate);
+	void IncrementPhysicalResistance(FPassiveSkillNode SkillNode, FPhysicalDamage AttributeToUpdate);
+	void IncrementStatusDmgOnTick(FPassiveSkillNode SkillNode, FStatusEffect StatusEffectToUpdate);
+	void DecrementStatusDmgTakenOnTick(FPassiveSkillNode SkillNode, FStatusEffect StatusEffectToUpdate);
+	void IncrementStatusChanceOnTarget(FPassiveSkillNode SkillNode, FStatusEffect StatusEffectToUpdate);
+	void DecrementStatusChanceOnSelf(FPassiveSkillNode SkillNode, FStatusEffect StatusEffectToUpdate);
+	void IncrementStatusDurationOnTarget(FPassiveSkillNode SkillNode, FStatusEffect StatusEffectToUpdate);
+	void DecrementStatusDurationOnSelf(FPassiveSkillNode SkillNode, FStatusEffect StatusEffectToUpdate);
+	void IncrementElementalDamageOnTarget(FPassiveSkillNode SkillNode, FElementalDamage ElementToUpdate);
+	void DecrementElementalDamageOnSelf(FPassiveSkillNode SkillNode, FElementalDamage ElementToUpdate);
 
 
-	void AddAttributeAgility(FPassiveSkillNode SkillNode);
-	void AddAttributeArcaneEssence(FPassiveSkillNode SkillNode);
-	void AddAttributeArmorPenetration(FPassiveSkillNode SkillNode);
-	void AddAttributeBreath(FPassiveSkillNode SkillNode);
-	void AddAttributeCarryCapacity(FPassiveSkillNode SkillNode); 
-	void AddAttributeConstitution(FPassiveSkillNode SkillNode);
-	void AddAttributeEndurance(FPassiveSkillNode SkillNode);
-	void AddAttributeHealth(FPassiveSkillNode SkillNode);
-	void AddAttributeHealthRegen(FPassiveSkillNode SkillNode);
-	void AddAttributeSpirit(FPassiveSkillNode SkillNode);
-	void AddAttributeStamina(FPassiveSkillNode SkillNode);
-	void AddAttributeStaminaRegen(FPassiveSkillNode SkillNode);
-	void AddAttributeStrength(FPassiveSkillNode SkillNode);
+	// Old Functions related to Skillnote Attributes
+	
+	//void AddAttributeAgility(FPassiveSkillNode SkillNode);
+	//void AddAttributeArcaneEssence(FPassiveSkillNode SkillNode);
+	//void AddAttributeArmorPenetration(FPassiveSkillNode SkillNode);
+	//void AddAttributeBreath(FPassiveSkillNode SkillNode);
+	//void AddAttributeCarryCapacity(FPassiveSkillNode SkillNode); 
+	//void AddAttributeConstitution(FPassiveSkillNode SkillNode);
+	//void AddAttributeEndurance(FPassiveSkillNode SkillNode);
+	//void AddAttributeHealth(FPassiveSkillNode SkillNode);
+	//void AddAttributeHealthRegen(FPassiveSkillNode SkillNode);
+	//void AddAttributeSpirit(FPassiveSkillNode SkillNode);
+	//void AddAttributeStamina(FPassiveSkillNode SkillNode);
+	//void AddAttributeStaminaRegen(FPassiveSkillNode SkillNode);
+	//void AddAttributeStrength(FPassiveSkillNode SkillNode);
 	/*void AddDamage1hCrush(FPassiveSkillNode SkillNode);
 	void AddDamage1hPierce(FPassiveSkillNode SkillNode);
 	void AddDamage1hSlash(FPassiveSkillNode SkillNode);
 	void AddDamage2hCrush(FPassiveSkillNode SkillNode);
 	void AddDamage2hPierce(FPassiveSkillNode SkillNode);
 	void AddDamage2hSlash(FPassiveSkillNode SkillNode);*/
-	void AddDamageCritical(FPassiveSkillNode SkillNode);
+	/////////void AddDamageCritical(FPassiveSkillNode SkillNode);
 /*	void AddDamageRangedCrush(FPassiveSkillNode SkillNode);
 	void AddDamageRangedPierce(FPassiveSkillNode SkillNode);
 	void AddDamageRangedSlash(FPassiveSkillNode SkillNode);
@@ -315,7 +486,7 @@ private:
 	void ReduceDamageOnBlock(FPassiveSkillNode SkillNode);
 	void AddStrengthKnockback(FPassiveSkillNode SkillNode);
 	void AddChanceKnockdown(FPassiveSkillNode SkillNode); */
-	void AddSpeedSprint(FPassiveSkillNode SkillNode);
+	/////////void AddSpeedSprint(FPassiveSkillNode SkillNode);
 /*	void AddDurationStun(FPassiveSkillNode SkillNode);
 	void ReduceStaminaCostOnAttack(FPassiveSkillNode SkillNode);
 	void ReduceStaminaCostOnDodge(FPassiveSkillNode SkillNode);
@@ -332,7 +503,7 @@ private:
 	void AddDurationPoison(FPassiveSkillNode SkillNode);
 	void AddDurationBlindness(FPassiveSkillNode SkillNode);
 	void AddChanceStun(FPassiveSkillNode SkillNode); */
-	void AddDamageFrost(FPassiveSkillNode SkillNode);
+	////////void AddDamageFrost(FPassiveSkillNode SkillNode);
 /*	void AddChanceChill(FPassiveSkillNode SkillNode);
 	void AddDurationChill(FPassiveSkillNode SkillNode);
 	void AddChanceFreeze(FPassiveSkillNode SkillNode);

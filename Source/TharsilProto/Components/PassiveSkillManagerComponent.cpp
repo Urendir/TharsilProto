@@ -126,8 +126,18 @@ void UPassiveSkillManagerComponent::ResetSkillNodeState(FPassiveSkillNode SkillN
 /// <param name="SkillNode"></param>
 void UPassiveSkillManagerComponent::ProvideSkillNodeBonus(FPassiveSkillNode SkillNode)
 {
+	//if(SkillNode.AttributeType == EAffectedAttributeType::E_NoAffectedAttribute)
+	//{
+	//	return;
+	//}
+
+
+
+
+
+//DEPRECATED ITEM
 	//TEnumAsByte<EPassiveSkillEffect> SkillEffect = SkillNode.ThisSkillsEffect;
-	EPassiveSkillEffect SkillEffect = SkillNode.ThisSkillsEffect;
+	/*EPassiveSkillEffect SkillEffect = SkillNode.ThisSkillsEffect;
 	
 	switch (SkillEffect)
 	{
@@ -208,117 +218,154 @@ void UPassiveSkillManagerComponent::ProvideSkillNodeBonus(FPassiveSkillNode Skil
 	default:
 		UE_LOG(LogTemp, Warning, TEXT("No Matching function for Passive Node found."));
 		break;
-	}
+	}*/
 
 
 }
-
 
 /// <summary>
 /// ========================================FUNCTIONS IN SWITCH STATEMENT=======================================
 /// These are called from within the switch statement, based on Node Type via Enum. 
 /// </summary>
+
+void UPassiveSkillManagerComponent::IncrementPhysicalDamage(FPassiveSkillNode SkillNode, FPhysicalDamage AttributeToUpdate)
+{
+	//EPassiveSkillEffect SkillEffect = SkillNode.ThisSkillsEffect;
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/// <summary>
+/// ========================================OBSOLETE=======================================
+/// These are called from within the switch statement, based on Node Type via Enum. 
+/// </summary>
 /// <param name="SkillNode"></param>
-void UPassiveSkillManagerComponent::AddAttributeAgility(FPassiveSkillNode SkillNode)
-{
-	PassiveSkillAgility += SkillNode.AssignmentValue;
-	UE_LOG(LogTemp, Warning, TEXT("Passive Agility increased to %i."), PassiveSkillAgility);
-	Owner->AddPassiveBonusesToPrimaryAttributes(PassiveSkillAgility, PassiveSkillArcaneEssence, PassiveSkillConstitution, PassiveSkillEndurance, PassiveSkillSpirit, PassiveSkillStrength);
-}
-
-void UPassiveSkillManagerComponent::AddAttributeArcaneEssence(FPassiveSkillNode SkillNode)
-{
-	PassiveSkillArcaneEssence += SkillNode.AssignmentValue;
-	Owner->AddPassiveBonusesToPrimaryAttributes(PassiveSkillAgility, PassiveSkillArcaneEssence, PassiveSkillConstitution, PassiveSkillEndurance, PassiveSkillSpirit, PassiveSkillStrength);
-}
-
-void UPassiveSkillManagerComponent::AddAttributeArmorPenetration(FPassiveSkillNode SkillNode)
-{
-	ArmorPenetrationPassive += SkillNode.AssignmentValue;
-	UE_LOG(LogTemp, Warning, TEXT("Passive Armor Penetration increased to %i."), ArmorPenetrationPassive);
-}
-
-void UPassiveSkillManagerComponent::AddAttributeBreath(FPassiveSkillNode SkillNode)
-{
-	//ADD BREATH TO THE ENERGY COMPONENT!
-}
-
-void UPassiveSkillManagerComponent::AddAttributeCarryCapacity(FPassiveSkillNode SkillNode)
-{
-	CarryCapacityPassive += 5; //SkillNode.AssignmentValue;
-	UE_LOG(LogTemp, Warning, TEXT("Passive CarryCapacity increased to %f."), CarryCapacityPassive);
-}
-
-void UPassiveSkillManagerComponent::AddAttributeConstitution(FPassiveSkillNode SkillNode)
-{
-	PassiveSkillConstitution += SkillNode.AssignmentValue;
-	UE_LOG(LogTemp, Warning, TEXT("Passive Constitution increased to %i."), PassiveSkillConstitution);
-	Owner->AddPassiveBonusesToPrimaryAttributes(PassiveSkillAgility, PassiveSkillArcaneEssence, PassiveSkillConstitution, PassiveSkillEndurance, PassiveSkillSpirit, PassiveSkillStrength);
-}
-
-void UPassiveSkillManagerComponent::AddAttributeEndurance(FPassiveSkillNode SkillNode)
-{
-	PassiveSkillEndurance += SkillNode.AssignmentValue;
-	UE_LOG(LogTemp, Warning, TEXT("Passive Endurance increased to %i."), PassiveSkillEndurance);
-	Owner->AddPassiveBonusesToPrimaryAttributes(PassiveSkillAgility, PassiveSkillArcaneEssence, PassiveSkillConstitution, PassiveSkillEndurance, PassiveSkillSpirit, PassiveSkillStrength);
-}
-
-void UPassiveSkillManagerComponent::AddAttributeHealth(FPassiveSkillNode SkillNode)
-{
-	HealthPointsPassive += SkillNode.AssignmentValue;
-	UE_LOG(LogTemp, Warning, TEXT("Passive HP increased to %f."), HealthPointsPassive);
-	Owner->UpdateSecondaryAttributes();
-}
-
-void UPassiveSkillManagerComponent::AddAttributeHealthRegen(FPassiveSkillNode SkillNode)
-{
-	HealthRegenPassive += SkillNode.AssignmentValue;
-	UE_LOG(LogTemp, Warning, TEXT("Passive Health Regen increased to %f."), HealthRegenPassive);
-	Owner->UpdateSecondaryAttributes();
-}
-
-void UPassiveSkillManagerComponent::AddAttributeSpirit(FPassiveSkillNode SkillNode)
-{
-	PassiveSkillSpirit += SkillNode.AssignmentValue;
-	Owner->AddPassiveBonusesToPrimaryAttributes(PassiveSkillAgility, PassiveSkillArcaneEssence, PassiveSkillConstitution, PassiveSkillEndurance, PassiveSkillSpirit, PassiveSkillStrength);
-}
-
-void UPassiveSkillManagerComponent::AddAttributeStamina(FPassiveSkillNode SkillNode)
-{
-	StaminaPointsPassive += SkillNode.AssignmentValue;
-	UE_LOG(LogTemp, Warning, TEXT("Passive Stamina increased to %f."), StaminaPointsPassive);
-	Owner->UpdateSecondaryAttributes();
-}
-
-void UPassiveSkillManagerComponent::AddAttributeStaminaRegen(FPassiveSkillNode SkillNode)
-{
-	StaminaRegenPassive += SkillNode.AssignmentValue;
-	UE_LOG(LogTemp, Warning, TEXT("Passive Stamina Regen increased to %f."), StaminaRegenPassive);
-	Owner->UpdateSecondaryAttributes();
-}
-
-void UPassiveSkillManagerComponent::AddAttributeStrength(FPassiveSkillNode SkillNode)
-{
-	PassiveSkillStrength += SkillNode.AssignmentValue;
-	UE_LOG(LogTemp, Warning, TEXT("Passive Strength increased to %i."), PassiveSkillStrength);
-	Owner->AddPassiveBonusesToPrimaryAttributes(PassiveSkillAgility, PassiveSkillArcaneEssence, PassiveSkillConstitution, PassiveSkillEndurance, PassiveSkillSpirit, PassiveSkillStrength);
-}
-
-void UPassiveSkillManagerComponent::AddDamageCritical(FPassiveSkillNode SkillNode)
-{
-	CriticalDamagePassive += SkillNode.AssignmentValue;
-}
-
-void UPassiveSkillManagerComponent::AddSpeedSprint(FPassiveSkillNode SkillNode)
-{
-	SprintCostReductionPassive += SkillNode.AssignmentValue;
-	Owner->CalculateSprintSpeed(); // not part of the overall Secondary Attributes
-}
-
-void UPassiveSkillManagerComponent::AddDamageFrost(FPassiveSkillNode SkillNode)
-{
-
-}
+//void UPassiveSkillManagerComponent::AddAttributeAgility(FPassiveSkillNode SkillNode)
+//{
+//	PassiveSkillAgility += SkillNode.AssignmentValue;
+//	UE_LOG(LogTemp, Warning, TEXT("Passive Agility increased to %i."), PassiveSkillAgility);
+//	Owner->AddPassiveBonusesToPrimaryAttributes(PassiveSkillAgility, PassiveSkillArcaneEssence, PassiveSkillConstitution, PassiveSkillEndurance, PassiveSkillSpirit, PassiveSkillStrength);
+//}
+//
+//void UPassiveSkillManagerComponent::AddAttributeArcaneEssence(FPassiveSkillNode SkillNode)
+//{
+//	PassiveSkillArcaneEssence += SkillNode.AssignmentValue;
+//	Owner->AddPassiveBonusesToPrimaryAttributes(PassiveSkillAgility, PassiveSkillArcaneEssence, PassiveSkillConstitution, PassiveSkillEndurance, PassiveSkillSpirit, PassiveSkillStrength);
+//}
+//
+//void UPassiveSkillManagerComponent::AddAttributeArmorPenetration(FPassiveSkillNode SkillNode)
+//{
+//	ArmorPenetrationPassive += SkillNode.AssignmentValue;
+//	UE_LOG(LogTemp, Warning, TEXT("Passive Armor Penetration increased to %i."), ArmorPenetrationPassive);
+//}
+//
+//void UPassiveSkillManagerComponent::AddAttributeBreath(FPassiveSkillNode SkillNode)
+//{
+//	//ADD BREATH TO THE ENERGY COMPONENT!
+//}
+//
+//void UPassiveSkillManagerComponent::AddAttributeCarryCapacity(FPassiveSkillNode SkillNode)
+//{
+//	CarryCapacityPassive += 5; //SkillNode.AssignmentValue;
+//	UE_LOG(LogTemp, Warning, TEXT("Passive CarryCapacity increased to %f."), CarryCapacityPassive);
+//}
+//
+//void UPassiveSkillManagerComponent::AddAttributeConstitution(FPassiveSkillNode SkillNode)
+//{
+//	PassiveSkillConstitution += SkillNode.AssignmentValue;
+//	UE_LOG(LogTemp, Warning, TEXT("Passive Constitution increased to %i."), PassiveSkillConstitution);
+//	Owner->AddPassiveBonusesToPrimaryAttributes(PassiveSkillAgility, PassiveSkillArcaneEssence, PassiveSkillConstitution, PassiveSkillEndurance, PassiveSkillSpirit, PassiveSkillStrength);
+//}
+//
+//void UPassiveSkillManagerComponent::AddAttributeEndurance(FPassiveSkillNode SkillNode)
+//{
+//	PassiveSkillEndurance += SkillNode.AssignmentValue;
+//	UE_LOG(LogTemp, Warning, TEXT("Passive Endurance increased to %i."), PassiveSkillEndurance);
+//	Owner->AddPassiveBonusesToPrimaryAttributes(PassiveSkillAgility, PassiveSkillArcaneEssence, PassiveSkillConstitution, PassiveSkillEndurance, PassiveSkillSpirit, PassiveSkillStrength);
+//}
+//
+//void UPassiveSkillManagerComponent::AddAttributeHealth(FPassiveSkillNode SkillNode)
+//{
+//	HealthPointsPassive += SkillNode.AssignmentValue;
+//	UE_LOG(LogTemp, Warning, TEXT("Passive HP increased to %f."), HealthPointsPassive);
+//	Owner->UpdateSecondaryAttributes();
+//}
+//
+//void UPassiveSkillManagerComponent::AddAttributeHealthRegen(FPassiveSkillNode SkillNode)
+//{
+//	HealthRegenPassive += SkillNode.AssignmentValue;
+//	UE_LOG(LogTemp, Warning, TEXT("Passive Health Regen increased to %f."), HealthRegenPassive);
+//	Owner->UpdateSecondaryAttributes();
+//}
+//
+//void UPassiveSkillManagerComponent::AddAttributeSpirit(FPassiveSkillNode SkillNode)
+//{
+//	PassiveSkillSpirit += SkillNode.AssignmentValue;
+//	Owner->AddPassiveBonusesToPrimaryAttributes(PassiveSkillAgility, PassiveSkillArcaneEssence, PassiveSkillConstitution, PassiveSkillEndurance, PassiveSkillSpirit, PassiveSkillStrength);
+//}
+//
+//void UPassiveSkillManagerComponent::AddAttributeStamina(FPassiveSkillNode SkillNode)
+//{
+//	StaminaPointsPassive += SkillNode.AssignmentValue;
+//	UE_LOG(LogTemp, Warning, TEXT("Passive Stamina increased to %f."), StaminaPointsPassive);
+//	Owner->UpdateSecondaryAttributes();
+//}
+//
+//void UPassiveSkillManagerComponent::AddAttributeStaminaRegen(FPassiveSkillNode SkillNode)
+//{
+//	StaminaRegenPassive += SkillNode.AssignmentValue;
+//	UE_LOG(LogTemp, Warning, TEXT("Passive Stamina Regen increased to %f."), StaminaRegenPassive);
+//	Owner->UpdateSecondaryAttributes();
+//}
+//
+//void UPassiveSkillManagerComponent::AddAttributeStrength(FPassiveSkillNode SkillNode)
+//{
+//	PassiveSkillStrength += SkillNode.AssignmentValue;
+//	UE_LOG(LogTemp, Warning, TEXT("Passive Strength increased to %i."), PassiveSkillStrength);
+//	Owner->AddPassiveBonusesToPrimaryAttributes(PassiveSkillAgility, PassiveSkillArcaneEssence, PassiveSkillConstitution, PassiveSkillEndurance, PassiveSkillSpirit, PassiveSkillStrength);
+//}
+//
+//void UPassiveSkillManagerComponent::AddDamageCritical(FPassiveSkillNode SkillNode)
+//{
+//	CriticalDamagePassive += SkillNode.AssignmentValue;
+//}
+//
+//void UPassiveSkillManagerComponent::AddSpeedSprint(FPassiveSkillNode SkillNode)
+//{
+//	SprintCostReductionPassive += SkillNode.AssignmentValue;
+//	Owner->CalculateSprintSpeed(); // not part of the overall Secondary Attributes
+//}
+//
+//void UPassiveSkillManagerComponent::AddDamageFrost(FPassiveSkillNode SkillNode)
+//{
+//
+//}
 
 
 

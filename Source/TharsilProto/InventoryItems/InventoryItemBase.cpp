@@ -129,7 +129,7 @@ float UInventoryItemBase::CalculateTotalItemDurability()
 {
     if(BaseItem)
     {
-        ItemDurability = BaseItem->CalculateBaseItemDurability() * QualityModifierDurability;
+        //ItemDurability = BaseItem->CalculateBaseItemDurability() * QualityModifierDurability;
     }
     return ItemDurability;
 }
@@ -140,7 +140,7 @@ float UInventoryItemBase::CalculateTotalItemWeight()
     {
         UE_LOG(LogTemp, Error, TEXT("Error retrieving 'BaseItem' Data Asset when calculating Item Weight"));
     }
-    ItemWeight = BaseItem->CalculateBaseItemWeight() * QualityModifierWeight;
+    //ItemWeight = BaseItem->CalculateBaseItemWeight() * QualityModifierWeight;
 
     return ItemWeight;
 }
@@ -149,7 +149,7 @@ float UInventoryItemBase::CalculateTotalItemValue()
 {
     if(BaseItem)
     {
-        ItemValue = BaseItem->CalculateBaseItemValue() * QualityModifierValue;
+        //ItemValue = BaseItem->CalculateBaseItemValue() * QualityModifierValue;
     }
     return ItemValue;
 }

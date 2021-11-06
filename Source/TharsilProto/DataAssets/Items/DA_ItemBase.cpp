@@ -2,30 +2,30 @@
 
 
 #include "DA_ItemBase.h"
-#include "TharsilProto/DataAssets/DA_CraftingMaterial.h"
 
 
-UDA_ItemBase::UDA_ItemBase() 
+
+UDA_ItemBase::UDA_ItemBase()
 {
-    
+
 }
 
-float UDA_ItemBase::CalculateBaseItemValue() 
+float UDA_ItemBase::CalculateBaseItemValue()
 {
-    float BaseItemValue = PrimaryCraftingMaterial->GetPricePerUnit() * MaterialUnitsUsed;
-    
+    float BaseItemValue = 0.0f;
+
     return BaseItemValue;
 }
 
-float UDA_ItemBase::CalculateBaseItemWeight() 
+float UDA_ItemBase::CalculateBaseItemWeight()
 {
-    ItemWeight = PrimaryCraftingMaterial->WeightPerUnit * MaterialUnitsUsed;
+    ItemWeight = 0.0f;
     return ItemWeight;
 }
 
-float UDA_ItemBase::CalculateBaseItemDurability() 
+float UDA_ItemBase::CalculateBaseItemDurability()
 {
-    ItemBaseDurability = PrimaryCraftingMaterial->DurabilityPerUnit * MaterialUnitsUsed * DurabilityModifier;
+    float ItemBaseDurability = 0.0f;
     return ItemBaseDurability;
 }
 

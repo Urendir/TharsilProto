@@ -48,72 +48,65 @@ public:
 /// <summary>
 /// NEGATIVE Status Effect Flags and timer checks. These are set when the Owning Character has the respective status affecting them in a negative way.
 /// </summary>
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(BlueprintReadWrite)
 	bool bIsBleeding;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(BlueprintReadWrite)
 	bool bIsStunned;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(BlueprintReadWrite)
 	bool bIsKnockedDown;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(BlueprintReadWrite)
 	bool bIsBlinded;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(BlueprintReadWrite)
 	bool bIsCrippled;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(BlueprintReadWrite)
 	bool bIsWeakened;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(BlueprintReadWrite)
 	bool bIsOverheating;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(BlueprintReadWrite)
 	bool bIsBurning;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(BlueprintReadWrite)
 	bool bIsChilled;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(BlueprintReadWrite)
 	bool bIsFrozen;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(BlueprintReadWrite)
 	bool bIsPoisoned;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(BlueprintReadWrite)
 	bool bIsNecrosis;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(BlueprintReadWrite)
 	bool bIsCorroding;
-
 
 /// <summary>
 /// POSITIVE Status Effect Flags. These are set when the Owning Character has the respective status affecting them in a positive way.
 /// </summary>
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(BlueprintReadWrite)
 	bool bIsRested;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(BlueprintReadWrite)
 	bool bIsSatiated;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(BlueprintReadWrite)
 	bool bIsEmboldened;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(BlueprintReadWrite)
 	bool bIsEmpowered;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(BlueprintReadWrite)
 	bool bIsGuarded;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(BlueprintReadWrite)
 	bool bIsSolidified;
-
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	UPROPERTY(BlueprintReadWrite)
 	bool bIsAttackCritical;
 
-
+//-------------------------------Critical Modifiers-----------------------------------------------
+/*The multiplier for damage on a critical hit. 1.5 crit damage means that you deal 150% of the total damage calculation to the target*/
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+		float CritDamageBase = 1.475f;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+		float CritDamagePerStr = 0.005f;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+		float CritChancePerAgi = 0.005f;
+	/*The basic Critical Chance, before additions from the active ability;.*/
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+		float CritChanceBase = 0.025f;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+		float AbsoluteMaxCriticalChanceBeforeAbility = 0.85f;
 
 
 protected:
