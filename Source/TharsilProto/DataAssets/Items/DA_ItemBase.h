@@ -42,7 +42,7 @@ class THARSILPROTO_API UDA_ItemBase : public UDataAsset
 	
 public:	
 	
-	UDA_ItemBase();
+	//UDA_ItemBase();
 
 	/**This is the name that will be shown in the inventory*/
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item Descriptors")
@@ -56,6 +56,9 @@ public:
 	/**The monetary value of the base item*/
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Item Descriptors")
 	float ItemValue = 0.0f;
+	/*Is this item stackable? if =false, each individual item will take one inventory slot.*/
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Item Descriptors")
+	bool bIsStackable = false;
 	/*How many items can fit in a stack*/
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Item Descriptors")
 	int32 StackSizeMax = 0;
@@ -68,7 +71,5 @@ public:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Item Descriptors")
 	UStaticMesh* PickupMesh;	
-	float CalculateBaseItemValue();
-	float CalculateBaseItemWeight();
-	float CalculateBaseItemDurability();
+
 };

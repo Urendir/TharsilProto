@@ -12,7 +12,7 @@ UCombatAttributesSet::UCombatAttributesSet()
 	BleedDamage.PrimaryEffect = Bleeding;
 	Bleeding.bIsStacking = true;
 	Bleeding.MaximumStacks = 25;
-	Bleeding.ChanceOnTarget = PhysicalDamage.BleedChanceOnpierceBase;
+	Bleeding.ChanceOnTarget = PhysicalDamageAndResistance.BleedChanceOnpierceBase;
 	Bleeding.DurationOnTarget = 5.0f;
 	Bleeding.DamageOnTargetTick = 15.0f;
 
@@ -70,7 +70,7 @@ UCombatAttributesSet::UCombatAttributesSet()
 
 	//Set up Pure status effects.	
 	Stun.bIsStacking = false;
-	Stun.ChanceOnTarget = PhysicalDamage.StunChanceOnCrushBase;
+	Stun.ChanceOnTarget = PhysicalDamageAndResistance.StunChanceOnCrushBase;
 	Stun.DurationOnTarget = 3.5f;
 
 	KnockDown.bIsStacking = false;
@@ -89,7 +89,7 @@ UCombatAttributesSet::UCombatAttributesSet()
 
 void UCombatAttributesSet::AddEntireCombatValueSet(UCombatAttributesSet* ValuesToAdd)
 {
-	AddPhysicalDamageSetValues(ValuesToAdd->PhysicalDamage, PhysicalDamage);
+	AddPhysicalDamageSetValues(ValuesToAdd->PhysicalDamageAndResistance, PhysicalDamageAndResistance);
 	AddElementalDamageSetValues(ValuesToAdd->BleedDamage, BleedDamage);
 	AddElementalDamageSetValues(ValuesToAdd->FireDamage, FireDamage);
 	AddElementalDamageSetValues(ValuesToAdd->ColdDamage, ColdDamage);
@@ -137,10 +137,10 @@ void UCombatAttributesSet::AddStatusEffectValues(FStatusEffect ValuesToAdd, FSta
 
 float UCombatAttributesSet::GetArmorPenetrationOnPierce()
 {
-	return PhysicalDamage.DamagePierce * (PhysicalDamage.ArmorPenetration * 0.0002f);
+	return PhysicalDamageAndResistance.DamagePierce * (PhysicalDamageAndResistance.ArmorPenetration * 0.0002f);
 }
 
 float UCombatAttributesSet::GetArmorPenetrationOnCrush()
 {
-	return PhysicalDamage.DamageCrush * PhysicalDamage.ArmorPenetration * 0.0002f;
+	return PhysicalDamageAndResistance.DamageCrush * PhysicalDamageAndResistance.ArmorPenetration * 0.0002f;
 }

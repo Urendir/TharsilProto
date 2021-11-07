@@ -255,9 +255,9 @@ void ABaseCharacterPlayable::UpdateSecondaryAttributes()
     }
     if (EnergyComponent != nullptr)
     {
-        EnergyComponent->RecalculateManaAttributes(AttributesComponent->AttributeArcaneEssence, XPComponent->CurrentLevel, PassiveSkillTreeManager->ManaPointsPassive);
-        EnergyComponent->RecalculateStaminaAttributes(AttributesComponent->AttributeEndurance, AttributesComponent->AttributeAgility, XPComponent->CurrentLevel, PassiveSkillTreeManager->StaminaPointsPassive, PassiveSkillTreeManager->StaminaRegenPassive);
-        EnergyComponent->RecalculateStaminaCosts(AttributesComponent->AttributeAgility, InventoryComponent->CalculateCurrentEncumberanceRate(), PassiveSkillTreeManager->SprintCostReductionPassive);
+        EnergyComponent->RecalculateManaAttributes(AttributesComponent->AttributeArcaneEssence, XPComponent->CurrentLevel, PassiveSkillTreeManager->PassiveAttributes->Mana.CurrentMaxValue);
+        EnergyComponent->RecalculateStaminaAttributes(AttributesComponent->AttributeEndurance, AttributesComponent->AttributeAgility, XPComponent->CurrentLevel, PassiveSkillTreeManager->PassiveAttributes->Stamina.CurrentMaxValue, PassiveSkillTreeManager->PassiveAttributes->Stamina.RegenerationRate);
+        EnergyComponent->RecalculateStaminaCosts(AttributesComponent->AttributeAgility, InventoryComponent->CalculateCurrentEncumberanceRate(), 0);
     }
     else
     {
@@ -271,7 +271,7 @@ void ABaseCharacterPlayable::UpdateSecondaryAttributes()
 
 void ABaseCharacterPlayable::RecheckStaminaCostsOnInventoryUpdate()
 {
-    EnergyComponent->RecalculateStaminaCosts(AttributesComponent->AttributeAgility, InventoryComponent->CalculateCurrentEncumberanceRate(), PassiveSkillTreeManager->SprintCostReductionPassive);
+    EnergyComponent->RecalculateStaminaCosts(AttributesComponent->AttributeAgility, InventoryComponent->CalculateCurrentEncumberanceRate(), PassiveSkillTreeManager->PassiveAttributes->SprintCost.CurrentValue);
 }
 
 //---------------------------------------------------------------------------LOCOMOTION--------------------------------------------------------------------------
@@ -293,7 +293,7 @@ void ABaseCharacterPlayable::MoveLeftRight(float AxisValue)
 
 void ABaseCharacterPlayable::CalculateSprintSpeed()
 {
-    CurrentSprintSpeed = BaseSprintSpeed * InventoryComponent->CalculateCurrentEncumberanceRate() * (1 + PassiveSkillTreeManager->SprintSpeedPassive);
+    CurrentSprintSpeed = BaseSprintSpeed * InventoryComponent->CalculateCurrentEncumberanceRate() * (1 + PassiveSkillTreeManager->PassiveAttributes->SprintSpeed.CurrentValue);
 }
 
 
@@ -316,7 +316,7 @@ void ABaseCharacterPlayable::AttemptToDamageTarget_Implementation(ABaseCharacter
 {
     if (CombatCalculatorComponent && PassiveSkillTreeManager && AbilityComponent && AttributesComponent)
     {
-        bool IsCrit = CombatCalculatorComponent->OutCheckForCritical(PassiveSkillTreeManager->CriticalChancePassive, AbilityComponent->CritPlaceholder, AttributesComponent->AttributeAgility );
+        bool IsCrit = CombatCalculatorComponent->OutCheckForCritical(PassiveSkillTreeManager->PassiveAttributes->CritChance.CurrentValue, AbilityComponent->CritPlaceholder, AttributesComponent->AttributeAgility );
         //Update Combat Attributes - TO DO HERE!
         Target->CombatCalculatorComponent->InProcessDamage(CombatCalculatorComponent->CombatAttributes, this, IsCrit);
     }
@@ -424,7 +424,7 @@ UCombatAttributesSet* ABaseCharacterPlayable::CalculateCharacterDamageNumbers(UA
 
 float ABaseCharacterPlayable::CalculateLatestCritChance()
 {
-    PassiveSkillTreeManager->CriticalChancePassive;
+    PassiveSkillTreeManager->PassiveAttributes->CritChance.CurrentValue;
     
     //passive crit chance
     //ability crit chance
@@ -435,7 +435,7 @@ float ABaseCharacterPlayable::CalculateLatestCritChance()
 
 float ABaseCharacterPlayable::CalculateLatestCritDamage()
 {
-    float CritDmg = CombatCalculatorComponent->ObtainLatestCritDamage(PassiveSkillTreeManager->CriticalDamagePassive, AttributesComponent->AttributeStrength, 0, 0);
+    float CritDmg = CombatCalculatorComponent->ObtainLatestCritDamage(PassiveSkillTreeManager->PassiveAttributes->CritDamage.CurrentValue, AttributesComponent->AttributeStrength, 0, 0);
     
     return CritDmg;
 }

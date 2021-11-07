@@ -92,6 +92,8 @@ enum class EElementalDamageType : uint8
 	E_Cold			UMETA(DisplayName = "Cold"),
 	E_Toxic			UMETA(DisplayName = "Toxic"),
 	E_Corrosive		UMETA(DisplayName = "Corrosive"),
+	E_Blind			UMETA(DisplayName = "Blind"),
+	E_Weak			UMETA(DisplayName = "Weaken"),
 };
 
 UENUM(BlueprintType, Category = "SkillNode Description")
@@ -106,6 +108,11 @@ enum class EStatusEffectType : uint8
 	E_Poison		UMETA(DisplayName = "Poison"),
 	E_Necrosis		UMETA(DisplayName = "Necrosis"),
 	E_Corrosion		UMETA(DisplayName = "Corrosion"),
+	E_Blinding		UMETA(DisplayName = "Blinding"),
+	E_Weakening		UMETA(DisplayName = "Weakening"),
+	E_Stun			UMETA(DisplayName = "Stun"),
+	E_Knockdown		UMETA(DisplayName = "KnockDown"),
+	E_Cripple		UMETA(DisplayName = "Cripple"),
 };
 
 UENUM(BlueprintType, Category = "SkillNode Description")
@@ -238,11 +245,11 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UDataTable* PassiveSkillNodesTable;
 
-	EPassiveSkillEffect PassiveEffects;
+	//OBSOLETE EPassiveSkillEffect PassiveEffects; OBSOLETE
 
-	//FDamageTypeBreakdown OffensivePassiveStats;
+	//OBSOLETE FDamageTypeBreakdown OffensivePassiveStats;OBSOLETE
 
-	//FDamageResistanceBreakdown DefensivePassiveStats;
+	//OBSOLETE FDamageResistanceBreakdown DefensivePassiveStats;OBSOLETE
 
 	//---------------------------------------------------------------------Variables that result from Skill Node Unlocks. 
 	/// <summary>
@@ -252,142 +259,121 @@ public:
 	
 	
 	//Direct Damage and status effect Attributes
-	
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	UGeneralAttributeSet* PassiveAttributes;
 
 
 
-	///
-	///============================================OLD VALUES==============================================
-	/// 
-	/// 
-	/// 
-
-	// Main Attributes
-	int32 PassiveSkillStrength = 0;
-	int32 PassiveSkillAgility = 0;
-	int32 PassiveSkillConstitution = 0;
-	int32 PassiveSkillEndurance = 0;
-	int32 PassiveSkillSpirit = 0;
-	int32 PassiveSkillArcaneEssence = 0;
-
-	// Seconary Attributes
-	float BreathPassive = 0.0f;
-	float CarryCapacityPassive = 0.0f;
-	float HealthPointsPassive = 0.0f;
-	float HealthRegenPassive = 0.0f;
-	float StaminaPointsPassive = 0.0f;
-	float StaminaRegenPassive = 0.0f;
-	float ManaPointsPassive = 0.0f;
-	
-
-	//=========================OLD
-
-	//OFFENSIVE MODIFICATIONS
-	//Damage Modifiers
-	int32 ArmorPenetrationPassive = 0;
-	float Damage1hSlashPassive = 0.0f;
-	float Damage1hPiercePassive = 0.0f;
-	float Damage1hCrushPassive = 0.0f;
-	float Damage2hSlashPassive = 0.0f;
-	float Damage2hPiercePassive = 0.0f;
-	float Damage2hCrushPassive = 0.0f;
-	float DamageRangedSlashPassive = 0.0f;
-	float DamageRangedPiercePassive = 0.0f;
-	float DamageRangedCrushPassive = 0.0f;
-
-	//Critical Modifiers
-	float CriticalDamagePassive = 0.0f;
-	float CriticalChancePassive = 0.0f;
-
-	//Bleed Damage Modifiers
-	float BleedChancePassive = 0.0f;
-	float BleedDamagePassive = 0.0f;
-	float BleedDurationPassive = 0.0f;
-
-	//Physical Condition Modifiers
-	float CrippleDurationPassive = 0.0f;
-	float CrippleChancePassive = 0.0f;
-	float KnockbackStrengthPassive = 0.0f;
-	float KnockdownChancePassive = 0.0f;
-	float StunChancePassive = 0.0f;
-	float StunDurationPassive = 0.0f;
-	float BlindDurationPassive = 0.0f;
-
-	// Toxic Damage Modifiers
-	float ToxicDmgPassive = 0.0f;
-	float PoisonChancePassive = 0.0f;
-	float PoisonDurationPassive = 0.0f;
-
-	//Fire Damage Modifiers
-	float FireDmgPassive = 0.0f;
-	float BurnChancePassive = 0.0f;
-	float BurnDurationPassive = 0.0f;
-
-	//Cold Damage Modifiers
-	float ColdDamagePassive = 0.0f;
-	float ChillChancePassive = 0.0f;
-	float ChillDurationPassive = 0.0f;
-	float FreezeChancePassive = 0.0f;
-	float FreezeDurationPassive = 0.0f;
-
-	//Corrision Modifiers - Corrosion creates AP against the affected enemy
-	float CorrosiveDamage = 0.0f;
-	float CorrosionDuration = 0.0f;
-	float PerCorrosionAP = 0.0f;
-
-	//RESISTANCES AND DEFENSIVE MODIFICATIONS
-	//Physical
-	
-	float SlashDefense = 0.0f;
-	float PierceDefense = 0.0f;
-	float CrushDefense = 0.0f;
-
-	float KnockbackResist = 0.0f;
-	float KnockdownResist = 0.0f;
-
-	float ToxinResist = 0.0f;
-	float OverheatResist = 0.0f;
-	float FrostResist = 0.0f;
-	float CorrosionResist = 0.0f;
-
-	//Hard Damage Reduction
-	float ReduceIncomingSlashDamagePassive = 0.0f;
-	float ReduceIncomingPierceDamagePassive = 0.0f;
-	float ReduceIncomingCrushDamagePassive = 0.0f;
-	float DamageOnBlockReductionPassive = 0.0f;
-	float DamageToArmorReductionPassive = 0.0f;
-	float DamageToWeaponReductionPassive = 0.0f;
-
-	//Pure Magical Resistances = Subject to removal.
-	float LightningResist = 0.0f;
-	float FaeResist = 0.0f;
-	float NecroticResist = 0.0f;
-	float AetherealResist = 0.0f;
-	float DarknessResist = 0.0f;
-	float LightResist = 0.0f;
-	float BloodMagicResist = 0.0f;
-
-	//DURATION REDUCTION
-	float ChillSelfDurationReductionPassive = 0.0f;
-	float BurnSelfDurationReductionPassive = 0.0f;
-	float BlindSelfDurationReductionPassive = 0.0f;
-	float CrippleSelfDurationReductionPassive = 0.0f;
-	float StunSelfDurationReductionPassive = 0.0f;
-	float BleedSelfDurationReductionPassive = 0.0f;
-
-	//UTILITY AND CHARACTER IMPROVEMENTS
-	//COST REDUCTION
-	float AttackCostReductionPassive = 0.0f;
-	float StanceCostReductionPassive = 0.0f;
-	float ShoutCostReductionPassive = 0.0f;
-	float SprintCostReductionPassive = 0.0f;
-	float DodgeCostReductionPassive = 0.0f;
-
-	//Speed
-	float SprintSpeedPassive = 0.0f;
-
-	//More to follow on system implementations
+	/////
+	/////============================================OLD VALUES==============================================
+	///// 
+	///// 
+	///// 
+	//// Main Attributes
+	//int32 PassiveSkillStrength = 0;
+	//int32 PassiveSkillAgility = 0;
+	//int32 PassiveSkillConstitution = 0;
+	//int32 PassiveSkillEndurance = 0;
+	//int32 PassiveSkillSpirit = 0;
+	//int32 PassiveSkillArcaneEssence = 0;
+	//// Seconary Attributes
+	//float BreathPassive = 0.0f;
+	//float CarryCapacityPassive = 0.0f;
+	//float HealthPointsPassive = 0.0f;
+	//float HealthRegenPassive = 0.0f;
+	//float StaminaPointsPassive = 0.0f;
+	//float StaminaRegenPassive = 0.0f;
+	//float ManaPointsPassive = 0.0f;
+	////=========================OLD
+	////OFFENSIVE MODIFICATIONS
+	////Damage Modifiers
+	//int32 ArmorPenetrationPassive = 0;
+	//float Damage1hSlashPassive = 0.0f;
+	//float Damage1hPiercePassive = 0.0f;
+	//float Damage1hCrushPassive = 0.0f;
+	//float Damage2hSlashPassive = 0.0f;
+	//float Damage2hPiercePassive = 0.0f;
+	//float Damage2hCrushPassive = 0.0f;
+	//float DamageRangedSlashPassive = 0.0f;
+	//float DamageRangedPiercePassive = 0.0f;
+	//float DamageRangedCrushPassive = 0.0f;
+	////Critical Modifiers
+	//float CriticalDamagePassive = 0.0f;
+	//float CriticalChancePassive = 0.0f;
+	////Bleed Damage Modifiers
+	//float BleedChancePassive = 0.0f;
+	//float BleedDamagePassive = 0.0f;
+	//float BleedDurationPassive = 0.0f;
+	////Physical Condition Modifiers
+	//float CrippleDurationPassive = 0.0f;
+	//float CrippleChancePassive = 0.0f;
+	//float KnockbackStrengthPassive = 0.0f;
+	//float KnockdownChancePassive = 0.0f;
+	//float StunChancePassive = 0.0f;
+	//float StunDurationPassive = 0.0f;
+	//float BlindDurationPassive = 0.0f;
+	//// Toxic Damage Modifiers
+	//float ToxicDmgPassive = 0.0f;
+	//float PoisonChancePassive = 0.0f;
+	//float PoisonDurationPassive = 0.0f;
+	////Fire Damage Modifiers
+	//float FireDmgPassive = 0.0f;
+	//float BurnChancePassive = 0.0f;
+	//float BurnDurationPassive = 0.0f;
+	////Cold Damage Modifiers
+	//float ColdDamagePassive = 0.0f;
+	//float ChillChancePassive = 0.0f;
+	//float ChillDurationPassive = 0.0f;
+	//float FreezeChancePassive = 0.0f;
+	//float FreezeDurationPassive = 0.0f;
+	////Corrision Modifiers - Corrosion creates AP against the affected enemy
+	//float CorrosiveDamage = 0.0f;
+	//float CorrosionDuration = 0.0f;
+	//float PerCorrosionAP = 0.0f;
+	////RESISTANCES AND DEFENSIVE MODIFICATIONS
+	////Physical
+	//
+	//float SlashDefense = 0.0f;
+	//float PierceDefense = 0.0f;
+	//float CrushDefense = 0.0f;
+	//float KnockbackResist = 0.0f;
+	//float KnockdownResist = 0.0f;
+	//float ToxinResist = 0.0f;
+	//float OverheatResist = 0.0f;
+	//float FrostResist = 0.0f;
+	//float CorrosionResist = 0.0f;
+	////Hard Damage Reduction
+	//float ReduceIncomingSlashDamagePassive = 0.0f;
+	//float ReduceIncomingPierceDamagePassive = 0.0f;
+	//float ReduceIncomingCrushDamagePassive = 0.0f;
+	//float DamageOnBlockReductionPassive = 0.0f;
+	//float DamageToArmorReductionPassive = 0.0f;
+	//float DamageToWeaponReductionPassive = 0.0f;
+	////Pure Magical Resistances = Subject to removal.
+	//float LightningResist = 0.0f;
+	//float FaeResist = 0.0f;
+	//float NecroticResist = 0.0f;
+	//float AetherealResist = 0.0f;
+	//float DarknessResist = 0.0f;
+	//float LightResist = 0.0f;
+	//float BloodMagicResist = 0.0f;
+	////DURATION REDUCTION
+	//float ChillSelfDurationReductionPassive = 0.0f;
+	//float BurnSelfDurationReductionPassive = 0.0f;
+	//float BlindSelfDurationReductionPassive = 0.0f;
+	//float CrippleSelfDurationReductionPassive = 0.0f;
+	//float StunSelfDurationReductionPassive = 0.0f;
+	//float BleedSelfDurationReductionPassive = 0.0f;
+	////UTILITY AND CHARACTER IMPROVEMENTS
+	////COST REDUCTION
+	//float AttackCostReductionPassive = 0.0f;
+	//float StanceCostReductionPassive = 0.0f;
+	//float ShoutCostReductionPassive = 0.0f;
+	//float SprintCostReductionPassive = 0.0f;
+	//float DodgeCostReductionPassive = 0.0f;
+	////Speed
+//float SprintSpeedPassive = 0.0f;
+	////More to follow on system implementations
 
 
 	//--------------------------------------------------------------------General SkillTree Functions -----------------------------------------------------------------
@@ -434,94 +420,55 @@ private:
 	// Status Effect: Damage, Resistance, Chance, Duration
 
 	//New functions related to Skillnote attributes
-
-	void IncrementAttributeValue(FPassiveSkillNode SkillNode, FGeneralAttribute AttributeToUpdate);
-	void IncrementPhysicalDamage(FPassiveSkillNode SkillNode, FPhysicalDamage AttributeToUpdate);
-	void IncrementPhysicalResistance(FPassiveSkillNode SkillNode, FPhysicalDamage AttributeToUpdate);
-	void IncrementStatusDmgOnTick(FPassiveSkillNode SkillNode, FStatusEffect StatusEffectToUpdate);
-	void DecrementStatusDmgTakenOnTick(FPassiveSkillNode SkillNode, FStatusEffect StatusEffectToUpdate);
-	void IncrementStatusChanceOnTarget(FPassiveSkillNode SkillNode, FStatusEffect StatusEffectToUpdate);
-	void DecrementStatusChanceOnSelf(FPassiveSkillNode SkillNode, FStatusEffect StatusEffectToUpdate);
-	void IncrementStatusDurationOnTarget(FPassiveSkillNode SkillNode, FStatusEffect StatusEffectToUpdate);
-	void DecrementStatusDurationOnSelf(FPassiveSkillNode SkillNode, FStatusEffect StatusEffectToUpdate);
+	UFUNCTION(BlueprintCallable)
+	void ModifyEnergyAttribute(FPassiveSkillNode SkillNode);
+	UFUNCTION(BlueprintCallable)
+	FEnergyAttribute DetermineEnergyAttributeToIncrease(FPassiveSkillNode SkillNode);
+	UFUNCTION(BlueprintCallable)
+	void IncreaseEnergyAttributeMaxValue(float AssignmentValue, FEnergyAttribute AttributeToIncrease);
+	UFUNCTION(BlueprintCallable)
+	void IncreaseEnergyAttributeRegenRate(float AssignmentValue, FEnergyAttribute AttributeToIncrease);
+	UFUNCTION(BlueprintCallable)
+	FMainAttribute DetermineMainAttributeToIncrease(FPassiveSkillNode SkillNode);
+	UFUNCTION(BlueprintCallable)
+	void IncreaseMainAttributeValue(float AssignmentValue, FMainAttribute AttributeToUpdate);
+	//This function checks whether the Attribute is referring to offensive or defensive traits. E.g. physical damage or defense, elemental damage or resistance. 
+	//It is reused in multiple Functions as variable for if statements.
+	UFUNCTION(BlueprintCallable)
+	bool AttributeTargetIsSelf(FPassiveSkillNode SkillNode);
+	UFUNCTION(BlueprintCallable)
+	FPhysicalDamage DeterminePhysicalCombatStyleToUpdate(FPassiveSkillNode SkillNode);
+	UFUNCTION(BlueprintCallable)
+	void IncrementPhysicalDamage(FPassiveSkillNode SkillNode, FPhysicalDamage StyleToUpdate);
+	UFUNCTION(BlueprintCallable)
+	void IncrementPhysicalResistance(FPassiveSkillNode SkillNode);
+	UFUNCTION(BlueprintCallable)
+	void ModifyPhysicalAttributeValue(FPassiveSkillNode SkillNode);
+	UFUNCTION(BlueprintCallable)
+	void ModifyElementalDamageAttribute(FPassiveSkillNode SkillNode);
+	UFUNCTION(BlueprintCallable)
+	FElementalDamage DetermineElementalDamageTypeToModify(FPassiveSkillNode SkillNode);
+	UFUNCTION(BlueprintCallable)
 	void IncrementElementalDamageOnTarget(FPassiveSkillNode SkillNode, FElementalDamage ElementToUpdate);
+	UFUNCTION(BlueprintCallable)
 	void DecrementElementalDamageOnSelf(FPassiveSkillNode SkillNode, FElementalDamage ElementToUpdate);
+	UFUNCTION(BlueprintCallable)
+	FStatusEffect DetermineStatusEffectToModify(FPassiveSkillNode SkillNode);
+	UFUNCTION(BlueprintCallable)
+	void ModifyStatusEffectBasedOnSelection(FPassiveSkillNode SkillNode);
+	UFUNCTION(BlueprintCallable)
+	void IncrementStatusDmgOnTick(float AssignmentValue, FStatusEffect StatusEffectToUpdate);
+	UFUNCTION(BlueprintCallable)
+	void DecrementStatusDmgTakenOnTick(float AssignmentValue, FStatusEffect StatusEffectToUpdate);
+	UFUNCTION(BlueprintCallable)
+	void IncrementStatusChanceOnTarget(float AssignmentValue, FStatusEffect StatusEffectToUpdate);
+	UFUNCTION(BlueprintCallable)
+	void DecrementStatusChanceOnSelf(float AssignmentValue, FStatusEffect StatusEffectToUpdate);
+	UFUNCTION(BlueprintCallable)
+	void IncrementStatusDurationOnTarget(float AssignmentValue, FStatusEffect StatusEffectToUpdate);
+	UFUNCTION(BlueprintCallable)
+	void DecrementStatusDurationOnSelf(float AssignmentValue, FStatusEffect StatusEffectToUpdate);
 
 
-	// Old Functions related to Skillnote Attributes
-	
-	//void AddAttributeAgility(FPassiveSkillNode SkillNode);
-	//void AddAttributeArcaneEssence(FPassiveSkillNode SkillNode);
-	//void AddAttributeArmorPenetration(FPassiveSkillNode SkillNode);
-	//void AddAttributeBreath(FPassiveSkillNode SkillNode);
-	//void AddAttributeCarryCapacity(FPassiveSkillNode SkillNode); 
-	//void AddAttributeConstitution(FPassiveSkillNode SkillNode);
-	//void AddAttributeEndurance(FPassiveSkillNode SkillNode);
-	//void AddAttributeHealth(FPassiveSkillNode SkillNode);
-	//void AddAttributeHealthRegen(FPassiveSkillNode SkillNode);
-	//void AddAttributeSpirit(FPassiveSkillNode SkillNode);
-	//void AddAttributeStamina(FPassiveSkillNode SkillNode);
-	//void AddAttributeStaminaRegen(FPassiveSkillNode SkillNode);
-	//void AddAttributeStrength(FPassiveSkillNode SkillNode);
-	/*void AddDamage1hCrush(FPassiveSkillNode SkillNode);
-	void AddDamage1hPierce(FPassiveSkillNode SkillNode);
-	void AddDamage1hSlash(FPassiveSkillNode SkillNode);
-	void AddDamage2hCrush(FPassiveSkillNode SkillNode);
-	void AddDamage2hPierce(FPassiveSkillNode SkillNode);
-	void AddDamage2hSlash(FPassiveSkillNode SkillNode);*/
-	/////////void AddDamageCritical(FPassiveSkillNode SkillNode);
-/*	void AddDamageRangedCrush(FPassiveSkillNode SkillNode);
-	void AddDamageRangedPierce(FPassiveSkillNode SkillNode);
-	void AddDamageRangedSlash(FPassiveSkillNode SkillNode);
-	void AddResistanceFrost(FPassiveSkillNode SkillNode);
-	void AddChanceCripple(FPassiveSkillNode SkillNode);
-	void AddResistanceOverheat(FPassiveSkillNode SkillNode);
-	void AddResistanceKnockback(FPassiveSkillNode SkillNode);
-	void AddResistancePoison(FPassiveSkillNode SkillNode);
-	void AddChanceBleed(FPassiveSkillNode SkillNode);
-	void AddDurationBleed(FPassiveSkillNode SkillNode);
-	void AddDamageBleed(FPassiveSkillNode SkillNode);
-	void AddDurationCripple(FPassiveSkillNode SkillNode);
-	void AddChanceCritical(FPassiveSkillNode SkillNode);
-	void ReduceDamageOnBlock(FPassiveSkillNode SkillNode);
-	void AddStrengthKnockback(FPassiveSkillNode SkillNode);
-	void AddChanceKnockdown(FPassiveSkillNode SkillNode); */
-	/////////void AddSpeedSprint(FPassiveSkillNode SkillNode);
-/*	void AddDurationStun(FPassiveSkillNode SkillNode);
-	void ReduceStaminaCostOnAttack(FPassiveSkillNode SkillNode);
-	void ReduceStaminaCostOnDodge(FPassiveSkillNode SkillNode);
-	void ReduceStaminaCostOnStance(FPassiveSkillNode SkillNode);
-	void ReduceStaminaCostOnShout(FPassiveSkillNode SkillNode);
-	void ReduceDurationStun(FPassiveSkillNode SkillNode);
-	void ReduceDurationBleed(FPassiveSkillNode SkillNode);
-	void ReduceDurationCripple(FPassiveSkillNode SkillNode);
-	void AddDamageFire(FPassiveSkillNode SkillNode);
-	void AddChanceBurn(FPassiveSkillNode SkillNode);
-	void AddDurationBurn(FPassiveSkillNode SkillNode);
-	void AddDamageToxic(FPassiveSkillNode SkillNode);
-	void AddChancePoison(FPassiveSkillNode SkillNode);
-	void AddDurationPoison(FPassiveSkillNode SkillNode);
-	void AddDurationBlindness(FPassiveSkillNode SkillNode);
-	void AddChanceStun(FPassiveSkillNode SkillNode); */
-	////////void AddDamageFrost(FPassiveSkillNode SkillNode);
-/*	void AddChanceChill(FPassiveSkillNode SkillNode);
-	void AddDurationChill(FPassiveSkillNode SkillNode);
-	void AddChanceFreeze(FPassiveSkillNode SkillNode);
-	void AddDurationFreeze(FPassiveSkillNode SkillNode);
-	void AddDamageCorrosive(FPassiveSkillNode SkillNode);
-	void AddDurationCorrosive(FPassiveSkillNode SkillNode);
-	void AddResistanceKnockdown(FPassiveSkillNode SkillNode);
-	void AddDefenseSlash(FPassiveSkillNode SkillNode);
-	void AddDefensePierce(FPassiveSkillNode SkillNode);
-	void AddDefenseCrush(FPassiveSkillNode SkillNode);
-	void AddArPePerCorrosion(FPassiveSkillNode SkillNode);
-	void AddResistanceCorrosive(FPassiveSkillNode SkillNode);
-	void ReduceDamageToArmor(FPassiveSkillNode SkillNode);
-	void ReduceDamageToWeapon(FPassiveSkillNode SkillNode);
-	void ReduceDurationChill(FPassiveSkillNode SkillNode);
-	void ReduceDurationBurn(FPassiveSkillNode SkillNode);
-	void ReduceDurationBlind(FPassiveSkillNode SkillNode);
-	void ReduceStaminaCostSprint(FPassiveSkillNode SkillNode);
-*/
 
 };

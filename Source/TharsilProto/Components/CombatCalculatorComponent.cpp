@@ -86,11 +86,11 @@ float UCombatCalculatorComponent::ObtainLatestCritDamage(float PassiveCritDmg, i
 
 void UCombatCalculatorComponent::InProcessDamage(UCombatAttributesSet* DamagingCombatAttributes, ABaseCharacter* DamageCauser, bool bIsCriticalHit)
 {
-	float SlashDmg = DamagingCombatAttributes->PhysicalDamage.DamageSlash * (1 - CombatAttributes->PhysicalDamage.DefenseSlash);
-	float PierceDef = CombatAttributes->PhysicalDamage.DefensePierce - DamagingCombatAttributes->GetArmorPenetrationOnPierce();
-	float PierceDmg = DamagingCombatAttributes->PhysicalDamage.DamagePierce * (1 - PierceDef);
-	float CrushDef = CombatAttributes->PhysicalDamage.DefenseCrush - DamagingCombatAttributes->GetArmorPenetrationOnCrush();
-	float CrushDmg = DamagingCombatAttributes->PhysicalDamage.DamageCrush * (1 - CrushDef);
+	float SlashDmg = DamagingCombatAttributes->PhysicalDamageAndResistance.DamageSlash * (1 - CombatAttributes->PhysicalDamageAndResistance.DefenseSlash);
+	float PierceDef = CombatAttributes->PhysicalDamageAndResistance.DefensePierce - DamagingCombatAttributes->GetArmorPenetrationOnPierce();
+	float PierceDmg = DamagingCombatAttributes->PhysicalDamageAndResistance.DamagePierce * (1 - PierceDef);
+	float CrushDef = CombatAttributes->PhysicalDamageAndResistance.DefenseCrush - DamagingCombatAttributes->GetArmorPenetrationOnCrush();
+	float CrushDmg = DamagingCombatAttributes->PhysicalDamageAndResistance.DamageCrush * (1 - CrushDef);
 	float FireDmg = 0.0f;
 	float ColdDmg = 0.0f;
 	float ToxicDmg = 0.0f;

@@ -112,6 +112,16 @@ public:
 	/*Armor Penetration total can go from 0 to 600 and is then divided in the damage calculation, to give a percent of ignored armor on pierce and crush attack*/
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		int32 ArmorPenetration = 0;
+	/*This is a modifier of the damage of Slashing Attacks. Influenced by Passive traits and abilities*/
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		float DamageSlashModifier = 0.0f;
+	/*This is a modifier of the damage of Piercing Attacks. Influenced by Passive traits and abilities*/
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		float DamagePierceModifier = 0.0f;
+	/*This is a modifier of the damage of Crushing Attacks. Influenced by Passive traits and abilities*/
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		float DamageCrushModifier = 0.0f;
+
 
 	/*This is a percentile indicator of the damage mitigation to Slashing Attacks*/
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
@@ -122,6 +132,16 @@ public:
 	/*This is a percentile indicator of the damage mitigation to Crushing Attacks*/
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		float DefenseCrush = 0.0f;
+	/*This is a modifier of the damage mitigation to Slashing Attacks. Influenced by Passive traits and abilities*/
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		float DefenseSlashModifier = 0.0f;
+	/*This is a modifier of the damage mitigation to Piercing Attacks. Influenced by Passive traits and abilities*/
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		float DefensePierceModifier = 0.0f;
+	/*This is a modifier of the damage mitigation to Crushing Attacks. Influenced by Passive traits and abilities*/
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		float DefenseCrushModifier = 0.0f;
+
 
 	/*Chances to cause Status Effects per damage type*/
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
@@ -221,10 +241,15 @@ public:
 	/*Damage done to the target on Activation as one-off*/
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		float DamageOnTarget = 0.0f;
+	/*This is a modifier applied from Passives and other elements.*/
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		float DamageOnTargetModifier = 0.0f;
 	/*How much defense the character has against this type of damage. This is Hard Damage Mitigation. Represented in PERCENT*/
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		float DamageReductionOnSelf = 0.0f;
-
+	float DamageReductionOnSelf = 0.0f;
+	/*This is a modifier applied from Passives and other elements.*/
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float DamageReductionOnSelfModifier = 0.0f;
 
 	//STATUS EFFECT -PRIMARY (overheat, chill, poison)
 
@@ -285,16 +310,19 @@ public:
 	FGeneralAttribute AttackCostReduction;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Attribute Costs")
 	FGeneralAttribute StanceCostReduction;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Attribute Costs")
+	FGeneralAttribute SprintSpeed;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Attribute Costs")
+	FGeneralAttribute SprintCost;
 
-
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Damage Values")
-	FPhysicalDamage PhysicalDamage;
+	FPhysicalDamage PhysicalDamageAndResistance;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Damage Values")
-	FPhysicalDamage OneHand;
+	FPhysicalDamage OneHandBonusDamage;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Damage Values")
-	FPhysicalDamage TwoHand;
+	FPhysicalDamage TwoHandBonusDamage;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Damage Values")
-	FPhysicalDamage Ranged;
+	FPhysicalDamage RangedBonusDamage;
 
 	// Status Effects that Damage
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Damage Values")
@@ -330,14 +358,14 @@ public:
 
 	/*Can be triggered by certain attack types only*/
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Special Status Effects")
-	FElementalDamage BlindingDamage;
+	FElementalDamage BlindDamage;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Special Status Effects")
-	FStatusEffect Blind;
+	FStatusEffect Blinding;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Special Status Effects")
-	FElementalDamage WeakeningDamage;
+	FElementalDamage WeakenDamage;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Special Status Effects")
-	FStatusEffect Weakened;
+	FStatusEffect Weakening;
 
 	//Pure Chance Effects, no damage but cause other effects. Can always be triggered by regular attacks with a low chance.
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Pure Status Effects")

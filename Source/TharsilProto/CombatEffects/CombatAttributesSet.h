@@ -26,7 +26,7 @@ public:
 
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Damage Values")
-	FPhysicalDamage PhysicalDamage;
+	FPhysicalDamage PhysicalDamageAndResistance;
 
 	// Status Effects that Damage
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Damage Values")
