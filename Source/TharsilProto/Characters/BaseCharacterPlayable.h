@@ -77,8 +77,8 @@ public:
 	virtual void OnAttacked_Implementation(ABaseCharacter* Attacker);
 
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Combat")
-	void OnDeathFromAttack(ABaseCharacterPlayable* AttackingPlayer);
-	virtual void OnDeathFromAttack_Implementation(ABaseCharacterPlayable* AttackingPlayer);
+	void OnDeathFromAttack(ABaseCharacter* AttackingCharacter);
+	virtual void OnDeathFromAttack_Implementation(ABaseCharacter* AttackingCharacter);
 
 	//HandleCharacterDeath: Override of UFUNCTION in parent class (BaseCharacter) cannot have a UFUNCTION() declaration above it; 
 	//it will use the same parameters as the original declaration.

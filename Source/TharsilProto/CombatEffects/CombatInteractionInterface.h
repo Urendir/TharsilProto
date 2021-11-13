@@ -30,5 +30,5 @@ public:
 	void AttemptToDamageTarget(ABaseCharacter* Target);
 
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Combat")
-	void OnDeathFromAttack(ABaseCharacterPlayable* AttackingPlayer);
+	void OnDeathFromAttack(ABaseCharacter* AttackingCharacter);
 };

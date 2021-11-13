@@ -10,13 +10,13 @@
 UENUM(BlueprintType)
 enum class ItemOrigin : uint8
 {
-	E_Default 		UMETA(DisplayName = "Default"),
+	E_Default 			UMETA(DisplayName = "Default"),
 	E_Harvested			UMETA(DisplayName = "Harvested"),
-	E_Mined			UMETA(DisplayName = "Mined"),
+	E_Mined				UMETA(DisplayName = "Mined"),
 	E_Salvaged			UMETA(DisplayName = "Salvaged"),
 	E_Butchered			UMETA(DisplayName = "Butchered"),
-	E_Crafted	UMETA(DisplayName = "Crafted"),
-	E_Reward	UMETA(DisplayName = "Reward")
+	E_Crafted			UMETA(DisplayName = "Crafted"),
+	E_Reward			UMETA(DisplayName = "Reward")
 };
 
 //------------------------------------ This Enum Allows to set the rarity of the item--------------------------------
@@ -51,20 +51,25 @@ public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Item Descriptors", meta = (MultiLine = true))
 	FText ItemDescription;
 	/**The amount of weight the item will use in the inventory*/
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Item Descriptors")
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Item Descriptors")
 	float ItemWeight = 0.0f;
 	/**The monetary value of the base item*/
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Item Descriptors")
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Item Descriptors")
 	float ItemValue = 0.0f;
+
+	/*Is this item consumable? if =false, the item can be consumed by the character - e.g. Food, potions, ammo.*/
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Item Descriptors")
+	bool bIsConsumable = false;
+	/*Is this item equippable? if =false, the item cannot be equipped by the character. Set =true for armor and weapons*/
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Item Descriptors")
+	bool bIsEquippable = false;
+
 	/*Is this item stackable? if =false, each individual item will take one inventory slot.*/
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Item Descriptors")
 	bool bIsStackable = false;
 	/*How many items can fit in a stack*/
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Item Descriptors")
 	int32 StackSizeMax = 0;
-	/*How many items are currently in the stack*/
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Item Descriptors")
-	int32 StackSizeCurrent = 0;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Item Descriptors")
 	UTexture2D* Thumbnail;

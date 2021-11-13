@@ -46,19 +46,19 @@ public:
 	/// </summary>
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Ability Stats")
 	float TimeToBlockAbilities;
-
+	/*What is the Stamina cost of the ability? All Abilities have this active*/
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Ability Stats")
 		float StaminaCost;
-
+	/*Does the ability cost health, in addition to stamina?*/
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Ability Stats")
 		bool bHasHealthCost;
-
+	/*If bHasHealthCost=true, how much health does the ability cost?*/
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Ability Stats")
 		float HealthCost;
-
+	/*Does the ability cost mana, in addition to stamina?*/
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Ability Stats")
 		bool bHasManaCost;
-
+	/*If bHasManaCost=true, how much mana does the ability cost?*/
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Ability Stats")
 		float ManaCost;
 

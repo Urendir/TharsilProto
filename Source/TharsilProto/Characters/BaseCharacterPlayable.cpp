@@ -324,13 +324,20 @@ void ABaseCharacterPlayable::AttemptToDamageTarget_Implementation(ABaseCharacter
 
 void ABaseCharacterPlayable::OnAttacked_Implementation(ABaseCharacter* Attacker)
 {
-    
+    UE_LOG(LogTemp, Error, TEXT("%s is being attacked by %s"), *GetName(), *Attacker->GetName());
 }
 
-void ABaseCharacterPlayable::OnDeathFromAttack_Implementation(ABaseCharacterPlayable* AttackingPlayer)
+void ABaseCharacterPlayable::OnDeathFromAttack_Implementation(ABaseCharacter* AttackingCharacter)
 {
     //This is used in the NPC Enemies to grant XP to player Character.
 }
+
+
+
+
+
+
+
 
 /// =============================================ACTIVE ABILITY SYSTEM FUNCTIONS============================
 /// These are created to be part of the keybinding allocation for Unreal. 

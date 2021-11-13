@@ -105,6 +105,10 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Item Descriptors")
 	int32 InventorySlotNumber;
 
+	/*How many items are currently in the stack*/
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Item Descriptors")
+	int32 StackSizeCurrent = 0;
+
 	float QualityModifierWeight;
 	float QualityModifierValue;
 	float QualityModifierDurability;

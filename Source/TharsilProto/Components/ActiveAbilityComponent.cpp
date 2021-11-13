@@ -2,6 +2,7 @@
 
 
 #include "ActiveAbilityComponent.h"
+#include "Animation/AnimInstance.h"
 #include "TharsilProto/Characters/BaseCharacterPlayable.h"
 #include "TharsilProto/DataAssets/Abilities/DA_ActiveAbilityBase.h"
 #include "TharsilProto/CombatEffects/ActiveAbilityObjectBase.h"
@@ -15,7 +16,7 @@ UActiveAbilityComponent::UActiveAbilityComponent()
 	PrimaryComponentTick.bCanEverTick = true;
 
 	OwningCharacter = Cast<ABaseCharacterPlayable>(GetOwner());
-	PrimaryAbility = CreateDefaultSubobject<UActiveAbilityObjectBase>(TEXT("PrimaryAbility"));
+	//PrimaryAbility = CreateDefaultSubobject<UActiveAbilityObjectBase>(TEXT("PrimaryAbility"));
 	SecondaryAbility = CreateDefaultSubobject<UActiveAbilityObjectBase>(TEXT("SecondaryAbility"));
 	QuickAbility1 = CreateDefaultSubobject<UActiveAbilityObjectBase>(TEXT("QuickAbility1"));
 	QuickAbility2 = CreateDefaultSubobject<UActiveAbilityObjectBase>(TEXT("QuickAbility2"));
@@ -44,7 +45,7 @@ void UActiveAbilityComponent::TickComponent(float DeltaTime, ELevelTick TickType
 	// ...
 	TickGlobalAbilityBlock(DeltaTime);
 	
-	TickAbilityCooldown(PrimaryAbility, DeltaTime);
+	//TickAbilityCooldown(PrimaryAbility, DeltaTime);
 	TickAbilityCooldown(SecondaryAbility, DeltaTime);
 	TickAbilityCooldown(QuickAbility1, DeltaTime);
 	TickAbilityCooldown(QuickAbility2, DeltaTime);
@@ -88,6 +89,37 @@ void UActiveAbilityComponent::AttemptTriggerAbility(UActiveAbilityObjectBase* Ca
 			//trigger effect
 		}
 	}
+}
+
+void UActiveAbilityComponent::AttemptTriggerAbility(UDA_ActiveAbilityBase* CalledAbility)
+{
+	UE_LOG(LogTemp, Warning, TEXT("Attempted to trigger ability"));
+	if (!CalledAbility)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Tsubclass of ability failed as nullptr"));
+		return;
+	}
+
+	//if (!Ability)
+	//{
+		//UE_LOG(LogTemp, Warning, TEXT("Cast of ability failed as nullptr"));
+		//return;
+	//}
+
+	if (!bIsGlobalAbilityBlock)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Attempt to trigger ability has succeeded preliminarily"));
+		
+		if (CheckAbilityResourceCost(CalledAbility))
+		{
+			CommitAbilityResourceCost(CalledAbility);
+			//UAnimInstance::Montage_Play(Ability->AnimationMontage, 1.0f, EMontagePlayReturnType::MontageLength, 0.0f, true);
+			// Trigger Cooldown! CalledAbility->bIsOnCooldown = true;
+			//trigger effect
+			OwningCharacter->PlayAnimMontage(CalledAbility->AnimationMontage);
+		}
+	}
+
 }
 
 bool UActiveAbilityComponent::CheckAbilityResourceCost(UDA_ActiveAbilityBase* AbilityDataAsset)

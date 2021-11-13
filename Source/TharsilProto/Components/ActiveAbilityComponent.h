@@ -43,7 +43,7 @@ public:
 	/// Standard Attack or generic click ability.
 	/// </summary>
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Active Abilities")
-	UActiveAbilityObjectBase* PrimaryAbility;
+	UDA_ActiveAbilityBase* PrimaryAbility;
 
 	/// <summary>
 	/// Right Click Ability - usually a block. 
@@ -77,6 +77,7 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void AttemptTriggerAbility(UActiveAbilityObjectBase* CalledAbility);
+	void AttemptTriggerAbility(UDA_ActiveAbilityBase* CalledAbility);
 
 private:
 	UFUNCTION(BlueprintCallable)

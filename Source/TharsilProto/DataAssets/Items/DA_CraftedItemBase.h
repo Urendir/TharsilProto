@@ -14,12 +14,17 @@ class THARSILPROTO_API UDA_CraftedItemBase : public UDA_ItemBase
 	GENERATED_BODY()
 
 public:
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Materials Needed for Crafting")
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Materials Needed for Crafting")
 	UDA_CraftingMaterialBase* CraftingMaterial1;
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Materials Needed for Crafting")
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Materials Needed for Crafting")
+	int32 UnitsUsedMaterial1;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Materials Needed for Crafting")
 	UDA_CraftingMaterialBase* CraftingMaterial2;
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Materials Needed for Crafting")
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Materials Needed for Crafting")
+	int32 UnitsUsedMaterial2;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Materials Needed for Crafting")
 	UDA_CraftingMaterialBase* CraftingMaterial3;
-
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Materials Needed for Crafting")
+	int32 UnitsUsedMaterial3;
 
 };

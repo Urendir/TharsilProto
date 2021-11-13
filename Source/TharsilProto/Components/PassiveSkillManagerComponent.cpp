@@ -21,6 +21,7 @@ UPassiveSkillManagerComponent::UPassiveSkillManagerComponent()
 		PassiveSkillNodesTable = PassiveSkillTreeTable.Object;
 	}
 
+	PassiveAttributes = CreateDefaultSubobject<UGeneralAttributeSet>(TEXT("Passive Attributes"));
 	Owner = Cast<ABaseCharacterPlayable>(GetOwner());
 }
 
