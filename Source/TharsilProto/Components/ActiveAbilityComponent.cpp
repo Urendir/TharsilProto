@@ -16,14 +16,14 @@ UActiveAbilityComponent::UActiveAbilityComponent()
 	PrimaryComponentTick.bCanEverTick = true;
 
 	OwningCharacter = Cast<ABaseCharacterPlayable>(GetOwner());
-	//PrimaryAbility = CreateDefaultSubobject<UActiveAbilityObjectBase>(TEXT("PrimaryAbility"));
-	SecondaryAbility = CreateDefaultSubobject<UActiveAbilityObjectBase>(TEXT("SecondaryAbility"));
-	QuickAbility1 = CreateDefaultSubobject<UActiveAbilityObjectBase>(TEXT("QuickAbility1"));
-	QuickAbility2 = CreateDefaultSubobject<UActiveAbilityObjectBase>(TEXT("QuickAbility2"));
-	QuickAbility3 = CreateDefaultSubobject<UActiveAbilityObjectBase>(TEXT("QuickAbility3"));
-	QuickAbility4 = CreateDefaultSubobject<UActiveAbilityObjectBase>(TEXT("QuickAbility4"));
-	QuickAbility5 = CreateDefaultSubobject<UActiveAbilityObjectBase>(TEXT("QuickAbility5"));
-	QuickAbility6 = CreateDefaultSubobject<UActiveAbilityObjectBase>(TEXT("QuickAbility6"));
+	AbilityPrimarySlot = CreateDefaultSubobject<UActiveAbilityObjectBase>(TEXT("Primary Ability Slot"));
+	AbilitySecondarySlot = CreateDefaultSubobject<UActiveAbilityObjectBase>(TEXT("Secondary Ability Slot"));
+	AbilityQuickSlot1 = CreateDefaultSubobject<UActiveAbilityObjectBase>(TEXT("QuickAbility Slot 1"));
+	AbilityQuickSlot2 = CreateDefaultSubobject<UActiveAbilityObjectBase>(TEXT("QuickAbility Slot 2"));
+	AbilityQuickSlot3 = CreateDefaultSubobject<UActiveAbilityObjectBase>(TEXT("QuickAbility Slot 3"));
+	AbilityQuickSlot4 = CreateDefaultSubobject<UActiveAbilityObjectBase>(TEXT("QuickAbility Slot 4"));
+	AbilityQuickSlot5 = CreateDefaultSubobject<UActiveAbilityObjectBase>(TEXT("QuickAbility Slot 5"));
+	AbilityQuickSlot6 = CreateDefaultSubobject<UActiveAbilityObjectBase>(TEXT("QuickAbility Slot 6"));
 }
 
 
@@ -45,51 +45,53 @@ void UActiveAbilityComponent::TickComponent(float DeltaTime, ELevelTick TickType
 	// ...
 	TickGlobalAbilityBlock(DeltaTime);
 	
-	//TickAbilityCooldown(PrimaryAbility, DeltaTime);
-	TickAbilityCooldown(SecondaryAbility, DeltaTime);
-	TickAbilityCooldown(QuickAbility1, DeltaTime);
-	TickAbilityCooldown(QuickAbility2, DeltaTime);
-	TickAbilityCooldown(QuickAbility3, DeltaTime);
-	TickAbilityCooldown(QuickAbility4, DeltaTime);
-	TickAbilityCooldown(QuickAbility5, DeltaTime);
-	TickAbilityCooldown(QuickAbility6, DeltaTime);
+	TickAbilityCooldown(AbilityPrimarySlot, DeltaTime);
+	TickAbilityCooldown(AbilitySecondarySlot, DeltaTime);
+	TickAbilityCooldown(AbilityQuickSlot1, DeltaTime);
+	TickAbilityCooldown(AbilityQuickSlot2, DeltaTime);
+	TickAbilityCooldown(AbilityQuickSlot3, DeltaTime);
+	TickAbilityCooldown(AbilityQuickSlot4, DeltaTime);
+	TickAbilityCooldown(AbilityQuickSlot5, DeltaTime);
+	TickAbilityCooldown(AbilityQuickSlot6, DeltaTime);
 }
 
-void UActiveAbilityComponent::ApplyAbilityToSlot(TSubclassOf<UDA_ActiveAbilityBase> AbilityToSlot, UActiveAbilityObjectBase* AbilitySlot)
+void UActiveAbilityComponent::ApplyAbilityToSlot(UDA_ActiveAbilityBase* AbilityData, UActiveAbilityObjectBase* AbilitySlot)
 {
-	AbilitySlot->ActiveAbilityData = AbilityToSlot;
+	AbilitySlot->ActiveAbilityData = AbilityData;
 	if (AbilitySlot != nullptr)
 	{
-		AbilitySlot->TimeToCoolDown = AbilitySlot->GetUsableAbilityData()->CooldownTime;
+		AbilitySlot->TimeToCoolDown = AbilityData->CooldownTime;
 	}
 }
 
-void UActiveAbilityComponent::AttemptTriggerAbility(UActiveAbilityObjectBase* CalledAbility)
-{
-	UE_LOG(LogTemp, Warning, TEXT("Attempted to trigger ability"));
-	if(!CalledAbility)
-	{
-		UE_LOG(LogTemp, Warning, TEXT("Attempt to trigger ability failed as nullptr"));
-		return;
-	}
-
-	if (!CalledAbility->bIsOnCooldown && !bIsGlobalAbilityBlock)
-	{
-		UE_LOG(LogTemp, Warning, TEXT("Attempt to trigger ability has succeeded preliminarily"));
-		UDA_ActiveAbilityBase* AbilityData = CalledAbility->GetUsableAbilityData();
-		if (!AbilityData)
-		{
-			UE_LOG(LogTemp, Warning, TEXT("No Ability Data detected"));
-			return;
-		}
-		if (CheckAbilityResourceCost(AbilityData))
-		{
-			CommitAbilityResourceCost(AbilityData);
-			CalledAbility->bIsOnCooldown = true;
-			//trigger effect
-		}
-	}
-}
+//THIS IS THE OBSOLETE IMPLEMENTATION OF THE ABILITY TRIGGER. KEEPING IT FOR REFERENCE/LEARNING
+//void UActiveAbilityComponent::AttemptTriggerAbility(UActiveAbilityObjectBase* CalledAbility)
+//{
+//	UE_LOG(LogTemp, Warning, TEXT("Attempted to trigger ability"));
+//	if(!CalledAbility)
+//	{
+//		UE_LOG(LogTemp, Warning, TEXT("Attempt to trigger ability failed as nullptr"));
+//		return;
+//	}
+//
+//	if (!CalledAbility->bIsOnCooldown && !bIsGlobalAbilityBlock)
+//	{
+//		UE_LOG(LogTemp, Warning, TEXT("Attempt to trigger ability has succeeded preliminarily"));
+//		UDA_ActiveAbilityBase* AbilityData = CalledAbility->GetUsableAbilityData();
+//		if (!AbilityData)
+//		{
+//			UE_LOG(LogTemp, Warning, TEXT("No Ability Data detected"));
+//			return;
+//		}
+//		if (CheckAbilityResourceCost(AbilityData))
+//		{
+//			CurrentAbility = AbilityData;
+//			//CommitAbilityResourceCost(AbilityData);
+//			CalledAbility->bIsOnCooldown = true;
+//			//trigger effect
+//		}
+//	}
+//}
 
 void UActiveAbilityComponent::AttemptTriggerAbility(UDA_ActiveAbilityBase* CalledAbility)
 {
@@ -100,26 +102,68 @@ void UActiveAbilityComponent::AttemptTriggerAbility(UDA_ActiveAbilityBase* Calle
 		return;
 	}
 
-	//if (!Ability)
-	//{
-		//UE_LOG(LogTemp, Warning, TEXT("Cast of ability failed as nullptr"));
-		//return;
-	//}
-
 	if (!bIsGlobalAbilityBlock)
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Attempt to trigger ability has succeeded preliminarily"));
+		CurrentAbility = CalledAbility;
 		
-		if (CheckAbilityResourceCost(CalledAbility))
+		if (!CurrentAbility)
 		{
-			CommitAbilityResourceCost(CalledAbility);
+			UE_LOG(LogTemp, Warning, TEXT("Current Ability is nullptr"));
+		} 
+		else
+		{
+			UE_LOG(LogTemp, Warning, TEXT("Current Ability name is %s"), *CurrentAbility->DisplayName);
+		}
+	
+		if (CheckAbilityResourceCost(CurrentAbility))
+		{
+			OwningCharacter->PlayAnimMontage(CurrentAbility->AnimationMontage, 1.0f);
 			//UAnimInstance::Montage_Play(Ability->AnimationMontage, 1.0f, EMontagePlayReturnType::MontageLength, 0.0f, true);
 			// Trigger Cooldown! CalledAbility->bIsOnCooldown = true;
-			//trigger effect
-			OwningCharacter->PlayAnimMontage(CalledAbility->AnimationMontage);
+			//CommitAbilityResourceCost(CalledAbility); -> This is now called by Anim notify at appropriate moment. 
+			//trigger effect after committing
+			UE_LOG(LogTemp, Warning, TEXT("Anim Montage should be playing"));
 		}
 	}
+}
 
+UActiveAbilityObjectBase* UActiveAbilityComponent::FindMatchingSlot(UDA_ActiveAbilityBase* TriggeredAbility)
+{
+	if (TriggeredAbility == PrimaryAbility)
+	{
+		return AbilityPrimarySlot;
+	}
+	else if (TriggeredAbility == SecondaryAbility)
+	{
+		return AbilitySecondarySlot;
+	}
+	else if (TriggeredAbility == QuickAbility1)
+	{
+		return AbilityQuickSlot1;
+	}
+	else if (TriggeredAbility == QuickAbility2)
+	{
+		return AbilityQuickSlot2;
+	}
+	else if (TriggeredAbility == QuickAbility3)
+	{
+		return AbilityQuickSlot3;
+	}
+	else if (TriggeredAbility == QuickAbility4)
+	{
+		return AbilityQuickSlot4;
+	}
+	else if (TriggeredAbility == QuickAbility5)
+	{
+		return AbilityQuickSlot5;
+	}
+	else if (TriggeredAbility == QuickAbility6)
+	{
+		return AbilityQuickSlot6;
+	}
+	//TO DO  - add the rest
+	return nullptr;
 }
 
 bool UActiveAbilityComponent::CheckAbilityResourceCost(UDA_ActiveAbilityBase* AbilityDataAsset)
@@ -142,6 +186,8 @@ bool UActiveAbilityComponent::CheckAbilityResourceCost(UDA_ActiveAbilityBase* Ab
 
 void UActiveAbilityComponent::CommitAbilityResourceCost(UDA_ActiveAbilityBase* AbilityDataAsset)
 {
+	TriggerGlobalAbilityBlock(AbilityDataAsset);
+	StartAbilityCooldown(FindMatchingSlot(AbilityDataAsset));
 	OwningCharacter->ApplyAbilityStaminaCost(AbilityDataAsset->StaminaCost);
 
 	if (AbilityDataAsset->bHasHealthCost)
@@ -153,6 +199,8 @@ void UActiveAbilityComponent::CommitAbilityResourceCost(UDA_ActiveAbilityBase* A
 	{
 		OwningCharacter->ApplyAbilityManaCost(AbilityDataAsset->ManaCost);
 	}
+
+
 }
 
 void UActiveAbilityComponent::TriggerGlobalAbilityBlock(UDA_ActiveAbilityBase* AbilityDataAsset)

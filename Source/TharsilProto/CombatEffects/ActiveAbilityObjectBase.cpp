@@ -12,12 +12,12 @@ UActiveAbilityObjectBase::UActiveAbilityObjectBase()
 
 }
 
-UDA_ActiveAbilityBase* UActiveAbilityObjectBase::GetUsableAbilityData()
-{
-	if (ActiveAbilityData)
-	{
-		UDA_ActiveAbilityBase* AbilityData = Cast<UDA_ActiveAbilityBase>(ActiveAbilityData);
-		return AbilityData;
-	}
-	return nullptr;
-}
+//UDA_ActiveAbilityBase* UActiveAbilityObjectBase::GetUsableAbilityData()
+//{
+//	if (ActiveAbilityData)
+//	{
+//		UDA_ActiveAbilityBase* AbilityData = Cast<UDA_ActiveAbilityBase>(ActiveAbilityData);
+//		return AbilityData;
+//	}
+//	return nullptr;
+//}

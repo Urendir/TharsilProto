@@ -37,49 +37,71 @@ public:
 
 	float CritPlaceholder = 0.0f;
 
+	UPROPERTY(BlueprintReadOnly, Category = "Owning Character")
 	ABaseCharacterPlayable* OwningCharacter;
+
+	//The Ability that is ongoing at this time.
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Active Abilities")
+	UDA_ActiveAbilityBase* CurrentAbility;
 
 	/// <summary>
 	/// Standard Attack or generic click ability.
 	/// </summary>
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Active Abilities")
 	UDA_ActiveAbilityBase* PrimaryAbility;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Active Abilities")
+		UActiveAbilityObjectBase* AbilityPrimarySlot;
 
 	/// <summary>
 	/// Right Click Ability - usually a block. 
 	/// </summary>
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Active Abilities")
-	UActiveAbilityObjectBase* SecondaryAbility;
+		UDA_ActiveAbilityBase* SecondaryAbility;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Active Abilities")
+		UActiveAbilityObjectBase* AbilitySecondarySlot;
 	
 	/// <summary>
 	/// Abilities on Quickbar, i.e. the standard 1-6 ability buttons on the UI.
 	/// </summary>
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Active Abilities")
-	UActiveAbilityObjectBase* QuickAbility1;
+	UDA_ActiveAbilityBase* QuickAbility1;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Active Abilities")
+	UActiveAbilityObjectBase* AbilityQuickSlot1;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Active Abilities")
-	UActiveAbilityObjectBase* QuickAbility2;
+	UDA_ActiveAbilityBase* QuickAbility2;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Active Abilities")
+	UActiveAbilityObjectBase* AbilityQuickSlot2;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Active Abilities")
-	UActiveAbilityObjectBase* QuickAbility3;
+	UDA_ActiveAbilityBase* QuickAbility3;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Active Abilities")
+	UActiveAbilityObjectBase* AbilityQuickSlot3;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Active Abilities")
-	UActiveAbilityObjectBase* QuickAbility4;
+	UDA_ActiveAbilityBase* QuickAbility4;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Active Abilities")
+	UActiveAbilityObjectBase* AbilityQuickSlot4;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Active Abilities")
-	UActiveAbilityObjectBase* QuickAbility5;
+	UDA_ActiveAbilityBase* QuickAbility5;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Active Abilities")
+	UActiveAbilityObjectBase* AbilityQuickSlot5;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Active Abilities")
-	UActiveAbilityObjectBase* QuickAbility6;
+	UDA_ActiveAbilityBase* QuickAbility6;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Active Abilities")
+	UActiveAbilityObjectBase* AbilityQuickSlot6;
 
 	UFUNCTION(BlueprintCallable)
-	void ApplyAbilityToSlot(TSubclassOf<UDA_ActiveAbilityBase> AbilityToSlot, UActiveAbilityObjectBase* AbilitySlot);
+	void ApplyAbilityToSlot(UDA_ActiveAbilityBase* AbilityData, UActiveAbilityObjectBase* AbilitySlot);
 
 	UFUNCTION(BlueprintCallable)
-	void AttemptTriggerAbility(UActiveAbilityObjectBase* CalledAbility);
 	void AttemptTriggerAbility(UDA_ActiveAbilityBase* CalledAbility);
 
 private:
+	UFUNCTION()
+	UActiveAbilityObjectBase* FindMatchingSlot(UDA_ActiveAbilityBase* TriggeredAbility);
 	UFUNCTION(BlueprintCallable)
 	bool CheckAbilityResourceCost(UDA_ActiveAbilityBase* AbilityDataAsset);
 	UFUNCTION(BlueprintCallable)

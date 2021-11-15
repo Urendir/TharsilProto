@@ -117,6 +117,7 @@ void UCombatCalculatorComponent::InProcessDamage(UCombatAttributesSet* DamagingC
 	}
 
 	float TotalDamage = SlashDmg + PierceDmg + CrushDmg + FireDmg + ColdDmg + ToxicDmg;
+	TotalDamage = TotalDamage * FMath::FRandRange(0.9f, 1.1f);
 	
 	if (bIsCriticalHit)
 	{

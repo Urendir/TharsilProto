@@ -23,7 +23,7 @@ public:
 	UActiveAbilityObjectBase();
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Ability Data")
-	TSubclassOf<UDA_ActiveAbilityBase> ActiveAbilityData;
+	UDA_ActiveAbilityBase* ActiveAbilityData;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Ability Data")
 	UCombatAttributesSet* AbilityAttributes;
@@ -37,6 +37,6 @@ public:
 	UPROPERTY()
 	float CooldownCounter = 0.0f;
 
-	UFUNCTION()
-	UDA_ActiveAbilityBase* GetUsableAbilityData();
+	//UFUNCTION()
+	//UDA_ActiveAbilityBase* GetUsableAbilityData();
 };
