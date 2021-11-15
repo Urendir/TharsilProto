@@ -378,6 +378,9 @@ public:
 
 	//--------------------------------------------------------------------General SkillTree Functions -----------------------------------------------------------------
 
+	UFUNCTION(BlueprintCallable)
+	void InitializePassiveAttributes();
+
 	//Called on LevelUp or Skilltree Reset.
 	UFUNCTION(BlueprintCallable)
 	void IncreasePassiveSkillPoints();

@@ -27,7 +27,7 @@ public:
 	void OnAttacked(ABaseCharacter* Attacker);
 
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Combat")
-	void AttemptToDamageTarget(ABaseCharacter* Target);
+	void AttemptToDamageTarget(ABaseCharacter* TargetOfAttack);
 
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Combat")
 	void OnDeathFromAttack(ABaseCharacter* AttackingCharacter);

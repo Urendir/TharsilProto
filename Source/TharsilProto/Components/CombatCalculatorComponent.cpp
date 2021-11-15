@@ -14,7 +14,7 @@ UCombatCalculatorComponent::UCombatCalculatorComponent()
 	PrimaryComponentTick.bCanEverTick = true;
 
 	OwningCharacter = Cast<ABaseCharacter>(GetOwner());
-
+	CombatAttributes = CreateDefaultSubobject<UCombatAttributesSet>(TEXT("CombatAttributes"));
 }
 
 
@@ -55,7 +55,13 @@ void UCombatCalculatorComponent::RecalculateAllOutgoingDamage()
 
 bool UCombatCalculatorComponent::OutCheckForCritical(float Passive, float ActiveAbility, float Agility)
 {
-	float CritChanceBeforeAbility = FMath::Min(((Agility * CombatAttributes->CritChancePerAgi) + Passive + CombatAttributes->CritChanceBase), CombatAttributes->AbsoluteMaxCriticalChanceBeforeAbility);
+	if (!CombatAttributes)
+	{
+		UE_LOG(LogTemp, Error, TEXT("CombatAttributes Not Loaded correctly!"));
+	}
+
+	float CritChanceBeforeAbility = 0.0f;
+	CritChanceBeforeAbility = FMath::Min(((Agility * CombatAttributes->CritChancePerAgi) + Passive + CombatAttributes->CritChanceBase), CombatAttributes->AbsoluteMaxCriticalChanceBeforeAbility);
 	float CritChance = CritChanceBeforeAbility + ActiveAbility;
 	if (FMath::Rand() < CritChance)
 	{
@@ -115,9 +121,12 @@ void UCombatCalculatorComponent::InProcessDamage(UCombatAttributesSet* DamagingC
 	if (bIsCriticalHit)
 	{
 		TotalDamage = TotalDamage * DamageCauser->CalculateLatestCritDamage();
+		UE_LOG(LogTemp, Warning, TEXT("CRITICAL HIT!"));
 	}
-
+	UE_LOG(LogTemp, Warning, TEXT("Damage was calculated as %f, applicable to %s"), TotalDamage, *OwningCharacter->GetName());
 	InDetermineStatusEffects(DamagingCombatAttributes);
+
+	//Apply Health Damage
 }
 
 

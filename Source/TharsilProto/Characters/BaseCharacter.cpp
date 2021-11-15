@@ -56,6 +56,19 @@ void ABaseCharacter::Tick(float DeltaTime)
 		SprintStop();
 	}
  
+	if (bWasJustDamaged)
+	{
+		if (TimeToJustDamagedReset > TimeSinceDamage)
+		{
+			TimeSinceDamage += DeltaTime * 1.0f;
+		}
+		else
+		{
+			bWasJustDamaged = false;
+			TimeSinceDamage = 0.0f;
+		}
+	}
+
 }
 
 // Called to bind functionality to input
@@ -122,6 +135,18 @@ float ABaseCharacter::CalculateLatestCritDamage()
 {
 	return 0.0f;
 }
+//
+//void ABaseCharacter::AttemptToDamageTarget_Implementation(ABaseCharacter* TargetOfAttack)
+//{
+//}
+//
+//void ABaseCharacter::OnAttacked_Implementation(ABaseCharacter* Attacker)
+//{
+//}
+//
+//void ABaseCharacter::OnDeathFromAttack_Implementation(ABaseCharacter* AttackingCharacter)
+//{
+//}
 
 
 
@@ -132,6 +157,13 @@ void ABaseCharacter::HandleCharacterDeath()
     CharacterDeathDelegate.Broadcast(XPReward);
     bIsCharacterDead = true;
 }
+
+void ABaseCharacter::OnActiveAbilityTriggered(ABaseCharacter* Target)
+{
+	UE_LOG(LogTemp, Warning, TEXT("OnActiveAbilityTriggered was called"));
+
+}
+
 
 void ABaseCharacter::HandleIncomingDamage(ABaseCharacter* ThisCharacter, ABaseCharacter* Damager, FDamageTypeBreakdown Damage)
 {

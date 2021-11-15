@@ -22,6 +22,7 @@ UPassiveSkillManagerComponent::UPassiveSkillManagerComponent()
 	}
 
 	PassiveAttributes = CreateDefaultSubobject<UGeneralAttributeSet>(TEXT("Passive Attributes"));
+	InitializePassiveAttributes();
 	Owner = Cast<ABaseCharacterPlayable>(GetOwner());
 }
 
@@ -55,6 +56,25 @@ void UPassiveSkillManagerComponent::BeginPlay()
 
 
 //----------------------------------------------------------------------------------Operate on Skillpoints
+
+void UPassiveSkillManagerComponent::InitializePassiveAttributes()
+{
+	if (!PassiveAttributes)
+	{
+		UE_LOG(LogTemp, Error, TEXT("Passive Attributes in Passive Skill Tree Component is nullptr! Attempting to create it."));
+		PassiveAttributes = CreateDefaultSubobject<UGeneralAttributeSet>(TEXT("PassiveAttributes"));
+		if (!PassiveAttributes)
+		{
+			UE_LOG(LogTemp, Error, TEXT("Passive Attributes creation failed. Still nullptr!"));
+		}
+	}
+
+	if (PassiveAttributes->CritChance.CurrentValue != 0.0f)
+	{
+		UE_LOG(LogTemp, Error, TEXT("Passive Attribute CRIT CHANCE within Passive Skill Tree Component is nullptr!!!!"));
+	}
+
+}
 
 void UPassiveSkillManagerComponent::IncreasePassiveSkillPoints()
 {

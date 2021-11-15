@@ -16,11 +16,14 @@ class THARSILPROTO_API ABaseCharacterNPC : public ABaseCharacter, public ICombat
 	GENERATED_BODY()
 	
 public:
+
+	void OnActiveAbilityTriggered(ABaseCharacter* Target) override;
+
 		//Combat Interaction Interface Implementation
 	/*This is triggered when the character is activating an offensive ability and attempting to damage the target character, one the target is deemed attackable (via interface check)*/
 		UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Combat")
 		void AttemptToDamageTarget(ABaseCharacter* Target);
-	virtual void AttemptToDamageTarget_Implementation(ABaseCharacter* Target);
+	virtual void AttemptToDamageTarget_Implementation(ABaseCharacter* TargetOfAttack);
 
 	/*This function is triggered by the attacker, once all numeric values were calculated on the attacker side and is then calculating the damage on the receiver's end.*/
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Combat")

@@ -304,27 +304,37 @@ void ABaseCharacterPlayable::CalculateSprintSpeed()
 
 void ABaseCharacterPlayable::OnActiveAbilityTriggered(ABaseCharacter* Target)
 {
+    UE_LOG(LogTemp, Warning, TEXT("OnActiveAbilityTriggered was called"));
     ICombatInteractionInterface* TargetCombatInterface = Cast<ICombatInteractionInterface>(Target);
     if (TargetCombatInterface != nullptr)
     {
-        AttemptToDamageTarget(Target);
+        //Target->OnAttacked(this);
+        if (Target->bWasJustDamaged == false)
+        {
+            TargetCombatInterface->Execute_OnAttacked(Target, this);
+            Target->bWasJustDamaged = true;
+            AttemptToDamageTarget(Target);
+        }
     }
 }
 
 /*This is triggered when the character is activating an offensive ability and attempting to damage the target character, one the target is deemed attackable (via interface check)*/
-void ABaseCharacterPlayable::AttemptToDamageTarget_Implementation(ABaseCharacter* Target)
+void ABaseCharacterPlayable::AttemptToDamageTarget_Implementation(ABaseCharacter* TargetOfAttack)
 {
+    UE_LOG(LogTemp, Warning, TEXT("%s is being attacking %s and attempting to deal damage. Damage Implementation on Player Character works."), *GetName(), *TargetOfAttack->GetName());
+    
     if (CombatCalculatorComponent && PassiveSkillTreeManager && AbilityComponent && AttributesComponent)
     {
         bool IsCrit = CombatCalculatorComponent->OutCheckForCritical(PassiveSkillTreeManager->PassiveAttributes->CritChance.CurrentValue, AbilityComponent->CritPlaceholder, AttributesComponent->AttributeAgility );
         //Update Combat Attributes - TO DO HERE!
-        Target->CombatCalculatorComponent->InProcessDamage(CombatCalculatorComponent->CombatAttributes, this, IsCrit);
+
+        TargetOfAttack->CombatCalculatorComponent->InProcessDamage(CombatCalculatorComponent->CombatAttributes, this, IsCrit);
     }
 }
 
 void ABaseCharacterPlayable::OnAttacked_Implementation(ABaseCharacter* Attacker)
 {
-    UE_LOG(LogTemp, Error, TEXT("%s is being attacked by %s"), *GetName(), *Attacker->GetName());
+    UE_LOG(LogTemp, Warning, TEXT("%s is being attacked by %s"), *GetName(), *Attacker->GetName());
 }
 
 void ABaseCharacterPlayable::OnDeathFromAttack_Implementation(ABaseCharacter* AttackingCharacter)

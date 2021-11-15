@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "TharsilProto/CombatEffects/CombatInteractionInterface.h"
 #include "TharsilProto/Interactions/DamageTypeStruct.h"
 #include "BaseCharacter.generated.h"
 
@@ -23,6 +24,7 @@ class UActiveAbilityObjectBase;
 UCLASS()
 class THARSILPROTO_API ABaseCharacter : public ACharacter
 {
+
 	GENERATED_BODY()
 
 public:
@@ -68,7 +70,11 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components", meta = (AllowPrivateAccess = "true"))
 	UCombatCalculatorComponent* CombatCalculatorComponent;
 
+	UPROPERTY()
 	UCharacterMovementComponent* MovementComponent;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+	TArray<AActor*> AttackedActors;
 
 	//--------------------------------------Component Influencing Variables and Functions---------------------------------
 
@@ -90,6 +96,13 @@ public:
 	bool IsAttacking;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Combat", meta = (AllowPrivateAccess = "true"))
+	bool bWasJustDamaged =false;
+	UPROPERTY()
+	float TimeSinceDamage = 0.0f;
+	UPROPERTY()
+	float TimeToJustDamagedReset = 1.0f;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Combat", meta = (AllowPrivateAccess = "true"))
 	float SlowDebuffValue = 2.5; //This influences how much a slowdebuff (like overencumberance) will reduce movement speed. Default is 3, so walk speed will be 600/3 = 200.
 
 	bool bIsSprinting = false;
@@ -105,6 +118,9 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	virtual void HandleCharacterDeath();
+
+	UFUNCTION(BlueprintCallable)
+	virtual void OnActiveAbilityTriggered(ABaseCharacter* Target);
 
 	UFUNCTION(BlueprintCallable)
 	virtual void HandleIncomingDamage(ABaseCharacter* ThisCharacter, ABaseCharacter* Damager, FDamageTypeBreakdown Damage);
@@ -124,4 +140,17 @@ public:
 	UFUNCTION(BlueprintCallable)
 	virtual float CalculateLatestCritDamage();
 
+
+
+	//UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Combat")
+	//	void OnAttacked(ABaseCharacter* Attacker);
+	//virtual void AttemptToDamageTarget_Implementation(ABaseCharacter* TargetOfAttack);
+
+	//UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Combat")
+	//	void AttemptToDamageTarget(ABaseCharacter* TargetOfAttack);
+	//virtual void OnAttacked_Implementation(ABaseCharacter* Attacker);
+
+	//UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Combat")
+	//	void OnDeathFromAttack(ABaseCharacter* AttackingCharacter);
+	//virtual void OnDeathFromAttack_Implementation(ABaseCharacter* AttackingCharacter);
 };

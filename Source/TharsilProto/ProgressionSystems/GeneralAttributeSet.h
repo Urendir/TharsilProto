@@ -75,10 +75,10 @@ public:
 	//-----------------------------
 	/*the value that the character starts with, before leveling bonuses, gear etc*/
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Energy Attribute Values")
-		float DefaultValue = 5.0f;
+		float DefaultValue = 0.0f;
 	/*Current AttributeValue*/
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Energy Attribute Values")
-		float CurrentValue = 5.0f;
+		float CurrentValue = 0.0f;
 
 	/*This is used for temporary buffs.*/
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Energy Attribute Values")
@@ -279,6 +279,8 @@ class THARSILPROTO_API UGeneralAttributeSet : public UObject
 	GENERATED_BODY()
 
 public:
+
+	UGeneralAttributeSet();
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Main Attribute Values")
 	FMainAttribute Strength;
