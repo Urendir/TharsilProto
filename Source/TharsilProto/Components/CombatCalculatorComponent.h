@@ -129,7 +129,7 @@ public:
 	float ObtainLatestCritDamage(float PassiveCritDmg, int32 Strength, float EquipmentCritDmg, float AbilityCritDmg);
 
 	
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable)
 	void InProcessDamage(UCombatAttributesSet* DamagingCombatAttributes, ABaseCharacter* DamageCauser, bool bIsCriticalHit);
 	UFUNCTION()
 	void InDetermineStatusEffects(UCombatAttributesSet* DamagingCombatAttributes);

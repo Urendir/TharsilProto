@@ -2,6 +2,7 @@
 
 
 #include "BaseCharacterNPC.h"
+#include "TharsilProto/Components/HealthComponent.h"
 
 void ABaseCharacterNPC::OnActiveAbilityTriggered(ABaseCharacter* Target)
 {
@@ -17,12 +18,14 @@ void ABaseCharacterNPC::OnActiveAbilityTriggered(ABaseCharacter* Target)
 /*This is triggered when the character is activating an offensive ability and attempting to damage the target character, one the target is deemed attackable (via interface check)*/
 void ABaseCharacterNPC::AttemptToDamageTarget_Implementation(ABaseCharacter* TargetOfAttack)
 {
-
+    
 }
 
 void ABaseCharacterNPC::OnAttacked_Implementation(ABaseCharacter* Attacker)
 {
     UE_LOG(LogTemp, Error, TEXT("%s is being attacked by %s. Damage Implementation on Attacked Actor works."), *GetName(), *Attacker->GetName());
+
+    //HealthComponent->DecreaseCurrentHealth()
 }
 
 void ABaseCharacterNPC::OnDeathFromAttack_Implementation(ABaseCharacter* AttackingCharacter)

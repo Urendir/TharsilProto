@@ -311,8 +311,8 @@ void ABaseCharacterPlayable::OnActiveAbilityTriggered(ABaseCharacter* Target)
         //Target->OnAttacked(this);
         if (Target->bWasJustDamaged == false)
         {
-            TargetCombatInterface->Execute_OnAttacked(Target, this);
-            Target->bWasJustDamaged = true;
+            TargetCombatInterface->Execute_OnAttacked(Target, this);// this will be removed when the delegate is done.
+            //Target->bWasJustDamaged = true;
             AttemptToDamageTarget(Target);
         }
     }
@@ -328,13 +328,15 @@ void ABaseCharacterPlayable::AttemptToDamageTarget_Implementation(ABaseCharacter
         bool IsCrit = CombatCalculatorComponent->OutCheckForCritical(PassiveSkillTreeManager->PassiveAttributes->CritChance.CurrentValue, AbilityComponent->CritPlaceholder, AttributesComponent->AttributeAgility );
         //Update Combat Attributes - TO DO HERE!
 
-        TargetOfAttack->CombatCalculatorComponent->InProcessDamage(CombatCalculatorComponent->CombatAttributes, this, IsCrit);
+        //TargetOfAttack->CombatCalculatorComponent->InProcessDamage(CombatCalculatorComponent->CombatAttributes, this, IsCrit);
+        OnCharacterDamagedDelegate.Broadcast(this, IsCrit, TargetOfAttack);
     }
 }
 
 void ABaseCharacterPlayable::OnAttacked_Implementation(ABaseCharacter* Attacker)
 {
     UE_LOG(LogTemp, Warning, TEXT("%s is being attacked by %s"), *GetName(), *Attacker->GetName());
+    
 }
 
 void ABaseCharacterPlayable::OnDeathFromAttack_Implementation(ABaseCharacter* AttackingCharacter)
@@ -398,6 +400,7 @@ void ABaseCharacterPlayable::CallQuickAbility6()
 
 float ABaseCharacterPlayable::GetCurrentAvailableStamina()
 {
+    UE_LOG(LogTemp, Warning, TEXT("Checking Current Stamina, should be %f"), EnergyComponent->GetCurrentStamina());
     return EnergyComponent->GetCurrentStamina();   
 }
 

@@ -20,6 +20,7 @@ public:
 	// Sets default values for this component's properties
 	UActiveAbilityComponent();
 
+
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
@@ -34,8 +35,8 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Active Abilities")
 	float GlobalAbilityBlockTimer = 0.0f;
 
-
 	float CritPlaceholder = 0.0f;
+
 
 	UPROPERTY(BlueprintReadOnly, Category = "Owning Character")
 	ABaseCharacterPlayable* OwningCharacter;

@@ -157,11 +157,11 @@ void UInventoryComponent::UpdateCarryWeightTotalCapacity(float NewValue)
 	CarryWeightTotalCapacity = NewValue;
 	if (CarryWeightTotalCapacity > CarryWeightCurrent)
 	{
-		Owner->HandleCharacterSlowedEffect(false);
+		//Owner->HandleCharacterSlowedEffect(false);
 	}
 	else
 	{
-		Owner->HandleCharacterSlowedEffect(true);
+		//Owner->HandleCharacterSlowedEffect(true);
 	}
 
 	OnInventoryUpdated.Broadcast();

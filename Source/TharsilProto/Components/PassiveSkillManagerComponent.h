@@ -86,7 +86,7 @@ enum class EPhysicalDamageSpecific : uint8
 UENUM(BlueprintType, Category = "SkillNode Description")
 enum class EElementalDamageType : uint8
 {
-	E_NotElemental		UMETA(DisplayName = "Not Elemental"),
+	E_NotElemental	UMETA(DisplayName = "Not Elemental"),
 	E_Bleed			UMETA(DisplayName = "Bleed"),
 	E_Fire			UMETA(DisplayName = "Fire"),
 	E_Cold			UMETA(DisplayName = "Cold"),

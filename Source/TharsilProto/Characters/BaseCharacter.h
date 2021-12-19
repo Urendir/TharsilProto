@@ -8,8 +8,9 @@
 #include "TharsilProto/Interactions/DamageTypeStruct.h"
 #include "BaseCharacter.generated.h"
 
-
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FCharacterDamageDelegate, ABaseCharacter*, AttackingCharacter, bool, IsCrit, ABaseCharacter*, AttackedCharacter);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FCharacterDeathDelegate, int32, XPToAssign);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnAbilityCommitDelegate);
 
 class UHealthComponent;
 class UEnergyComponent;
@@ -54,7 +55,13 @@ public:
 
 	UPROPERTY(BlueprintAssignable)
 	FCharacterDeathDelegate CharacterDeathDelegate;
+
+	UPROPERTY(BlueprintAssignable)
+	FOnAbilityCommitDelegate OnAbilityCommitDelegate;
 	
+	UPROPERTY(BlueprintAssignable)
+	FCharacterDamageDelegate OnCharacterDamagedDelegate;
+
 	//TO DO : THIS SHOULD BE MOVED TO THE XP COMPONENT!
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components", meta = (AllowPrivateAccess = "true"))
 	int32 XPReward = 500;

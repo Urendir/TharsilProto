@@ -65,9 +65,9 @@ private:
 	float StaminaBase = 95.0f;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Character Stats", meta = (AllowPrivateAccess = "true"))
-	float StaminaCurrent = 1.0f;
+	float StaminaCurrent = 9.0f;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Character Stats", meta = (AllowPrivateAccess = "true"))
-	float StaminaMaximum = 10.0f;
+	float StaminaMaximum = 95.0f;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Character Stats", meta = (AllowPrivateAccess = "true"))
 	float StaminaRegenerationAmount = 2.0f; //Amount of Stamina regenerated every half a second.
 

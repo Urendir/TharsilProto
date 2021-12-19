@@ -95,35 +95,22 @@ void UActiveAbilityComponent::ApplyAbilityToSlot(UDA_ActiveAbilityBase* AbilityD
 
 void UActiveAbilityComponent::AttemptTriggerAbility(UDA_ActiveAbilityBase* CalledAbility)
 {
-	UE_LOG(LogTemp, Warning, TEXT("Attempted to trigger ability"));
 	if (!CalledAbility)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Tsubclass of ability failed as nullptr"));
 		return;
 	}
 
 	if (!bIsGlobalAbilityBlock)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Attempt to trigger ability has succeeded preliminarily"));
 		CurrentAbility = CalledAbility;
-		
-		if (!CurrentAbility)
-		{
-			UE_LOG(LogTemp, Warning, TEXT("Current Ability is nullptr"));
-		} 
-		else
-		{
-			UE_LOG(LogTemp, Warning, TEXT("Current Ability name is %s"), *CurrentAbility->DisplayName);
-		}
-	
+		//OwningCharacter->UpdateSecondaryAttributes();
 		if (CheckAbilityResourceCost(CurrentAbility))
 		{
-			OwningCharacter->PlayAnimMontage(CurrentAbility->AnimationMontage, 1.0f);
+			//OwningCharacter->PlayAnimMontage(CurrentAbility->AnimationMontage, 1.0f);---> This is now triggered via Delegate in BP.
 			//UAnimInstance::Montage_Play(Ability->AnimationMontage, 1.0f, EMontagePlayReturnType::MontageLength, 0.0f, true);
-			// Trigger Cooldown! CalledAbility->bIsOnCooldown = true;
-			//CommitAbilityResourceCost(CalledAbility); -> This is now called by Anim notify at appropriate moment. 
-			//trigger effect after committing
+			//CommitAbilityResourceCost(CalledAbility); ---> This is now called by Anim notify at appropriate moment. 
 			UE_LOG(LogTemp, Warning, TEXT("Anim Montage should be playing"));
+			OwningCharacter->OnAbilityCommitDelegate.Broadcast();
 		}
 	}
 }
@@ -169,17 +156,29 @@ UActiveAbilityObjectBase* UActiveAbilityComponent::FindMatchingSlot(UDA_ActiveAb
 bool UActiveAbilityComponent::CheckAbilityResourceCost(UDA_ActiveAbilityBase* AbilityDataAsset)
 {
 	bool bHasEnoughResourceToCast = false;
+	OwningCharacter = Cast<ABaseCharacterPlayable>(GetOwner());
 	if (OwningCharacter->GetCurrentAvailableStamina() > AbilityDataAsset->StaminaCost)
 	{
 		bHasEnoughResourceToCast = true;
+		UE_LOG(LogTemp, Warning, TEXT("Enough Resources to Cast Ability"));
 	}
-	if (AbilityDataAsset->bHasManaCost && OwningCharacter->GetCurrentAvailableMana() < AbilityDataAsset->ManaCost)
+
+	if (AbilityDataAsset->bHasManaCost)
 	{
-		bHasEnoughResourceToCast = false;
+		if (OwningCharacter->GetCurrentAvailableMana() < AbilityDataAsset->ManaCost)
+		{
+			UE_LOG(LogTemp, Warning, TEXT("NOT Enough Resources to Cast Ability"));
+			bHasEnoughResourceToCast = false;
+		}
 	}
-	if (AbilityDataAsset->bHasHealthCost && OwningCharacter->GetCurrentAvailableHealth() < AbilityDataAsset->HealthCost)
+
+	if (AbilityDataAsset->bHasHealthCost)
 	{
-		bHasEnoughResourceToCast = false;
+		if (OwningCharacter->GetCurrentAvailableHealth() < AbilityDataAsset->HealthCost)
+		{
+			UE_LOG(LogTemp, Warning, TEXT("NOT Enough Resources to Cast Ability"));
+			bHasEnoughResourceToCast = false;
+		}
 	}
 	return bHasEnoughResourceToCast;
 }
